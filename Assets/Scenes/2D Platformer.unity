@@ -1845,10 +1845,10 @@ MonoBehaviour:
   target: {fileID: 1573591764}
   offset: {x: 0, y: 0, z: 0}
   smoothSpeed: 0.125
-  minX: -21
-  maxX: 25
-  minY: -3
-  maxY: 18
+  minX: -7.5
+  maxX: 11
+  minY: 5.63
+  maxY: 9.3
 --- !u!114 &1868033073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1865,7 +1865,7 @@ MonoBehaviour:
   zoomAmount: 1
   zoomInDuration: 0.8
   zoomOutDuration: 0.2
-  shakeIntensity: 1
+  shakeIntensity: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
