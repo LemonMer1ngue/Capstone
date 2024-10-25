@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Glow
-  m_Shader: {fileID: 4800000, guid: 5743e8de79685604aaa5e45b674fd6fd, type: 3}
+  m_Name: BNWLit
+  m_Shader: {fileID: 4800000, guid: 3156535dc2a29fb4e925dced6c406cf2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
