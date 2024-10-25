@@ -1458,7 +1458,7 @@ MonoBehaviour:
     value: 0
   size:
     overrideState: 1
-    value: 1.73
+    value: 1.09
   lumContrib:
     overrideState: 1
-    value: 0.844
+    value: 1

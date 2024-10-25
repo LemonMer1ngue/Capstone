@@ -1,71 +1,83 @@
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using System.Collections;
 
 public class InteractableCameraEffect : MonoBehaviour
 {
     [Header("Interactable Settings")]
-    public GameObject[] interactableAreas; // Array of interactable GameObjects
-    public GameObject player; // Player character GameObject
-    public GameObject[] platformsToToggle; // Platforms to toggle visibility
-    public bool togglePlatforms = true; // Control platform toggling
+    public GameObject[] interactableAreas;
+    public GameObject player;
+    public GameObject[] platformsToToggle;
+    public bool togglePlatforms = true;
+
+    [Header("Sound Settings")]
+    public AudioClip interactSound;
+    public AudioSource backgroundMusicSource;
+    public float changedPitch = 0.5f;
+    public float pitchChangeTransitionDuration = 0.5f;
 
     [Header("Effect Durations")]
-    public float fadeDuration = 1f; // Duration for the fade effect
-    public float shakeDuration = 0.2f; // Duration for camera shake
-    public float effectDelay = 0.1f; // Delay before applying effects
+    public float fadeDuration = 1f;
+    public float shakeDuration = 0.2f;
+    public float effectDelay = 0.1f;
 
     [Header("Camera Settings")]
-    public Camera targetCamera; // Camera to apply effects to
+    public Camera targetCamera;
 
     [Header("Zoom and Shake Parameters")]
-    public float zoomAmount = 1f; // Amount to zoom in
-    public float zoomInDuration = 0.5f; // Duration of zoom-in effect
-    public float zoomOutDuration = 0.2f; // Duration of zoom-out effect
-    public float shakeIntensity = 1f; // Maximum intensity of shake
+    public float zoomAmount = 1f;
+    public float zoomInDuration = 0.5f;
+    public float zoomOutDuration = 0.2f;
+    public float shakeIntensity = 1f;
 
     [Header("Post-Processing Effects")]
-    public bool enableSaturation = true; // Toggle saturation effect
-    public float targetSaturation = 0f; // Target saturation level (-100 for grayscale)
-    public bool enableContrast = true; // Toggle contrast effect
-    public float targetContrast = 10f; // Target contrast value
-    public bool enableChromaticAberration = true; // Toggle chromatic aberration
-    public float targetCAIntensity = 0.5f; // Chromatic aberration intensity (0-1)
+    public bool enableSaturation = true;
+    public float targetSaturation = 0f;
+    public bool enableContrast = true;
+    public float targetContrast = 10f;
+    public bool enableChromaticAberration = true;
+    public float targetCAIntensity = 0.5f;
 
     [Header("Additional Post-Processing Effects")]
-    public bool enableVignette = true; // Toggle vignette effect
-    public float targetVignetteIntensity = 0.5f; // Vignette intensity
-    public bool enableGrain = true; // Toggle grain effect
-    public float targetGrainIntensity = 0.5f; // Grain intensity
+    public bool enableVignette = true;
+    public float targetVignetteIntensity = 0.5f;
+    public bool enableFilmGrain = true;
+    public float targetFilmGrainIntensity = 0.5f;
 
-    private PostProcessVolume volume;
-    private ColorGrading colorGrading;
-    private ChromaticAberration CA;
+    private Volume volume;
+    private ColorAdjustments colorAdjustments;
+    private ChromaticAberration chromaticAberration;
     private Vignette vignette;
-    private Grain grain;
+    private FilmGrain filmGrain;
 
     private Coroutine fadeCoroutine;
-    private float lastInteractTime = 0f; // Track last interaction time
-    public float interactionCooldown = 1f; // Cooldown duration in seconds
+    private float lastInteractTime = 0f;
+    public float interactionCooldown = 1f;
+
+    private bool isPitchChanged = false;
 
     private void Start()
     {
-        targetCamera ??= Camera.main; // Fallback to main camera if none specified
-        volume = targetCamera.GetComponent<PostProcessVolume>();
-        colorGrading = volume.profile.GetSetting<ColorGrading>();
-        CA = volume.profile.GetSetting<ChromaticAberration>();
-        vignette = volume.profile.GetSetting<Vignette>();
-        grain = volume.profile.GetSetting<Grain>();
+        targetCamera ??= Camera.main;
+        volume = targetCamera.GetComponent<Volume>();
+        volume.profile.TryGet(out colorAdjustments);
+        volume.profile.TryGet(out chromaticAberration);
+        volume.profile.TryGet(out vignette);
+        volume.profile.TryGet(out filmGrain);
     }
 
     private void Update()
     {
-        if (IsPlayerInAnyArea() && Input.GetKeyDown(KeyCode.E))
+        if (IsPlayerInAnyArea())
         {
-            // Check if the cooldown has elapsed
-            if (Time.time >= lastInteractTime + interactionCooldown)
+            if (Input.GetKeyDown(KeyCode.E) && Time.time >= lastInteractTime + interactionCooldown)
             {
-                lastInteractTime = Time.time; // Update the last interaction time
+                lastInteractTime = Time.time;
+
+                PlayInteractSound();
+                StartCoroutine(ChangeBackgroundMusicPitch());
+
                 if (fadeCoroutine != null)
                 {
                     StopCoroutine(fadeCoroutine);
@@ -75,81 +87,101 @@ public class InteractableCameraEffect : MonoBehaviour
         }
     }
 
+    private void PlayInteractSound()
+    {
+        if (interactSound != null)
+        {
+            AudioSource.PlayClipAtPoint(interactSound, player.transform.position);
+        }
+    }
+
+    private IEnumerator ChangeBackgroundMusicPitch()
+    {
+        float targetPitch = isPitchChanged ? 1f : changedPitch;
+        float startPitch = backgroundMusicSource.pitch;
+        float elapsed = 0f;
+
+        while (elapsed < pitchChangeTransitionDuration)
+        {
+            backgroundMusicSource.pitch = Mathf.Lerp(startPitch, targetPitch, elapsed / pitchChangeTransitionDuration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        backgroundMusicSource.pitch = targetPitch;
+        isPitchChanged = !isPitchChanged;
+    }
+
     private bool IsPlayerInAnyArea()
     {
         foreach (GameObject area in interactableAreas)
         {
-            if (area.TryGetComponent<Collider2D>(out var areaCollider) && areaCollider.OverlapPoint(player.transform.position))
+            if (area.TryGetComponent<Collider2D>(out var areaCollider))
             {
-                return true; // Player is in at least one area
+                if (areaCollider.OverlapPoint(player.transform.position))
+                {
+                    return true;
+                }
             }
         }
-        return false; // Player is not in any area
+        return false;
     }
 
     private IEnumerator FadeEffects()
     {
-        // Start shaking and zooming
         StartCoroutine(ShakeAndZoom(shakeDuration));
 
-        // Store starting values
         var startingValues = new
         {
-            saturation = colorGrading.saturation.value,
-            contrast = colorGrading.contrast.value,
-            ca = CA.intensity.value,
+            saturation = colorAdjustments.saturation.value,
+            contrast = colorAdjustments.contrast.value,
+            ca = chromaticAberration.intensity.value,
             vignette = vignette.intensity.value,
-            grain = grain.intensity.value
+            filmGrain = filmGrain.intensity.value
         };
 
-        // Toggle effect states and determine target values
         bool[] toggles =
         {
             enableSaturation,
             enableContrast,
             enableChromaticAberration,
             enableVignette,
-            enableGrain
+            enableFilmGrain
         };
 
         float[] targetValues =
         {
-            toggles[0] ? (colorGrading.saturation.value == targetSaturation ? 0f : targetSaturation) : 0f,
-            toggles[1] ? (colorGrading.contrast.value == targetContrast ? 0f : targetContrast) : 0f,
-            toggles[2] ? (CA.intensity.value == targetCAIntensity ? 0f : targetCAIntensity) : 0f,
+            toggles[0] ? (colorAdjustments.saturation.value == targetSaturation ? 0f : targetSaturation) : 0f,
+            toggles[1] ? (colorAdjustments.contrast.value == targetContrast ? 0f : targetContrast) : 0f,
+            toggles[2] ? (chromaticAberration.intensity.value == targetCAIntensity ? 0f : targetCAIntensity) : 0f,
             toggles[3] ? (vignette.intensity.value == targetVignetteIntensity ? 0f : targetVignetteIntensity) : 0f,
-            toggles[4] ? (grain.intensity.value == targetGrainIntensity ? 0f : targetGrainIntensity) : 0f
+            toggles[4] ? (filmGrain.intensity.value == targetFilmGrainIntensity ? 0f : targetFilmGrainIntensity) : 0f
         };
 
-        // Wait for the effect delay before starting to fade
         yield return new WaitForSeconds(effectDelay);
 
         float elapsedTime = 0f;
 
-        // Fade in/out for each effect
         while (elapsedTime < fadeDuration)
         {
             float t = elapsedTime / fadeDuration;
 
-            // Lerp values based on toggled options
-            if (enableSaturation) colorGrading.saturation.value = Mathf.Lerp(startingValues.saturation, targetValues[0], t);
-            if (enableContrast) colorGrading.contrast.value = Mathf.Lerp(startingValues.contrast, targetValues[1], t);
-            if (enableChromaticAberration) CA.intensity.value = Mathf.Lerp(startingValues.ca, targetValues[2], t);
+            if (enableSaturation) colorAdjustments.saturation.value = Mathf.Lerp(startingValues.saturation, targetValues[0], t);
+            if (enableContrast) colorAdjustments.contrast.value = Mathf.Lerp(startingValues.contrast, targetValues[1], t);
+            if (enableChromaticAberration) chromaticAberration.intensity.value = Mathf.Lerp(startingValues.ca, targetValues[2], t);
             if (enableVignette) vignette.intensity.value = Mathf.Lerp(startingValues.vignette, targetValues[3], t);
-            if (enableGrain) grain.intensity.value = Mathf.Lerp(startingValues.grain, targetValues[4], t);
+            if (enableFilmGrain) filmGrain.intensity.value = Mathf.Lerp(startingValues.filmGrain, targetValues[4], t);
 
             elapsedTime += Time.deltaTime;
-            yield return null; // Wait for the next frame
+            yield return null;
         }
 
-        // Ensure final values are set after the fade
-        colorGrading.saturation.value = targetValues[0];
-        colorGrading.contrast.value = targetValues[1];
-        CA.intensity.value = targetValues[2];
+        colorAdjustments.saturation.value = targetValues[0];
+        colorAdjustments.contrast.value = targetValues[1];
+        chromaticAberration.intensity.value = targetValues[2];
         vignette.intensity.value = targetValues[3];
-        grain.intensity.value = targetValues[4];
+        filmGrain.intensity.value = targetValues[4];
 
-        // Toggle platform visibility if enabled
         if (togglePlatforms)
         {
             TogglePlatforms();
@@ -160,38 +192,36 @@ public class InteractableCameraEffect : MonoBehaviour
     {
         foreach (GameObject platform in platformsToToggle)
         {
-            platform.SetActive(!platform.activeSelf); // Toggle visibility
+            platform.SetActive(!platform.activeSelf);
         }
     }
 
     private IEnumerator ShakeAndZoom(float duration)
     {
-        Vector3 originalPosition = transform.localPosition; // Store the original position
-        float originalSize = targetCamera.orthographicSize; // Store the original orthographic size
+        Vector3 originalPosition = transform.localPosition;
+        float originalSize = targetCamera.orthographicSize;
 
         float elapsed = 0f;
 
-        // Zoom in and shake simultaneously
         while (elapsed < duration)
         {
             float magnitude = Mathf.Lerp(0, shakeIntensity, elapsed / duration);
             transform.localPosition = originalPosition + new Vector3(Random.Range(-1f, 1f) * magnitude, Random.Range(-1f, 1f) * magnitude, 0);
-
             targetCamera.orthographicSize = Mathf.Lerp(originalSize, originalSize - zoomAmount, elapsed / zoomInDuration);
             elapsed += Time.deltaTime;
-            yield return null; // Wait for the next frame
+            yield return null;
         }
 
-        // Reset position and zoom out quickly
         transform.localPosition = originalPosition;
         elapsed = 0f;
+
         while (elapsed < zoomOutDuration)
         {
             targetCamera.orthographicSize = Mathf.Lerp(originalSize - zoomAmount, originalSize, elapsed / zoomOutDuration);
             elapsed += Time.deltaTime;
-            yield return null; // Wait for the next frame
+            yield return null;
         }
 
-        targetCamera.orthographicSize = originalSize; // Ensure we set back to the original size
+        targetCamera.orthographicSize = originalSize;
     }
 }
