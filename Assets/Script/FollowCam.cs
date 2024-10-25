@@ -1,30 +1,56 @@
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class EnhancedCameraFollow : MonoBehaviour
 {
-    public Transform target;            // The target (player) to follow
-    public Vector3 offset;              // Offset from the target
-    public float smoothSpeed = 0.125f;  // Speed at which the camera follows the target
+    [Header("Target Settings")]
+    public Transform target; // The target to follow
+    public Vector3 offset = new Vector3(0, 2, -10); // Default offset
 
-    public float minX, maxX;            // Boundaries for the camera's X position
-    public float minY, maxY;            // Boundaries for the camera's Y position
+    [Header("Camera Movement Settings")]
+    public float smoothSpeed = 0.125f; // How smoothly the camera follows
+    public Vector2 minBounds = new Vector2(-10, -5); // Minimum boundaries for the camera
+    public Vector2 maxBounds = new Vector2(10, 5); // Maximum boundaries for the camera
 
-    void LateUpdate()
+    [Header("Zoom Settings")]
+    public bool enableZoom = true; // Toggle for zooming
+    public float zoomSpeed = 2f; // Speed of zooming
+    public float minZoom = 5f; // Minimum zoom level
+    public float maxZoom = 15f; // Maximum zoom level
+
+    private Camera cam;
+
+    private void Start()
     {
-        if (target == null) return;
+        cam = Camera.main; // Get the main camera
+        if (cam == null)
+        {
+            Debug.LogError("Main camera not found!");
+        }
+    }
 
-        // Calculate the desired position
-        Vector3 desiredPosition = target.position + offset;
+    private void LateUpdate()
+    {
+        if (target == null) return; // Exit if no target is assigned
 
-        // Clamp the desired position within the specified boundaries
-        float clampedX = Mathf.Clamp(desiredPosition.x, minX, maxX);
-        float clampedY = Mathf.Clamp(desiredPosition.y, minY, maxY);
-        Vector3 clampedPosition = new Vector3(clampedX, clampedY, transform.position.z);
+        // Calculate the target position
+        Vector3 targetPosition = target.position + offset;
 
-        // Smoothly interpolate to the clamped position
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, clampedPosition, smoothSpeed);
+        // Clamp the target position to the defined boundaries
+        targetPosition.x = Mathf.Clamp(targetPosition.x, minBounds.x, maxBounds.x);
+        targetPosition.y = Mathf.Clamp(targetPosition.y, minBounds.y, maxBounds.y);
+        targetPosition.z = transform.position.z; // Keep the camera's z position constant
 
-        // Update the camera position
-        transform.position = smoothedPosition;
+        // Smoothly interpolate between the camera's current position and the target position
+        transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
+
+        // Handle zooming if enabled
+        if (enableZoom)
+        {
+            float scrollData = Input.GetAxis("Mouse ScrollWheel");
+            if (scrollData != 0)
+            {
+                cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - scrollData * zoomSpeed, minZoom, maxZoom);
+            }
+        }
     }
 }
