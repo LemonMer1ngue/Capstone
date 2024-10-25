@@ -1776,7 +1776,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 1868033067}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 63
+    m_Bits: 1
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
@@ -1879,7 +1879,7 @@ MonoBehaviour:
   - {fileID: 306007372}
   - {fileID: 837264166}
   togglePlatforms: 1
-  fadeDuration: 0.2
+  fadeDuration: 0.15
   shakeDuration: 1
   effectDelay: 0.8
   targetCamera: {fileID: 1868033066}
@@ -1889,10 +1889,15 @@ MonoBehaviour:
   shakeIntensity: 0.5
   enableSaturation: 1
   targetSaturation: -100
-  enableChromaticAberration: 1
-  targetCAIntensity: 1
   enableContrast: 1
   targetContrast: 10
+  enableChromaticAberration: 1
+  targetCAIntensity: 1
+  enableVignette: 1
+  targetVignetteIntensity: 0.45
+  enableGrain: 1
+  targetGrainIntensity: 0.35
+  interactionCooldown: 1
 --- !u!1 &1973616151
 GameObject:
   m_ObjectHideFlags: 0
