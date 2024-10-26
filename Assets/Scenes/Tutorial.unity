@@ -131,7 +131,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2350238}
+<<<<<<< HEAD
   m_Layer: 0
+=======
+  m_Layer: 3
+>>>>>>> PlayerInteract
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +375,11 @@ GameObject:
   - component: {fileID: 161060822}
   - component: {fileID: 161060824}
   - component: {fileID: 161060823}
+<<<<<<< HEAD
   m_Layer: 0
+=======
+  m_Layer: 3
+>>>>>>> PlayerInteract
   m_Name: Tanah
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -1084,7 +1092,11 @@ GameObject:
   - component: {fileID: 796610884}
   - component: {fileID: 796610886}
   - component: {fileID: 796610885}
+<<<<<<< HEAD
   m_Layer: 0
+=======
+  m_Layer: 3
+>>>>>>> PlayerInteract
   m_Name: Tanah (2)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -1982,6 +1994,40 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< HEAD
+=======
+--- !u!1 &1148790089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1148790090}
+  m_Layer: 6
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1148790090
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148790089}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.35, y: -2.24, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1965515927}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> PlayerInteract
 --- !u!1 &1225007471
 GameObject:
   m_ObjectHideFlags: 0
@@ -2539,7 +2585,11 @@ GameObject:
   - component: {fileID: 1607090135}
   - component: {fileID: 1607090137}
   - component: {fileID: 1607090136}
+<<<<<<< HEAD
   m_Layer: 0
+=======
+  m_Layer: 3
+>>>>>>> PlayerInteract
   m_Name: Tanah (1)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -3085,7 +3135,12 @@ GameObject:
   - component: {fileID: 1965515925}
   - component: {fileID: 1965515924}
   - component: {fileID: 1965515929}
+<<<<<<< HEAD
   m_Layer: 0
+=======
+  - component: {fileID: 1965515930}
+  m_Layer: 6
+>>>>>>> PlayerInteract
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3228,7 +3283,12 @@ Transform:
   m_LocalPosition: {x: -12.6, y: -5.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
+<<<<<<< HEAD
   m_Children: []
+=======
+  m_Children:
+  - {fileID: 1148790090}
+>>>>>>> PlayerInteract
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1965515929
@@ -3241,7 +3301,11 @@ Animator:
   m_GameObject: {fileID: 1965515923}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
+<<<<<<< HEAD
   m_Controller: {fileID: 0}
+=======
+  m_Controller: {fileID: 9100000, guid: 09bc97665d3e8a346bb44b9ee775115a, type: 2}
+>>>>>>> PlayerInteract
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3252,6 +3316,31 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+<<<<<<< HEAD
+=======
+--- !u!114 &1965515930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965515923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f10e28d193ab1fa44a01d12da0a90182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  jumpForce: 10
+  groundCheck: {fileID: 1148790090}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  distance: 2.5
+  boxMask:
+    serializedVersion: 2
+    m_Bits: 63
+>>>>>>> PlayerInteract
 --- !u!1 &1996482946
 GameObject:
   m_ObjectHideFlags: 0
