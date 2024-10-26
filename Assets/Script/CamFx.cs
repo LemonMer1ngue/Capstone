@@ -56,6 +56,7 @@ public class InteractableCameraEffect : MonoBehaviour
     public float interactionCooldown = 1f; // Cooldown time between interactions
 
     private bool isPitchChanged = false; // Track if the pitch has been changed
+    private bool effectsActive = false; // Track if effects are currently active
 
     private void Start()
     {
@@ -128,7 +129,6 @@ public class InteractableCameraEffect : MonoBehaviour
 
     private IEnumerator FadeEffects()
     {
-        // Start shaking and zooming the camera
         StartCoroutine(ShakeAndZoom(shakeDuration));
 
         // Get starting values for post-processing effects
@@ -141,8 +141,8 @@ public class InteractableCameraEffect : MonoBehaviour
             filmGrain = filmGrain.intensity.value
         };
 
-        // Set target values based on toggles
-        float[] targetValues =
+        // Determine target values based on effectsActive state
+        float[] targetValues = effectsActive ? new float[] { 0f, 0f, 0f, 0f, 0f } : new float[]
         {
             enableSaturation ? targetSaturation : 0f,
             enableContrast ? targetContrast : 0f,
@@ -181,6 +181,8 @@ public class InteractableCameraEffect : MonoBehaviour
         {
             TogglePlatforms();
         }
+
+        effectsActive = !effectsActive; // Toggle effects state
     }
 
     private void TogglePlatforms()
