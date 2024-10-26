@@ -11,6 +11,10 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private bool isGrounded;
 
+    public float distance;
+    public LayerMask boxMask;
+    GameObject Box;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         Move();
         Jump();
         UpdateAnimation();
+        PlayerPushBox();
     }
 
     void Move()
@@ -60,6 +65,31 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.ResetTrigger("isFalling"); // Reset the isFalling trigger when grounded
         }
+    }
+
+    void PlayerPushBox()
+    {
+        RaycastHit2D hit =  Physics2D.Raycast(transform.position, Vector2.right* transform.localScale, distance, boxMask);
+        if (hit.collider != null) 
+        {
+            switch (Input.GetKeyDown(KeyCode.F))
+            {
+                case true: 
+                    Box = hit.collider.gameObject;
+                    Box.GetComponent<FixedJoint2D>().enabled = true;
+                    Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * distance);
     }
 
 }
