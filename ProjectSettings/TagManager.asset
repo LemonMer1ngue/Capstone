@@ -4,10 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ball
-  - BonusGoal
-  - ChangeDirection
-  - SpeedUp
   - InteractAble
   - Water
   - ground
@@ -20,6 +16,8 @@ TagManager:
   - UI
   - PostProcess
   - CamCollider
+  - Player
+  - 
   - 
   - 
   - 
