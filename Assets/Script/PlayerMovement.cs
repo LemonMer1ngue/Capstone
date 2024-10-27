@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float distance;
     public LayerMask boxMask;
     GameObject Box;
+    private bool isHoldingBox = false;
 
     void Start()
     {
@@ -70,19 +71,24 @@ public class PlayerMovement : MonoBehaviour
     void PlayerPushBox()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale, distance, boxMask);
-        if (hit.collider != null)
-        {
-            switch (Input.GetKeyDown(KeyCode.F))
-            {
-                case true:
+        if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && Input.GetKeyDown(KeyCode.F))
+        {            
+                if (!isHoldingBox)
+                {
+               
                     Box = hit.collider.gameObject;
                     Box.GetComponent<FixedJoint2D>().enabled = true;
                     Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
-
-                    break;
-                default:
-                    break;
-            }
+                    isHoldingBox = true; 
+                }
+                else
+                {
+                    Box.GetComponent<FixedJoint2D>().enabled = false;
+                    Box.GetComponent<FixedJoint2D>().connectedBody = null;
+                    Box = null; 
+                    isHoldingBox = false; 
+                }
+          
         }
     }
 

@@ -9,6 +9,7 @@ TagManager:
   - ChangeDirection
   - SpeedUp
   - ground
+  - InteractAble
   layers:
   - Default
   - TransparentFX
