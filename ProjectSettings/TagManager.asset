@@ -4,7 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - ground
+  - Ball
+  - BonusGoal
+  - ChangeDirection
+  - SpeedUp
   layers:
   - Default
   - TransparentFX
@@ -12,8 +15,8 @@ TagManager:
   - Ground
   - Water
   - UI
-  - Player
-  - 
+  - PostProcess
+  - CamCollider
   - 
   - 
   - 
@@ -39,6 +42,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1400738183
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Object
+    uniqueID: 891745823
+    locked: 0
+  - name: Foreground
+    uniqueID: 2390939649
     locked: 0
