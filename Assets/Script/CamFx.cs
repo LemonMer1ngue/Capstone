@@ -76,7 +76,7 @@ public class InteractableCameraEffect : MonoBehaviour
         {
             lastInteractTime = Time.time; // Update last interaction time
             PlayInteractSound(); // Play interaction sound
-            StartCoroutine(ChangeBackgroundMusicPitch()); // Change background music pitch
+            //StartCoroutine(ChangeBackgroundMusicPitch()); // Change background music pitch
 
             // Start fading effects
             if (fadeCoroutine != null)
