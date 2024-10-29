@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f10e28d193ab1fa44a01d12da0a90182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
+  moveSpeed: 20
   jumpForce: 18
   groundCheck: {fileID: 578358301}
   groundLayer:
@@ -1826,6 +1826,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6447636994998323741, guid: 82b86ac594b48a94dbabc193cd93498e, type: 3}
+      propertyPath: interactableBoxes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6447636994998323741, guid: 82b86ac594b48a94dbabc193cd93498e, type: 3}
       propertyPath: platformsToToggle.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -1845,6 +1849,10 @@ PrefabInstance:
       propertyPath: interactableAreas.Array.data[3]
       value: 
       objectReference: {fileID: 1734344805}
+    - target: {fileID: 6447636994998323741, guid: 82b86ac594b48a94dbabc193cd93498e, type: 3}
+      propertyPath: interactableBoxes.Array.data[0]
+      value: 
+      objectReference: {fileID: 773335582}
     - target: {fileID: 6447636994998323741, guid: 82b86ac594b48a94dbabc193cd93498e, type: 3}
       propertyPath: platformsToToggle.Array.data[0]
       value: 

@@ -188,20 +188,26 @@ public class InteractableCameraEffect : MonoBehaviour
             TogglePlatforms();
         }
 
+        ToggleBoxes();
+
         effectsActive = !effectsActive; // Toggle effects state
 
     }
 
     private void TogglePlatforms()
     {
+        foreach (GameObject platform in platformsToToggle)
+        {
+            platform.SetActive(!platform.activeSelf);
+        } 
+    }
+
+
+    private void ToggleBoxes()
+    {
         switch (isInSpiritWorld)
         {
             case false:
-                foreach (GameObject platform in platformsToToggle)
-                {
-                    platform.SetActive(false);
-                }
-
                 foreach (GameObject box in boxToToggle)
                 {
                     box.SetActive(true);
@@ -209,10 +215,6 @@ public class InteractableCameraEffect : MonoBehaviour
                 break;
 
             case true:
-                foreach (GameObject platform in platformsToToggle)
-                {
-                    platform.SetActive(true);
-                }
 
                 foreach (GameObject box in boxToToggle)
                 {
