@@ -9,7 +9,7 @@ public class InteractableCameraEffect : MonoBehaviour
     public GameObject[] interactableAreas; // Areas where interaction is possible
     public GameObject player; // Reference to the player object
     public GameObject[] platformsToToggle; // Platforms to toggle visibility
-    public GameObject[] boxToToggle; 
+    public GameObject[] boxToToggle; // Platforms to toggle visibility
     public bool togglePlatforms = true; // Whether to toggle platforms on interaction
 
     [Header("Sound Settings")]
@@ -58,12 +58,7 @@ public class InteractableCameraEffect : MonoBehaviour
 
     private bool isPitchChanged = false; // Track if the pitch has been changed
     private bool effectsActive = false; // Track if effects are currently active
-
-    [Header("Dunia nyata atau Dunia Gaib")]
     private bool isInSpiritWorld = false;
-
-
-
     private void Start()
     {
         // Initialize target camera and get post-processing components
@@ -82,7 +77,7 @@ public class InteractableCameraEffect : MonoBehaviour
         {
             lastInteractTime = Time.time; // Update last interaction time
             PlayInteractSound(); // Play interaction sound
-            //StartCoroutine(ChangeBackgroundMusicPitch()); // Change background music pitch
+            StartCoroutine(ChangeBackgroundMusicPitch()); // Change background music pitch
 
             // Start fading effects
             if (fadeCoroutine != null)
@@ -191,18 +186,16 @@ public class InteractableCameraEffect : MonoBehaviour
         ToggleBoxes();
 
         effectsActive = !effectsActive; // Toggle effects state
-
     }
 
     private void TogglePlatforms()
     {
+        // Toggle the active state of each platform
         foreach (GameObject platform in platformsToToggle)
         {
             platform.SetActive(!platform.activeSelf);
-        } 
+        }
     }
-
-
     private void ToggleBoxes()
     {
         switch (isInSpiritWorld)
@@ -223,7 +216,6 @@ public class InteractableCameraEffect : MonoBehaviour
                 break;
         }
     }
-
 
     private IEnumerator ShakeAndZoom(float duration)
     {
