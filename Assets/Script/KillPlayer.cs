@@ -22,7 +22,18 @@ public class KillPlayer : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            player.transform.position = respawnPoint.position;
+            Die();
         }
+    }
+
+    void Die()
+    {
+        StartCoroutine(Respawn(0.7f));
+    }
+
+    IEnumerator Respawn(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        player.transform.position = respawnPoint.position;
     }
 }
