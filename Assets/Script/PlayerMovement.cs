@@ -52,11 +52,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+   
+
     void UpdateAnimation()
     {
         animator.SetBool("isWalking", Mathf.Abs(rb.velocity.x) > 0.1f);
         animator.SetBool("isGround", isGrounded);
         animator.SetBool("isJumping", !isGrounded);
+
 
         if (!isGrounded && rb.velocity.y < 0)
         {

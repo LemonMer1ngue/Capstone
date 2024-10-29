@@ -10,6 +10,7 @@ TagManager:
   - SpeedUp
   - ground
   - InteractAble
+  - Water
   layers:
   - Default
   - TransparentFX
