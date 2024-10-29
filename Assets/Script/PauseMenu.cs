@@ -66,15 +66,12 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("MainMenu"); // Load the main menu scene
     }
 
-    void ExitGame()
-    {
-        Time.timeScale = 1f; // Ensure the game is unpaused
-        Application.Quit(); // Quit the application
-    }
-
     void OpenSettings()
     {
-        Time.timeScale = 1f; // Ensure the game is unpaused
         // Open settings logic goes here
+    }
+    void ExitGame()
+    {
+        Application.Quit(); // Quit the application
     }
 }

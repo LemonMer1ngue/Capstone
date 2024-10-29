@@ -8,6 +8,9 @@ TagManager:
   - BonusGoal
   - ChangeDirection
   - SpeedUp
+  - InteractAble
+  - Water
+  - ground
   layers:
   - Default
   - TransparentFX
@@ -47,6 +50,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 2226827259
     locked: 0
   - name: Object
     uniqueID: 1960812371
