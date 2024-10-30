@@ -39,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        float effectiveMoveSpeed = isHoldingBox ? moveSpeed * 0.5f : moveSpeed;
+        rb.velocity = new Vector2(moveInput * effectiveMoveSpeed, rb.velocity.y);
 
         // Flip the sprite based on horizontal input
         if (moveInput != 0)
