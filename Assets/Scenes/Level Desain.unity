@@ -1691,7 +1691,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &773335588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2158,7 +2158,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1849509849504568154, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.4112816
+      value: 84.2
       objectReference: {fileID: 0}
     - target: {fileID: 1849509849504568154, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2196,9 +2196,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2431197701704779099, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
+      propertyPath: m_Offset.x
+      value: -1.57
+      objectReference: {fileID: 0}
     - target: {fileID: 2524044396717742823, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
       propertyPath: distance
-      value: 1
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 2524044396717742823, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
       propertyPath: jumpForce
