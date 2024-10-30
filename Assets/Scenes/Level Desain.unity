@@ -1337,6 +1337,7 @@ GameObject:
   - component: {fileID: 773335584}
   - component: {fileID: 773335587}
   - component: {fileID: 773335586}
+  - component: {fileID: 773335588}
   m_Layer: 3
   m_Name: Kotak Semu
   m_TagString: InteractAble
@@ -1491,7 +1492,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4e2d90b5173295a448388061e214ae38, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1502,6 +1503,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &773335588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773335582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ea925d475b0b74fac14d7158b9e206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beingPushed: 0
 --- !u!1001 &781684798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1986,12 +2000,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2524044396717742823, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
+      propertyPath: distance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524044396717742823, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
       propertyPath: jumpForce
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2524044396717742823, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
       propertyPath: moveSpeed
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524044396717742823, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
+      propertyPath: boxMask.m_Bits
+      value: 255
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
