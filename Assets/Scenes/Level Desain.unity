@@ -3515,7 +3515,7 @@ Transform:
   m_GameObject: {fileID: 1870834735}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 140.8, y: 0, z: 8.147101}
+  m_LocalPosition: {x: 140.8, y: -0.8, z: 8.147101}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3649,7 +3649,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1931615091}
   - component: {fileID: 1931615092}
-  - component: {fileID: 1931615093}
   - component: {fileID: 1931615095}
   - component: {fileID: 1931615097}
   - component: {fileID: 1931615096}
@@ -3727,19 +3726,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1931615093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931615090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4184bbe79cbea3e49b87d5eda748d5be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 0}
 --- !u!61 &1931615095
 BoxCollider2D:
   m_ObjectHideFlags: 0
