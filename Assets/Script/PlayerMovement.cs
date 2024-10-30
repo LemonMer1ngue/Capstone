@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed;
     public float jumpForce = 10f;
     public Transform groundCheck;
     public LayerMask groundLayer;
@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float distance;
     public LayerMask boxMask;
     GameObject Box;
-    private bool isHoldingBox = false;
+    public bool isHoldingBox = false;
 
     [SerializeField]
     private Text interactText;
@@ -39,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        float effectiveMoveSpeed = isHoldingBox ? moveSpeed * 0.3f : moveSpeed;
+        rb.velocity = new Vector2(moveInput * effectiveMoveSpeed, rb.velocity.y);
 
         // Flip the sprite based on horizontal input
         if (moveInput != 0)
