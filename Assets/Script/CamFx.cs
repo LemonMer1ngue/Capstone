@@ -9,6 +9,7 @@ public class InteractableCameraEffect : MonoBehaviour
     public GameObject[] interactableAreas; // Areas where interaction is possible
     public GameObject player; // Reference to the player object
     public GameObject[] platformsToToggle; // Platforms to toggle visibility
+    public GameObject[] boxToToggle;
     public bool togglePlatforms = true; // Whether to toggle platforms on interaction
 
     [Header("Sound Settings")]
@@ -57,6 +58,7 @@ public class InteractableCameraEffect : MonoBehaviour
 
     private bool isPitchChanged = false; // Track if the pitch has been changed
     private bool effectsActive = false; // Track if effects are currently active
+    private bool isInSpiritWorld = false;
 
     private void Start()
     {
@@ -181,7 +183,7 @@ public class InteractableCameraEffect : MonoBehaviour
         {
             TogglePlatforms();
         }
-
+        ToggleBoxes();
         effectsActive = !effectsActive; // Toggle effects state
     }
 
@@ -191,6 +193,26 @@ public class InteractableCameraEffect : MonoBehaviour
         foreach (GameObject platform in platformsToToggle)
         {
             platform.SetActive(!platform.activeSelf);
+        }
+    }
+    private void ToggleBoxes()
+    {
+        switch (isInSpiritWorld)
+        {
+            case false:
+                foreach (GameObject box in boxToToggle)
+                {
+                    box.SetActive(true);
+                }
+                break;
+
+            case true:
+
+                foreach (GameObject box in boxToToggle)
+                {
+                    box.SetActive(false);
+                }
+                break;
         }
     }
 
