@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,10 +17,14 @@ public class PlayerMovement : MonoBehaviour
     GameObject Box;
     private bool isHoldingBox = false;
 
+    [SerializeField]
+    private Text interactText;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        interactText.gameObject.SetActive(false);
     }
 
     void Update()
@@ -28,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         Jump();
         UpdateAnimation();
         PlayerPushBox();
+        UpdateInteractText();
     }
 
     void Move()
@@ -76,26 +82,57 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale, distance, boxMask);
         if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && Input.GetKeyDown(KeyCode.F))
         {            
-                if (!isHoldingBox)
-                {
-               
+            switch (isHoldingBox)
+            {
+                case false:
                     Box = hit.collider.gameObject;
                     Box.GetComponent<FixedJoint2D>().enabled = true;
                     Box.GetComponent<InteractBox>().beingPushed = true;
                     Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
-                    isHoldingBox = true;
+                    isHoldingBox = true;break;
 
-            }
-            else
-                {
+                    case true:
                     Box.GetComponent<FixedJoint2D>().enabled = false;
-                Box.GetComponent<InteractBox>().beingPushed = false;
-                Box.GetComponent<FixedJoint2D>().connectedBody = null;
-                    Box = null; 
-                    isHoldingBox = false;
+                    Box.GetComponent<InteractBox>().beingPushed = false;
+                    Box.GetComponent<FixedJoint2D>().connectedBody = null;
+                    Box = null;
+                    isHoldingBox = false; break;
 
             }
 
+            //    if (!isHoldingBox)
+            //    {
+
+            //        Box = hit.collider.gameObject;
+            //        Box.GetComponent<FixedJoint2D>().enabled = true;
+            //        Box.GetComponent<InteractBox>().beingPushed = true;
+            //        Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+            //        isHoldingBox = true;
+
+            //}
+            //else
+            //    {
+            //        Box.GetComponent<FixedJoint2D>().enabled = false;
+            //    Box.GetComponent<InteractBox>().beingPushed = false;
+            //    Box.GetComponent<FixedJoint2D>().connectedBody = null;
+            //        Box = null; 
+            //        isHoldingBox = false;
+
+            //}
+
+        }
+    }
+    void UpdateInteractText()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale, distance, boxMask);
+        if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && !isHoldingBox)
+        {
+            interactText.gameObject.SetActive(true); 
+
+        }
+        else
+        {
+            interactText.gameObject.SetActive(false); 
         }
     }
 
