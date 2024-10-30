@@ -523,10 +523,10 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  distance: 0
+  distance: -0.09
   boxMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 255
 --- !u!95 &339758633
 Animator:
   serializedVersion: 5
@@ -1291,6 +1291,7 @@ GameObject:
   - component: {fileID: 773335584}
   - component: {fileID: 773335587}
   - component: {fileID: 773335586}
+  - component: {fileID: 773335588}
   m_Layer: 3
   m_Name: Kotak Semu
   m_TagString: InteractAble
@@ -1322,7 +1323,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 773335582}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4e2d90b5173295a448388061e214ae38, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1455,7 +1456,20 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!114 &773335588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773335582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ea925d475b0b74fac14d7158b9e206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beingPushed: 0
 --- !u!1 &822918435
 GameObject:
   m_ObjectHideFlags: 0
