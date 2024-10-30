@@ -81,13 +81,15 @@ public class PlayerMovement : MonoBehaviour
                
                     Box = hit.collider.gameObject;
                     Box.GetComponent<FixedJoint2D>().enabled = true;
+                    Box.GetComponent<InteractBox>().enabled = true;
                     Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
                     isHoldingBox = true; 
                 }
                 else
                 {
                     Box.GetComponent<FixedJoint2D>().enabled = false;
-                    Box.GetComponent<FixedJoint2D>().connectedBody = null;
+                Box.GetComponent<InteractBox>().enabled = false;
+                Box.GetComponent<FixedJoint2D>().connectedBody = null;
                     Box = null; 
                     isHoldingBox = false; 
                 }
