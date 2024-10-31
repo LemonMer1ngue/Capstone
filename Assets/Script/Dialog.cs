@@ -8,7 +8,7 @@ using System;
 
 public class Dialog : MonoBehaviour
 {
-
+    public GameObject dialogBox;
     public TextMeshProUGUI dialogText;
     public string[] dialogLine;
     public float dialogSpeed;
@@ -20,11 +20,7 @@ public class Dialog : MonoBehaviour
     {
         dialogText.text = string.Empty;
         StartDialog();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        SoundManager.instance.PlayBreathingSound();
 
     }
 
@@ -32,6 +28,12 @@ public class Dialog : MonoBehaviour
     {
         index = 0;
         StartCoroutine(TypeLine());
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     IEnumerator TypeLine()
@@ -51,6 +53,8 @@ public class Dialog : MonoBehaviour
             }
             yield return new WaitForSeconds(5f);
             dialogText.text = string.Empty;
+            dialogBox.SetActive(false);
+
             if (index == 1)
             {
                 yield return new WaitForSeconds(1f);
@@ -60,6 +64,8 @@ public class Dialog : MonoBehaviour
             switch (index)
             {
                 case 0:
+                    SoundManager.instance.StopBreathingSound();
+
                     yield return StartCoroutine(PlayHeartBeatAndDarken());
                     break;
             }

@@ -9,6 +9,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource heartBeatSound;
     public AudioSource whisperSound;
     public AudioSource laughSound;
+    public AudioSource breathingSound;
 
     private void Awake()
     {
@@ -35,6 +36,16 @@ public class SoundManager : MonoBehaviour
     public void PlayLaughSound()
     {
         laughSound.Play();
+
+    }
+    public void PlayBreathingSound()
+    {
+        breathingSound.Play();
+
+    }
+    public void StopBreathingSound()
+    {
+        breathingSound.Stop();
 
     }
 
