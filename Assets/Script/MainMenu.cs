@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Level Desain"); // Replace with your actual game scene name
+        SceneManager.LoadScene("CutScene"); // Replace with your actual game scene name
     }
 
     public void OpenSettings()
