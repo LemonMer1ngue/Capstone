@@ -912,7 +912,6 @@ GameObject:
   - component: {fileID: 458160014}
   - component: {fileID: 458160017}
   - component: {fileID: 458160018}
-  - component: {fileID: 458160019}
   - component: {fileID: 458160020}
   m_Layer: 3
   m_Name: FallingPlatform
@@ -1034,19 +1033,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &458160019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 458160012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4184bbe79cbea3e49b87d5eda748d5be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 458160017}
 --- !u!61 &458160020
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2277,7 +2263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1849509849504568154, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 179.1
+      value: 4.2
       objectReference: {fileID: 0}
     - target: {fileID: 1849509849504568154, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2321,7 +2307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2217900192359109752, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
       propertyPath: m_GravityScale
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2431197701704779099, guid: ea840cf6d15782748bba62306c63b67a, type: 3}
       propertyPath: m_Size.x
@@ -2558,7 +2544,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0005772859, y: 0.20557198}
+  m_Offset: {x: -0.0005772859, y: 0.1927428}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2569,7 +2555,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2430422, y: 0.016501367}
+  m_Size: {x: 0.2430422, y: 0.008224443}
   m_EdgeRadius: 0
 --- !u!114 &982082278
 MonoBehaviour:
@@ -4828,7 +4814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1931615091
 Transform:
   m_ObjectHideFlags: 0
@@ -5461,7 +5447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5428006553732751651, guid: b32a45e486c6c2742b6e7b3db14ee4f3, type: 3}
       propertyPath: m_Size.y
-      value: 0.4276511
+      value: 0.417305
       objectReference: {fileID: 0}
     - target: {fileID: 5428006553732751651, guid: b32a45e486c6c2742b6e7b3db14ee4f3, type: 3}
       propertyPath: m_Enabled
@@ -5469,7 +5455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5428006553732751651, guid: b32a45e486c6c2742b6e7b3db14ee4f3, type: 3}
       propertyPath: m_Offset.y
-      value: -0.0061744526
+      value: -0.01134751
       objectReference: {fileID: 0}
     - target: {fileID: 5428006553732751651, guid: b32a45e486c6c2742b6e7b3db14ee4f3, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
