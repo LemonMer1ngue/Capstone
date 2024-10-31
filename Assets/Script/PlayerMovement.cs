@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Text interactText;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
