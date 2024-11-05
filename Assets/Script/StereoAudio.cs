@@ -14,6 +14,7 @@ public class StereoAudioEffect : MonoBehaviour
 
     void Start()
     {
+        DontDestroyOnLoad(listener.gameObject);
         if (audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
@@ -28,6 +29,22 @@ public class StereoAudioEffect : MonoBehaviour
 
     void Update()
     {
+        // Check if the listener still exists
+        if (listener == null)
+        {
+            // Try to find the listener (e.g., the player) in the scene
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                listener = player.transform; // Assign the player's transform as the listener
+            }
+            else
+            {
+                Debug.LogWarning("Listener object is missing and could not be found.");
+                return; // Exit Update if listener is still not found
+            }
+        }
+
         // Ensure the audio is playing
         if (!audioSource.isPlaying)
         {
