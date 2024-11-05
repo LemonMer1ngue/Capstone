@@ -18,14 +18,14 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("2D Platformer"); // Replace with your actual game scene name
+        SceneManager.LoadScene("CutScene"); // Replace with your actual game scene name
     }
 
     public void OpenSettings()
     {
-        // Load your settings scene or logic here
+/*        // Load your settings scene or logic here
         Debug.Log("Settings Button Clicked");
-        SceneManager.LoadScene("SettingsMenu"); // Replace with your actual settings scene name
+        SceneManager.LoadScene("SettingsMenu"); // Replace with your actual settings scene name*/
     }
 
     public void ExitGame()
