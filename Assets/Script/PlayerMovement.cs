@@ -43,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
         float effectiveMoveSpeed = isHoldingBox ? moveSpeed * 0.5f : moveSpeed;
         rb.velocity = new Vector2(moveInput * effectiveMoveSpeed, rb.velocity.y);
 
-        // Flip the sprite based on horizontal input
         if (moveInput != 0)
         {
             transform.localScale = new Vector3(Mathf.Sign(moveInput), 1, 1);
@@ -60,14 +59,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-
     void UpdateAnimation()
     {
         animator.SetBool("isWalking", Mathf.Abs(rb.velocity.x) > 0.1f);
         animator.SetBool("isGround", isGrounded);
         animator.SetBool("isJumping", !isGrounded);
-
 
         if (!isGrounded && rb.velocity.y < 0)
         {
@@ -81,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
     void PlayerPushBox()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale, distance, boxMask);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, distance, boxMask);
         if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && Input.GetKeyDown(KeyCode.F))
         {
             switch (isHoldingBox)
@@ -91,25 +87,28 @@ public class PlayerMovement : MonoBehaviour
                     Box.GetComponent<FixedJoint2D>().enabled = true;
                     Box.GetComponent<InteractBox>().beingPushed = true;
                     Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
-                    isHoldingBox = true; break;
+                    isHoldingBox = true;
+                    break;
 
                 case true:
                     Box.GetComponent<FixedJoint2D>().enabled = false;
                     Box.GetComponent<InteractBox>().beingPushed = false;
                     Box.GetComponent<FixedJoint2D>().connectedBody = null;
+                    Debug.Log("Kotak dilepaskan: " + Box.name);
                     Box = null;
-                    isHoldingBox = false; break;
-
+                    isHoldingBox = false;
+                    Debug.Log("Kotak dihapus dari GameData.");
+                    break;
             }
         }
     }
+
     void UpdateInteractText()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale, distance, boxMask);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, distance, boxMask);
         if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && !isHoldingBox)
         {
             interactText.gameObject.SetActive(true);
-
         }
         else
         {

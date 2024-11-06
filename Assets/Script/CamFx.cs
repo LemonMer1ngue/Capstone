@@ -74,7 +74,7 @@ public class InteractableCameraEffect : MonoBehaviour
     private void Update()
     {
         // Check if player is in any interactable area
-        if (IsPlayerInAnyArea() && Input.GetKeyDown(KeyCode.E) && Time.time >= lastInteractTime + interactionCooldown)
+        if (IsPlayerInAnyArea() && Input.GetKeyDown(KeyCode.J) && Time.time >= lastInteractTime + interactionCooldown)
         {
             lastInteractTime = Time.time; // Update last interaction time
             PlayInteractSound(); // Play interaction sound
@@ -86,10 +86,12 @@ public class InteractableCameraEffect : MonoBehaviour
                 StopCoroutine(fadeCoroutine);
             }
             fadeCoroutine = StartCoroutine(FadeEffects());
+
+
         }
     }
 
-    private void PlayInteractSound()
+    public void PlayInteractSound()
     {
         // Play the interaction sound at the player's position
         if (interactSound != null)
@@ -129,7 +131,7 @@ public class InteractableCameraEffect : MonoBehaviour
         return false; // Player is not in any area
     }
 
-    private IEnumerator FadeEffects()
+    public IEnumerator FadeEffects()
     {
         StartCoroutine(ShakeAndZoom(shakeDuration));
 
