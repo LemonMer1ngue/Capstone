@@ -32,9 +32,7 @@ public class MainMenu : MonoBehaviour
 
     public void OpenSettings()
     {
-/*        // Load your settings scene or logic here
-        Debug.Log("Settings Button Clicked");
-        SceneManager.LoadScene("SettingsMenu"); // Replace with your actual settings scene name*/
+        SceneManager.LoadScene("SettingMenu");
     }
 
     public void Credit()
