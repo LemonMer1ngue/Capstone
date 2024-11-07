@@ -1372,6 +1372,7 @@ MonoBehaviour:
   - {fileID: 632033902}
   - {fileID: 636647927}
   - {fileID: 8339222469354826439}
+  boxToToggle: []
   togglePlatforms: 1
   interactSound: {fileID: 0}
   backgroundMusicSource: {fileID: 76132498}
