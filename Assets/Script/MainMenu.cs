@@ -4,21 +4,30 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public Button playButton;       // Reference for the Play button
+    public Button ngButton;       // Reference for the Play button
+    public Button chapterButton;
     public Button settingsButton;   // Reference for the Settings button
-    public Button exitButton;       // Reference for the Exit button
+    public Button creditButton;
+    public Button quitButton;       // Reference for the Exit button
 
     void Start()
     {
         // Add listeners to the buttons
-        playButton.onClick.AddListener(PlayGame);
+        ngButton.onClick.AddListener(NewGame);
+        chapterButton.onClick.AddListener(ChapterSelection);
         settingsButton.onClick.AddListener(OpenSettings);
-        exitButton.onClick.AddListener(ExitGame);
+        creditButton.onClick.AddListener(Credit);
+        quitButton.onClick.AddListener(QuitGame);
     }
 
-    public void PlayGame()
+    public void NewGame()
     {
         SceneManager.LoadScene("CutScene"); // Replace with your actual game scene name
+    }
+
+    public void ChapterSelection()
+    {
+        SceneManager.LoadScene("ChapterSelection");
     }
 
     public void OpenSettings()
@@ -28,7 +37,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("SettingsMenu"); // Replace with your actual settings scene name*/
     }
 
-    public void ExitGame()
+    public void Credit()
+    {
+        //SceneManager.LoadScene("Credit");
+    }
+
+    public void QuitGame()
     {
         Application.Quit();
         Debug.Log("Exit Button Clicked");
