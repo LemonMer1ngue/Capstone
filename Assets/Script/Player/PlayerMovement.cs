@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
+using static DimensionChanger;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,8 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float distance;
     public LayerMask boxMask;
-    GameObject Box;
-    private bool isHoldingBox = false;
+    public GameObject Box;
+    public bool isHoldingBox = false;
 
     [SerializeField]
     private Text interactText;
@@ -27,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         interactText.gameObject.SetActive(false);
     }
+
 
     void Update()
     {
@@ -75,45 +78,62 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void UpdateBoxReference(GameObject newBox)
+    {
+        Box = newBox;
+        Box.GetComponent<FixedJoint2D>().enabled = true;
+        Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+        isHoldingBox = true;
+    }
+
     void PlayerPushBox()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, distance, boxMask);
-        if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && Input.GetKeyDown(KeyCode.F))
-        {
-            switch (isHoldingBox)
-            {
-                case false:
-                    Box = hit.collider.gameObject;
-                    Box.GetComponent<FixedJoint2D>().enabled = true;
-                    Box.GetComponent<InteractBox>().beingPushed = true;
-                    Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
-                    isHoldingBox = true;
-                    break;
+        Vector2[] directions = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
 
-                case true:
-                    Box.GetComponent<FixedJoint2D>().enabled = false;
-                    Box.GetComponent<InteractBox>().beingPushed = false;
-                    Box.GetComponent<FixedJoint2D>().connectedBody = null;
-                    Debug.Log("Kotak dilepaskan: " + Box.name);
-                    Box = null;
-                    isHoldingBox = false;
-                    Debug.Log("Kotak dihapus dari GameData.");
-                    break;
+        foreach (Vector2 direction in directions)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, boxMask);
+            if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && Input.GetKeyDown(KeyCode.F))
+            {
+                switch (isHoldingBox)
+                {
+                    case false:
+                        Box = hit.collider.gameObject;
+                        Box.GetComponent<FixedJoint2D>().enabled = true;
+                        Box.GetComponent<InteractBox>().beingPushed = true;
+                        Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+                        isHoldingBox = true;
+                        break;
+
+                    case true:
+                        Box.GetComponent<FixedJoint2D>().enabled = false;
+                        Box.GetComponent<InteractBox>().beingPushed = false;
+                        Box.GetComponent<FixedJoint2D>().connectedBody = null;
+                        Box = null;
+                        isHoldingBox = false;
+                        break;
+                }
+                break; 
             }
         }
     }
 
     void UpdateInteractText()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, distance, boxMask);
-        if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && !isHoldingBox)
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, distance, boxMask);
+
+        bool showInteract = false;
+
+        foreach (Collider2D hit in hits)
         {
-            interactText.gameObject.SetActive(true);
+            if (hit.gameObject.CompareTag("InteractAble") && !isHoldingBox)
+            {
+                showInteract = true;
+                break;
+            }
         }
-        else
-        {
-            interactText.gameObject.SetActive(false);
-        }
+
+        interactText.gameObject.SetActive(showInteract);
     }
 
     void OnDrawGizmos()
@@ -121,5 +141,4 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * distance);
     }
-
 }

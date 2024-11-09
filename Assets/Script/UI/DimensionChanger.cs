@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DimensionChanger : MonoBehaviour
 {
-    [SerializeField] private ObjectPool objectPool;
     [SerializeField] private LevelConnection connection;
     [SerializeField] private string targetDimensions;
     [SerializeField] private Transform spawnPlayer;
@@ -32,17 +31,6 @@ public class DimensionChanger : MonoBehaviour
             PortalManager.LastPortalID = portalID;
             PortalManager.LastPortalUsed = spawnPlayer;
             LevelConnection.ActiveConnection = connection;
-
-            if (boxInSceneA != null)
-            {
-                // Mengembalikan kotak ke pool jika ada
-                objectPool.ReturnBox(boxInSceneA);
-            }
-
-            // Memindahkan kotak dari Scene B ke Scene A jika ada
-            boxInSceneA = objectPool.GetBox();
-            boxInSceneA.transform.position = spawnPlayer.position;
-
             SceneManager.LoadScene(targetDimensions);
         }
     }
