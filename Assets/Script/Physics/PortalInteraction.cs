@@ -3,26 +3,30 @@ using UnityEngine;
 
 public class PortalInteraction : MonoBehaviour
 {
-    public string targetScene;
+    public string targetScene;  
     public Transform portalExit;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var player = collision.GetComponent<PlayerMovement>();
-        if (player != null && player.isHoldingBox )
+        if (player != null && player.isHoldingBox)
         {
-            if (targetScene == "Real_01")
-            {
-                BoxStatusManager.IsBoxActiveInSceneA = true;
-                BoxStatusManager.IsBoxActiveInSceneB = false;
-            }
-            else if (targetScene == "Fake_01")
-            {
-                BoxStatusManager.IsBoxActiveInSceneA = false;
-                BoxStatusManager.IsBoxActiveInSceneB = true;
-            }
-
+            UpdateBoxStatus(targetScene);
             SceneManager.LoadScene(targetScene);
+        }
+    }
+
+    private void UpdateBoxStatus(string sceneName)
+    {
+        if (sceneName.StartsWith("Chapter"))
+        {
+            BoxStatusManager.IsBoxActiveInSceneA = true;
+            BoxStatusManager.IsBoxActiveInSceneB = false;
+        }
+        else if (sceneName.EndsWith("Fake"))
+        {
+            BoxStatusManager.IsBoxActiveInSceneA = false;
+            BoxStatusManager.IsBoxActiveInSceneB = true;
         }
     }
 }

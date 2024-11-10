@@ -2,17 +2,23 @@ using UnityEngine;
 
 public class SceneBBoxManager : MonoBehaviour
 {
-    public GameObject boxInSceneB;
+    public GameObject[] boxInSceneB;
 
     void Start()
     {
-        boxInSceneB.SetActive(BoxStatusManager.IsBoxActiveInSceneB);
+        foreach (GameObject box in boxInSceneB)
+        {
+            box.SetActive(BoxStatusManager.IsBoxActiveInSceneB);
+        }
     }
 
     public void ActivateBoxInSceneB()
     {
-        BoxStatusManager.IsBoxActiveInSceneA = false;
         BoxStatusManager.IsBoxActiveInSceneB = true;
-        boxInSceneB.SetActive(true);  
+        BoxStatusManager.IsBoxActiveInSceneA = false;
+        foreach (GameObject box in boxInSceneB)
+        {
+            box.SetActive(true);
+        }
     }
 }
