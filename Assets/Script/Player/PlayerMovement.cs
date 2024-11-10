@@ -78,14 +78,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void UpdateBoxReference(GameObject newBox)
-    {
-        Box = newBox;
-        Box.GetComponent<FixedJoint2D>().enabled = true;
-        Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
-        isHoldingBox = true;
-    }
-
     void PlayerPushBox()
     {
         Vector2[] directions = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
