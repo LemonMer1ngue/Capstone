@@ -72,7 +72,7 @@ public class Dialog : MonoBehaviour
             index++;
         }
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene("Level Desain");
+        SceneManager.LoadScene("Real_01");
     }
 
     IEnumerator PlayWhisperSound()

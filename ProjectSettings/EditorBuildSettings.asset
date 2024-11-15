@@ -17,10 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Chapter1/Fake_01.unity
     guid: 7dd8e47d8a9214e409f8dfd5d3679c54
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Chapter1/Chapter_2.unity
     guid: e2b1fceda649af642980b7b6bb70516c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Chapter1/Chapter_2_Fake.unity
     guid: f336b272b9ebc064695cc441e127b0ac
   - enabled: 1

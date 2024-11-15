@@ -1,4 +1,3 @@
-using UnityEditor.MemoryProfiler;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
@@ -8,6 +7,7 @@ public class DimensionChanger : MonoBehaviour
     [SerializeField] private string targetDimensions;
     [SerializeField] private Transform spawnPlayer;
     [SerializeField] private string portalID;
+    [SerializeField] private Transform portalExit;
 
     private bool isPlayerInPortal = false;
     private GameObject boxInSceneA;
@@ -57,5 +57,19 @@ public class DimensionChanger : MonoBehaviour
     {
         public static Transform LastPortalUsed;
         public static string LastPortalID;
+    }
+
+    private void UpdateBoxStatus(string sceneName)
+    {
+        if (sceneName.StartsWith("Real"))
+        {
+            BoxStatusManager.IsBoxActiveInSceneA = true;
+            BoxStatusManager.IsBoxActiveInSceneB = false;
+        }
+        else if (sceneName.StartsWith("Fake"))
+        {
+            BoxStatusManager.IsBoxActiveInSceneA = false;
+            BoxStatusManager.IsBoxActiveInSceneB = true;
+        }
     }
 }

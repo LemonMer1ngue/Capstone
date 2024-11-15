@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BoxMerge : MonoBehaviour
@@ -12,17 +10,28 @@ public class BoxMerge : MonoBehaviour
     public float MergeSpeed;
     bool CanMerge;
     private PlayerMovement playerMovement;
-    // Start is called before the first frame update
+    private string objectID;
+
     void Start()
     {
         ID = GetInstanceID();
-        playerMovement = FindObjectOfType<PlayerMovement>();
+        objectID = gameObject.name;
 
+        Vector3 savedPosition = BlackboardManager.instance.LoadObjectPosition(objectID);
+        if (savedPosition != Vector3.zero)
+        {
+            transform.position = savedPosition;
+        }
+
+        playerMovement = FindObjectOfType<PlayerMovement>();
     }
+
     private void FixedUpdate()
     {
         MoveTowards();
+        BlackboardManager.instance.SaveObjectPosition(objectID, transform.position);
     }
+
     public void MoveTowards()
     {
         if (CanMerge)
@@ -42,6 +51,8 @@ public class BoxMerge : MonoBehaviour
                             Debug.Log($"SENDING MESSAGE FROM {gameObject.name} With The ID Number of {ID}");
                             GameObject mergedBox = Instantiate(MergedObject, transform.position, Quaternion.identity);
 
+                            BlackboardManager.instance.SaveObjectMergeStatus(objectID, true);
+
                             Destroy(Block2.gameObject);
                             Destroy(gameObject);
                             break;
@@ -49,8 +60,8 @@ public class BoxMerge : MonoBehaviour
                     break;
             }
         }
-
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("InteractAble"))

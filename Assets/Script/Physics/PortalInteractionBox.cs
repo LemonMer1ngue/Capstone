@@ -18,12 +18,12 @@ public class PortalInteraction : MonoBehaviour
 
     private void UpdateBoxStatus(string sceneName)
     {
-        if (sceneName.StartsWith("Chapter"))
+        if (sceneName.StartsWith("Real"))
         {
             BoxStatusManager.IsBoxActiveInSceneA = true;
             BoxStatusManager.IsBoxActiveInSceneB = false;
         }
-        else if (sceneName.EndsWith("Fake"))
+        else if (sceneName.StartsWith("Fake"))
         {
             BoxStatusManager.IsBoxActiveInSceneA = false;
             BoxStatusManager.IsBoxActiveInSceneB = true;
