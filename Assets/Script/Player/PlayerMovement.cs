@@ -5,23 +5,22 @@ using static DimensionChanger;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float jumpForce = 10f;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
 
-    private Rigidbody2D rb;
-    private Animator animator;
-    private bool isGrounded;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Animator animator;
+    [SerializeField] private bool isGrounded;
 
-    public float distance;
-    public LayerMask boxMask;
-    public GameObject Box;
+    [SerializeField] private float distance;
+    [SerializeField] private LayerMask boxMask;
+    [SerializeField] private GameObject Box;
     public bool isHoldingBox = false;
 
-    [SerializeField]
-    private Text interactText;
-
+    [SerializeField] private Text interactText;
+    public int holdingBoxID = -1;
 
     void Start()
     {
@@ -87,6 +86,11 @@ public class PlayerMovement : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, boxMask);
             if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && Input.GetKeyDown(KeyCode.F))
             {
+                InteractBox boxScript = hit.collider.gameObject.GetComponent<InteractBox>();
+                if (boxScript != null)
+                {
+                    Debug.Log($"Interacted with Box ID: {boxScript.idBox}");
+                }
                 switch (isHoldingBox)
                 {
                     case false:
@@ -95,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
                         Box.GetComponent<InteractBox>().beingPushed = true;
                         Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
                         isHoldingBox = true;
+                        holdingBoxID = boxScript.idBox;
                         break;
 
                     case true:
@@ -103,6 +108,8 @@ public class PlayerMovement : MonoBehaviour
                         Box.GetComponent<FixedJoint2D>().connectedBody = null;
                         Box = null;
                         isHoldingBox = false;
+                        holdingBoxID = -1;
+
                         break;
                 }
                 break; 

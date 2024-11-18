@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InteractBox : MonoBehaviour
 {
+    public int idBox;
     public bool beingPushed; 
     private float xPos;
     void Start()

@@ -16,20 +16,12 @@ public class BoxMerge : MonoBehaviour
     {
         ID = GetInstanceID();
         objectID = gameObject.name;
-
-        Vector3 savedPosition = BlackboardManager.instance.LoadObjectPosition(objectID);
-        if (savedPosition != Vector3.zero)
-        {
-            transform.position = savedPosition;
-        }
-
         playerMovement = FindObjectOfType<PlayerMovement>();
     }
 
     private void FixedUpdate()
     {
         MoveTowards();
-        BlackboardManager.instance.SaveObjectPosition(objectID, transform.position);
     }
 
     public void MoveTowards()
@@ -50,9 +42,6 @@ public class BoxMerge : MonoBehaviour
                         case false:
                             Debug.Log($"SENDING MESSAGE FROM {gameObject.name} With The ID Number of {ID}");
                             GameObject mergedBox = Instantiate(MergedObject, transform.position, Quaternion.identity);
-
-                            BlackboardManager.instance.SaveObjectMergeStatus(objectID, true);
-
                             Destroy(Block2.gameObject);
                             Destroy(gameObject);
                             break;

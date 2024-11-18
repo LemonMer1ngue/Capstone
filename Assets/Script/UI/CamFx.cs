@@ -5,11 +5,15 @@ using System.Collections;
 
 public class InteractableCameraEffect : MonoBehaviour
 {
+    [Header("Dimensions")]
+    [SerializeField] private bool diGaib = false;
+
     [Header("Interactable Settings")]
     public GameObject[] interactableAreas; // Areas where interaction is possible
     public GameObject player; // Reference to the player object
     public GameObject[] platformsToToggle; // Platforms to toggle visibility
-    public GameObject[] boxToToggle;
+    public GameObject[] boxToReal;
+    public GameObject[] boxToSpirit;
     public bool togglePlatforms = true; // Whether to toggle platforms on interaction
 
     [Header("Sound Settings")]
@@ -58,7 +62,7 @@ public class InteractableCameraEffect : MonoBehaviour
 
     private bool isPitchChanged = false; // Track if the pitch has been changed
     private bool effectsActive = false; // Track if effects are currently active
-    private bool isInSpiritWorld = false;
+    private PlayerMovement playerMovement;
 
     private void Start()
     {
@@ -69,6 +73,8 @@ public class InteractableCameraEffect : MonoBehaviour
         volume.profile.TryGet(out chromaticAberration);
         volume.profile.TryGet(out vignette);
         volume.profile.TryGet(out filmGrain);
+        playerMovement = player.GetComponent<PlayerMovement>();
+
     }
 
     private void Update()
@@ -85,6 +91,15 @@ public class InteractableCameraEffect : MonoBehaviour
             {
                 StopCoroutine(fadeCoroutine);
             }
+            diGaib = !diGaib;
+            BoxInSpirit();
+            BoxInReal();
+            if (playerMovement.isHoldingBox)
+            {
+                diGaib = !diGaib;
+                BoxToReal();
+            }
+
             fadeCoroutine = StartCoroutine(FadeEffects());
 
 
@@ -185,7 +200,8 @@ public class InteractableCameraEffect : MonoBehaviour
         {
             TogglePlatforms();
         }
-        ToggleBoxes();
+        BoxInReal();
+        BoxInSpirit();
         effectsActive = !effectsActive; // Toggle effects state
     }
 
@@ -197,24 +213,50 @@ public class InteractableCameraEffect : MonoBehaviour
             platform.SetActive(!platform.activeSelf);
         }
     }
-    private void ToggleBoxes()
+    private void BoxInSpirit()
     {
-        switch (isInSpiritWorld)
+        foreach (GameObject box in boxToReal)
         {
-            case false:
-                foreach (GameObject box in boxToToggle)
+            // Periksa apakah box aktif dan ubah statusnya sesuai dengan diGaib
+            if (box.activeSelf != diGaib) // Jika status aktifnya tidak sesuai dengan diGaib
+            {
+                box.SetActive(diGaib);  // Set status aktif ke nilai diGaib
+            }
+        }
+    }
+
+    private void BoxInReal()
+    {
+        foreach (GameObject box in boxToSpirit)
+        {
+            // Periksa apakah box aktif dan ubah statusnya sesuai dengan diGaib
+            if (box.activeSelf != !diGaib) // Jika status aktifnya tidak sesuai dengan diGaib
+            {
+                box.SetActive(!diGaib);  // Set status aktif ke nilai diGaib
+            }
+        }
+    }
+    private void BoxToReal()
+    {
+        foreach (GameObject box in boxToReal)
+        {
+            // Cek jika box memiliki komponen InteractBox dan cocokkan ID dengan holdingBoxID
+            if (box.TryGetComponent<InteractBox>(out var interactBox))
+            {
+                Debug.Log($"Box ID {interactBox.idBox} Active: {box.activeSelf}");
+
+                // Hanya aktifkan box yang sesuai dengan holdingBoxID pemain
+                if (interactBox.idBox == playerMovement.holdingBoxID)
                 {
                     box.SetActive(true);
+                    Debug.Log($"Box ID {interactBox.idBox} Activated");
                 }
-                break;
-
-            case true:
-
-                foreach (GameObject box in boxToToggle)
+                else
                 {
                     box.SetActive(false);
+                    Debug.Log($"Box ID {interactBox.idBox} Deactivated");
                 }
-                break;
+            }
         }
     }
 
