@@ -217,49 +217,37 @@ public class InteractableCameraEffect : MonoBehaviour
     {
         foreach (GameObject box in boxToReal)
         {
-            // Periksa apakah box aktif dan ubah statusnya sesuai dengan diGaib
-            if (box.activeSelf != diGaib) // Jika status aktifnya tidak sesuai dengan diGaib
-            {
-                box.SetActive(diGaib);  // Set status aktif ke nilai diGaib
-            }
+            box.SetActive(diGaib);
         }
     }
-
     private void BoxInReal()
     {
         foreach (GameObject box in boxToSpirit)
         {
-            // Periksa apakah box aktif dan ubah statusnya sesuai dengan diGaib
-            if (box.activeSelf != !diGaib) // Jika status aktifnya tidak sesuai dengan diGaib
-            {
-                box.SetActive(!diGaib);  // Set status aktif ke nilai diGaib
-            }
+            box.SetActive(!diGaib);
         }
     }
     private void BoxToReal()
     {
         foreach (GameObject box in boxToReal)
         {
-            // Cek jika box memiliki komponen InteractBox dan cocokkan ID dengan holdingBoxID
-            if (box.TryGetComponent<InteractBox>(out var interactBox))
+            if (box.TryGetComponent<InteractBox>(out var InteractBox))
             {
-                Debug.Log($"Box ID {interactBox.idBox} Active: {box.activeSelf}");
-
-                // Hanya aktifkan box yang sesuai dengan holdingBoxID pemain
-                if (interactBox.idBox == playerMovement.holdingBoxID)
+                Debug.Log($"Box ID {InteractBox.idBox} Active: {box.activeSelf}");
+                if (InteractBox.idBox == playerMovement.holdingBoxID)
                 {
                     box.SetActive(true);
-                    Debug.Log($"Box ID {interactBox.idBox} Activated");
+                    Debug.Log($"Box ID {InteractBox.idBox} Activated");
                 }
                 else
                 {
                     box.SetActive(false);
-                    Debug.Log($"Box ID {interactBox.idBox} Deactivated");
+                    Debug.Log($"Box ID {InteractBox.idBox} Deactivated");
                 }
+
             }
         }
     }
-
     private IEnumerator ShakeAndZoom(float duration)
     {
         // Store original camera position and size
