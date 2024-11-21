@@ -72,7 +72,7 @@ public class Dialog : MonoBehaviour
             index++;
         }
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene("Real_01");
+        SceneManager.LoadScene("Tutorial");
     }
 
     IEnumerator PlayWhisperSound()
