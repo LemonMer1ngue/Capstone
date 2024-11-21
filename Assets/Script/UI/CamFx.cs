@@ -92,17 +92,9 @@ public class InteractableCameraEffect : MonoBehaviour
                 StopCoroutine(fadeCoroutine);
             }
             diGaib = !diGaib;
-            BoxInSpirit();
-            BoxInReal();
-            if (playerMovement.isHoldingBox)
-            {
-                diGaib = !diGaib;
-                BoxToReal();
-            }
+       
 
             fadeCoroutine = StartCoroutine(FadeEffects());
-
-
         }
     }
 
@@ -200,8 +192,10 @@ public class InteractableCameraEffect : MonoBehaviour
         {
             TogglePlatforms();
         }
-        BoxInReal();
+
         BoxInSpirit();
+        BoxInReal();
+        BoxToReal();
         effectsActive = !effectsActive; // Toggle effects state
     }
 
@@ -215,11 +209,24 @@ public class InteractableCameraEffect : MonoBehaviour
     }
     private void BoxInSpirit()
     {
-        foreach (GameObject box in boxToReal)
+        for (int i = 0; i < boxToReal.Length; i++)  
         {
-            box.SetActive(diGaib);
+            GameObject box = boxToReal[i];
+            if (box.TryGetComponent<InteractBox>(out var interactBox))
+            {
+                if (interactBox.hasBeenActivated)
+                {
+                    box.SetActive(!diGaib);
+                }
+                else
+                {
+                    box.SetActive(diGaib);
+                }
+            }
         }
     }
+
+
     private void BoxInReal()
     {
         foreach (GameObject box in boxToSpirit)
@@ -229,25 +236,21 @@ public class InteractableCameraEffect : MonoBehaviour
     }
     private void BoxToReal()
     {
-        foreach (GameObject box in boxToReal)
+        for (int i = 0; i < boxToReal.Length; i++)  
         {
-            if (box.TryGetComponent<InteractBox>(out var InteractBox))
+            GameObject box = boxToReal[i];
+            if (box.TryGetComponent<InteractBox>(out var interactBox))
             {
-                Debug.Log($"Box ID {InteractBox.idBox} Active: {box.activeSelf}");
-                if (InteractBox.idBox == playerMovement.holdingBoxID)
+                if (playerMovement.isHoldingBox && interactBox.idBox == playerMovement.holdingBoxID)
                 {
-                    box.SetActive(true);
-                    Debug.Log($"Box ID {InteractBox.idBox} Activated");
-                }
-                else
-                {
-                    box.SetActive(false);
-                    Debug.Log($"Box ID {InteractBox.idBox} Deactivated");
-                }
+                    box.SetActive(!diGaib);
+                    interactBox.hasBeenActivated = true;
 
+                }
             }
         }
     }
+
     private IEnumerator ShakeAndZoom(float duration)
     {
         // Store original camera position and size

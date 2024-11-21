@@ -7,6 +7,7 @@ public class InteractBox : MonoBehaviour
     public int idBox;
     public bool beingPushed; 
     private float xPos;
+    public bool hasBeenActivated =  false;
     void Start()
     {
         xPos = transform.position.x;

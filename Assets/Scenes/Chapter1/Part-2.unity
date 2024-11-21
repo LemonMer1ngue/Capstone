@@ -879,6 +879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idBox: 122
   beingPushed: 0
+  hasBeenActivated: 0
 --- !u!255 &337883864
 FixedJoint2D:
   m_ObjectHideFlags: 0
@@ -3145,6 +3146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idBox: 121
   beingPushed: 0
+  hasBeenActivated: 0
 --- !u!255 &1353811393
 FixedJoint2D:
   m_ObjectHideFlags: 0
