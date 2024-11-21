@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class InteractBox : MonoBehaviour
 {
-
-    public bool beingPushed;
-    float xPos;
-    // Start is called before the first frame update
+    public int idBox;
+    public bool beingPushed; 
+    private float xPos;
+    public bool hasBeenActivated =  false;
     void Start()
     {
         xPos = transform.position.x;

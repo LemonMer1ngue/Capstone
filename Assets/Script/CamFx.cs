@@ -5,11 +5,15 @@ using System.Collections;
 
 public class InteractableCameraEffect : MonoBehaviour
 {
+    [Header("Dimensions")]
+    [SerializeField] private bool diGaib = false;
+
     [Header("Interactable Settings")]
     public GameObject[] interactableAreas; // Areas where interaction is possible
     public GameObject player; // Reference to the player object
     public GameObject[] platformsToToggle; // Platforms to toggle visibility
-    public GameObject[] boxToToggle; // Platforms to toggle visibility
+    public GameObject[] boxToReal;
+    public GameObject[] boxToSpirit;
     public bool togglePlatforms = true; // Whether to toggle platforms on interaction
 
     [Header("Sound Settings")]
@@ -58,7 +62,7 @@ public class InteractableCameraEffect : MonoBehaviour
 
     private bool isPitchChanged = false; // Track if the pitch has been changed
     private bool effectsActive = false; // Track if effects are currently active
-    private bool isInSpiritWorld = false;
+    private PlayerMovement playerMovement;
     private void Start()
     {
         // Initialize target camera and get post-processing components
@@ -68,6 +72,8 @@ public class InteractableCameraEffect : MonoBehaviour
         volume.profile.TryGet(out chromaticAberration);
         volume.profile.TryGet(out vignette);
         volume.profile.TryGet(out filmGrain);
+        playerMovement = player.GetComponent<PlayerMovement>();
+
     }
 
     private void Update()
@@ -84,6 +90,9 @@ public class InteractableCameraEffect : MonoBehaviour
             {
                 StopCoroutine(fadeCoroutine);
             }
+            diGaib = !diGaib;
+       
+
             fadeCoroutine = StartCoroutine(FadeEffects());
         }
     }
@@ -183,8 +192,9 @@ public class InteractableCameraEffect : MonoBehaviour
             TogglePlatforms();
         }
 
-        ToggleBoxes();
-
+        BoxInSpirit();
+        BoxInReal();
+        BoxToReal();
         effectsActive = !effectsActive; // Toggle effects state
     }
 
@@ -196,24 +206,47 @@ public class InteractableCameraEffect : MonoBehaviour
             platform.SetActive(!platform.activeSelf);
         }
     }
-    private void ToggleBoxes()
+    private void BoxInSpirit()
     {
-        switch (isInSpiritWorld)
+        for (int i = 0; i < boxToReal.Length; i++)  
         {
-            case false:
-                foreach (GameObject box in boxToToggle)
+            GameObject box = boxToReal[i];
+            if (box.TryGetComponent<InteractBox>(out var interactBox))
+            {
+                if (interactBox.hasBeenActivated)
                 {
-                    box.SetActive(true);
+                    box.SetActive(!diGaib);
                 }
-                break;
-
-            case true:
-
-                foreach (GameObject box in boxToToggle)
+                else
                 {
-                    box.SetActive(false);
+                    box.SetActive(diGaib);
                 }
-                break;
+            }
+        }
+    }
+
+
+    private void BoxInReal()
+    {
+        foreach (GameObject box in boxToSpirit)
+        {
+            box.SetActive(!diGaib);
+        }
+    }
+    private void BoxToReal()
+    {
+        for (int i = 0; i < boxToReal.Length; i++)  
+        {
+            GameObject box = boxToReal[i];
+            if (box.TryGetComponent<InteractBox>(out var interactBox))
+            {
+                if (playerMovement.isHoldingBox && interactBox.idBox == playerMovement.holdingBoxID)
+                {
+                    box.SetActive(!diGaib);
+                    interactBox.hasBeenActivated = true;
+
+                }
+            }
         }
     }
 
