@@ -9,6 +9,27 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 40eb8fd40ca4ef447bdadd0b650fa036
   - enabled: 1
+    path: Assets/Scenes/CutScene.unity
+    guid: a4c6bf4d4bdc87242b777b02057eb89a
+  - enabled: 1
+    path: Assets/Scenes/Chapter1/Tutorial.unity
+    guid: b154878c27745c94580edc751d752815
+  - enabled: 1
+    path: Assets/Scenes/Chapter1/Fake_01.unity
+    guid: 7dd8e47d8a9214e409f8dfd5d3679c54
+  - enabled: 0
+    path: Assets/Scenes/Chapter1/Part-2.unity
+    guid: e2b1fceda649af642980b7b6bb70516c
+  - enabled: 0
+    path: Assets/Scenes/Chapter1/Chapter_2_Fake.unity
+    guid: f336b272b9ebc064695cc441e127b0ac
+  - enabled: 1
+    path: Assets/Scenes/ChapterSelection.unity
+    guid: c6083cdbdd21cba4dab1b2d35970a3bb
+  - enabled: 1
+    path: Assets/Scenes/SettingMenu.unity
+    guid: 78be7afebb982604cbeaaad14619330e
+  - enabled: 0
     path: Assets/Scenes/2D Platformer.unity
     guid: 19b44b77021bcd446a035e7fedc97f66
   m_configObjects: {}

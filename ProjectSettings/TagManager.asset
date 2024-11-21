@@ -4,10 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ball
-  - BonusGoal
-  - ChangeDirection
-  - SpeedUp
+  - InteractAble
+  - Water
+  - ground
   layers:
   - Default
   - TransparentFX
@@ -17,6 +16,8 @@ TagManager:
   - UI
   - PostProcess
   - CamCollider
+  - Player
+  - 
   - 
   - 
   - 
@@ -48,7 +49,16 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 2226827259
+    locked: 0
   - name: Object
+    uniqueID: 1960812371
+    locked: 0
+  - name: Light
+    uniqueID: 1062624425
+    locked: 0
+  - name: Player
     uniqueID: 891745823
     locked: 0
   - name: Foreground
