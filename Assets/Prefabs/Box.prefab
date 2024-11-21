@@ -168,7 +168,7 @@ FixedJoint2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7411004096755111367}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 0}
@@ -192,7 +192,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ea925d475b0b74fac14d7158b9e206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idBox: 0
   beingPushed: 0
+  hasBeenActivated: 0
+  rb: {fileID: 0}
 --- !u!114 &-7804152935832911093
 MonoBehaviour:
   m_ObjectHideFlags: 0

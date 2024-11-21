@@ -8,10 +8,12 @@ public class InteractBox : MonoBehaviour
     public bool beingPushed; 
     private float xPos;
     public bool hasBeenActivated =  false;
+    [SerializeField] private Rigidbody2D rb;
+
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         xPos = transform.position.x;
-
     }
     void Update()
     {

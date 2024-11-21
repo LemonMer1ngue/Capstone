@@ -10,9 +10,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Animator animator;
-    [SerializeField] private bool isGrounded;
+    private Rigidbody2D rb;
+    private Animator animator;
+    private bool isGrounded;
 
     [SerializeField] private float distance;
     [SerializeField] private LayerMask boxMask;
@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimation();
         PlayerPushBox();
         UpdateInteractText();
+        CheckBoxDrop();
+
     }
 
     void Move()
@@ -53,6 +55,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
+        switch (isHoldingBox)
+        {
+            case true:
+                return;
+            case false:
+                break;
+        }
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
         if (isGrounded && Input.GetButtonDown("Jump"))
@@ -91,19 +100,27 @@ public class PlayerMovement : MonoBehaviour
                 {
                     Debug.Log($"Interacted with Box ID: {boxScript.idBox}");
                 }
-                switch (isHoldingBox)
+                switch (!isHoldingBox && IsBoxGrounded(hit.collider.gameObject))
                 {
-                    case false:
+                    case true:
                         Box = hit.collider.gameObject;
                         Box.GetComponent<FixedJoint2D>().enabled = true;
+                        FixedJoint2D joint = Box.GetComponent<FixedJoint2D>();  
+                        Rigidbody2D rigidbody = Box.GetComponent<Rigidbody2D>();
+                        rigidbody.freezeRotation = false;
+                        joint.frequency = 3f;
                         Box.GetComponent<InteractBox>().beingPushed = true;
                         Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
                         isHoldingBox = true;
                         holdingBoxID = boxScript.idBox;
                         break;
 
-                    case true:
+                    case false:
                         Box.GetComponent<FixedJoint2D>().enabled = false;
+                        FixedJoint2D releaseJoint = Box.GetComponent<FixedJoint2D>();
+                        Rigidbody2D releaserigidbody = Box.GetComponent<Rigidbody2D>();
+                        releaserigidbody.freezeRotation = true;
+                        releaseJoint.frequency = 0f;
                         Box.GetComponent<InteractBox>().beingPushed = false;
                         Box.GetComponent<FixedJoint2D>().connectedBody = null;
                         Box = null;
@@ -134,7 +151,32 @@ public class PlayerMovement : MonoBehaviour
 
         interactText.gameObject.SetActive(showInteract);
     }
+    void CheckBoxDrop()
+    {
+        switch(isHoldingBox && (!IsGrounded() || !IsBoxGrounded(Box))){
+            case true:
+                Debug.Log("Player or box is not grounded. Releasing box.");
+                Box.GetComponent<FixedJoint2D>().enabled = false;
+                Box.GetComponent<InteractBox>().beingPushed = false;
+                Box.GetComponent<FixedJoint2D>().connectedBody = null;
+                Box = null;
+                isHoldingBox = false;
+                holdingBoxID = -1;
+                break;
+                case false:
+                break;
+        }
+    }
 
+    bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+    }
+
+    bool IsBoxGrounded(GameObject box)
+    {
+        return Physics2D.OverlapCircle(box.transform.position, 0.1f, groundLayer);
+    }
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
