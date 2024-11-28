@@ -4,45 +4,80 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    public Transform posA, posB;
-    public float speed;
-    private Vector2 targetPos;
-    private Vector2 platformVelocity;
-    private Vector2 lastPlatformPosition;
-    private bool onPlatform;
+    public Transform posA, posB; // Posisi awal dan akhir platform
+    public float speed; // Kecepatan platform
+    private Vector2 targetPos; // Posisi target platform
+    private Vector2 platformVelocity; // Kecepatan platform untuk player
+    private Vector2 lastPlatformPosition; // Posisi terakhir platform
+    private bool isButtonPressed = false;
     private Rigidbody2D playerRb;
+    private bool onPlatform; // Status tombol untuk platform
+
+    public bool alwaysMoving;
 
     void Start()
     {
-        targetPos = posB.position;
+        targetPos = posA.position; // Platform dimulai di posisi awal
         lastPlatformPosition = transform.position;
     }
 
     void Update()
     {
-        // Move the platform between posA and posB
-        if (Vector2.Distance(transform.position, posA.position) < .1f)
+        if (alwaysMoving)
         {
-            targetPos = posB.position;
-        }
-        else if (Vector2.Distance(transform.position, posB.position) < .1f)
-        {
-            targetPos = posA.position;
-        }
-        transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+            // Move the platform between posA and posB
+            if (Vector2.Distance(transform.position, posA.position) < .1f)
+            {
+                targetPos = posB.position;
+            }
+            else if (Vector2.Distance(transform.position, posB.position) < .1f)
+            {
+                targetPos = posA.position;
+            }
+            transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 
-        // Calculate platform's current velocity based on position change
-        platformVelocity = ((Vector2)transform.position - lastPlatformPosition) / Time.deltaTime;
-        lastPlatformPosition = transform.position;
+            // Calculate platform's current velocity based on position change
+            platformVelocity = ((Vector2)transform.position - lastPlatformPosition) / Time.deltaTime;
+            lastPlatformPosition = transform.position;
+        }
+        else
+        {
+            if (isButtonPressed)
+            {
+                targetPos = posB.position; // Jika tombol ditekan, bergerak ke posB
+            }
+            else
+            {
+                targetPos = posA.position; // Jika tombol dilepas, kembali ke posA
+            }
+
+            // Gerakkan platform
+            transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+
+            // Hitung velocity platform
+            platformVelocity = ((Vector2)transform.position - lastPlatformPosition) / Time.deltaTime;
+            lastPlatformPosition = transform.position;
+        }
+
     }
 
     private void FixedUpdate()
     {
-        if (onPlatform && playerRb != null)
+        if (isButtonPressed || alwaysMoving)
         {
-            // Apply platform's velocity to the player
-            playerRb.velocity += platformVelocity;
+            // Gerakkan platform ke posisi target
+            if (onPlatform && playerRb != null)
+            {
+                // Menambahkan kecepatan platform ke velocity player
+                playerRb.velocity += platformVelocity; // Mengatur kecepatan horizontal
+            }
         }
+
+        // Hitung velocity platform
+        // platformVelocity = ((Vector2)transform.position - lastPlatformPosition) / Time.deltaTime;
+        // lastPlatformPosition = transform.position;
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -51,7 +86,7 @@ public class MovingPlatform : MonoBehaviour
         {
             onPlatform = true;
             playerRb = collision.GetComponent<Rigidbody2D>();
-            lastPlatformPosition = transform.position;  // Reset position tracking for accurate velocity
+            lastPlatformPosition = transform.position;
         }
     }
 
@@ -60,7 +95,16 @@ public class MovingPlatform : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             onPlatform = false;
-            playerRb = null;  // Clear reference to player's Rigidbody on exit
+            playerRb = null;
         }
     }
+
+
+    // Method untuk mengatur status tombol
+    public void SetButtonPressed(bool pressed)
+    {
+        isButtonPressed = pressed;
+    }
+
+
 }
