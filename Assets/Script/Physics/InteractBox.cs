@@ -4,56 +4,80 @@ using UnityEngine;
 
 public class InteractBox : MonoBehaviour
 {
+    public bool inSpirit;
+    public bool isReal;
     public int idBox;
-    public bool beingPushed; // Apakah box sedang didorong
-    public bool isPlayerNearby; // Apakah player dekat dengan box
+    public bool beingPushed;
+    [SerializeField] private bool isPlayerNearby;
+    [SerializeField] private bool isMerged; 
     private Rigidbody2D rb;
-    public bool hasBeenActivated = false;
-    private Vector2 initialPosition; // Posisi awal box
+    private Vector2 initialPosition;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         beingPushed = false;
         isPlayerNearby = false;
+        isMerged = false;
 
-        // Inisialisasi posisi awal box
         initialPosition = transform.position;
 
-        // Set posisi box ke posisi awal
         transform.position = initialPosition;
     }
 
     void FixedUpdate()
     {
-        // Jika player dekat, freeze posisi X untuk mencegah tergelincir
-        if (!beingPushed && isPlayerNearby)
+        if (!beingPushed && isPlayerNearby && !isMerged)
         {
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
-        // Jika box sedang didorong, atau player menjauh, lepas semua pembekuan
-        else if (beingPushed || !isPlayerNearby)
+        else if (!beingPushed && isPlayerNearby && isMerged)
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+
+        }
+        else if (beingPushed || isMerged)
         {
             rb.constraints = RigidbodyConstraints2D.None;
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation; // Biarkan hanya rotasi yang dibatasi
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Jika player mendekat, aktifkan penguncian posisi X
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNearby = true;
+        }
+
+        if (collision.gameObject.CompareTag("InteractAble"))
+        {
+            isMerged = true; 
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        // Jika player menjauh, lepas penguncian posisi X
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNearby = false;
+        }
+
+        if (collision.gameObject.CompareTag("InteractAble"))
+        {
+            isMerged = false; 
+        }
+    }
+
+    public void HandleMergedPush(bool beingPushed)
+    {
+        if (isMerged && beingPushed)
+        {
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+        else if (!beingPushed)
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
     }
 }

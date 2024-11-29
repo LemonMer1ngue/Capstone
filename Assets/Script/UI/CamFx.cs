@@ -12,8 +12,7 @@ public class InteractableCameraEffect : MonoBehaviour
     public GameObject[] interactableAreas; // Areas where interaction is possible
     public GameObject player; // Reference to the player object
     public GameObject[] platformsToToggle; // Platforms to toggle visibility
-    public GameObject[] boxToReal;
-    public GameObject[] boxToSpirit;
+    public GameObject[] SwitchBox;
     public bool togglePlatforms = true; // Whether to toggle platforms on interaction
 
     [Header("Sound Settings")]
@@ -92,7 +91,7 @@ public class InteractableCameraEffect : MonoBehaviour
                 StopCoroutine(fadeCoroutine);
             }
             diGaib = !diGaib;
-       
+
 
             fadeCoroutine = StartCoroutine(FadeEffects());
         }
@@ -193,9 +192,7 @@ public class InteractableCameraEffect : MonoBehaviour
             TogglePlatforms();
         }
 
-        BoxInSpirit();
-        BoxInReal();
-        BoxToReal();
+        SwitchBoxDimension();
         effectsActive = !effectsActive; // Toggle effects state
     }
 
@@ -207,49 +204,47 @@ public class InteractableCameraEffect : MonoBehaviour
             platform.SetActive(!platform.activeSelf);
         }
     }
-    private void BoxInSpirit()
+    private void SwitchBoxDimension()
     {
-        for (int i = 0; i < boxToReal.Length; i++)  
+        foreach (GameObject box in SwitchBox)
         {
-            GameObject box = boxToReal[i];
-            if (box.TryGetComponent<InteractBox>(out var interactBox))
-            {
-                if (interactBox.hasBeenActivated)
-                {
-                    box.SetActive(!diGaib);
-                }
-                else
-                {
-                    box.SetActive(diGaib);
-                }
-            }
-        }
-    }
-
-
-    private void BoxInReal()
-    {
-        foreach (GameObject box in boxToSpirit)
-        {
-            box.SetActive(!diGaib);
-        }
-    }
-    private void BoxToReal()
-    {
-        for (int i = 0; i < boxToReal.Length; i++)  
-        {
-            GameObject box = boxToReal[i];
             if (box.TryGetComponent<InteractBox>(out var interactBox))
             {
                 if (playerMovement.isHoldingBox && interactBox.idBox == playerMovement.holdingBoxID)
                 {
-                    box.SetActive(!diGaib);
-                    interactBox.hasBeenActivated = true;
+                    switch (diGaib)
+                    {
+                        case true:
+                            interactBox.inSpirit = true;
+                            interactBox.isReal = false;
+                            box.SetActive(true);
+                            break;
+                        case false:
+                            interactBox.inSpirit = false;
+                            interactBox.isReal = true;
+                            box.SetActive(true);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (diGaib)
+                    {
+                        case true:
+                            box.SetActive(interactBox.inSpirit);
 
+                            break;
+                        case false:
+                            box.SetActive(interactBox.isReal);
+
+                            break;
+                    }
                 }
             }
         }
     }
+
+
 
     private IEnumerator ShakeAndZoom(float duration)
     {

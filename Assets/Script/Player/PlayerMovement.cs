@@ -104,25 +104,24 @@ public class PlayerMovement : MonoBehaviour
                     case true:
                         Box = hit.collider.gameObject;
                         Box.GetComponent<FixedJoint2D>().enabled = true;
-                        //FixedJoint2D joint = Box.GetComponent<FixedJoint2D>();
-                        //Rigidbody2D rigidbody = Box.GetComponent<Rigidbody2D>();
-                        //rigidbody.freezeRotation = false;
-                        //joint.frequency = 3f;
+                        FixedJoint2D joint = Box.GetComponent<FixedJoint2D>();
+                        Rigidbody2D rigidbody = Box.GetComponent<Rigidbody2D>();
+                        joint.frequency = 5f;
                         Box.GetComponent<InteractBox>().beingPushed = true;
                         Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
                         isHoldingBox = true;
                         holdingBoxID = boxScript.idBox;
+                        boxScript.HandleMergedPush(true);
                         break;
 
                     case false:
                         Box.GetComponent<FixedJoint2D>().enabled = false;
-                        //FixedJoint2D releaseJoint = Box.GetComponent<FixedJoint2D>();
-                        //Rigidbody2D releaserigidbody = Box.GetComponent<Rigidbody2D>();
-                        //releaserigidbody.freezeRotation = true;
-                        //releaseJoint.frequency = 0f;
+                        FixedJoint2D releaseJoint = Box.GetComponent<FixedJoint2D>();
+                        releaseJoint.frequency = 0f;
                         Box.GetComponent<InteractBox>().beingPushed = false;
                         Box.GetComponent<FixedJoint2D>().connectedBody = null;
                         isHoldingBox = false;
+                        boxScript.HandleMergedPush(false);
                         holdingBoxID = -1;
 
                         break;
