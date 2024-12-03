@@ -46,11 +46,17 @@ public class PlayerMovement : MonoBehaviour
         float effectiveMoveSpeed = isHoldingBox ? moveSpeed * 0.5f : moveSpeed;
         rb.velocity = new Vector2(moveInput * effectiveMoveSpeed, rb.velocity.y);
 
-        if (moveInput != 0)
+        // Update the player's direction based on input
+        if (moveInput < 0) // Moving left (pressing 'A')
         {
-            transform.localScale = new Vector3(Mathf.Sign(moveInput), 1, 1);
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (moveInput > 0) // Moving right (pressing 'D')
+        {
+            transform.localScale = new Vector3(1, 1, 1);
         }
     }
+
 
     void Jump()
     {
