@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 536466978123526804}
   m_Layer: 0
-  m_Name: FallingPlatform
+  m_Name: Hanging Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

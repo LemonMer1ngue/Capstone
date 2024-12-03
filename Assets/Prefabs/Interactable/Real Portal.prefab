@@ -694,7 +694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 3228201358753876370}
-  listener: {fileID: 0}
+  listener: {fileID: 2237400820017484483, guid: bbc502e9889654d45a59a9d1bda7e81c, type: 3}
   minDistance: 10
   maxDistance: 20
 --- !u!114 &3068413905595935307
