@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4798749579542496104}
   - component: {fileID: 4062871979516774445}
   - component: {fileID: 6158657631372136110}
-  - component: {fileID: 8259754727003986032}
   - component: {fileID: 3281528354775423067}
+  - component: {fileID: 8259754727003986032}
   m_Layer: 3
   m_Name: Box
   m_TagString: InteractAble
@@ -134,24 +134,6 @@ FixedJoint2D:
   m_ConnectedAnchor: {x: 15.3523655, y: -5.3832073}
   m_DampingRatio: 0
   m_Frequency: 0
---- !u!114 &8259754727003986032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7411004096755111367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10ea925d475b0b74fac14d7158b9e206, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inSpirit: 0
-  isReal: 0
-  idBox: 0
-  beingPushed: 0
-  isPlayerNearby: 0
-  isMerged: 0
 --- !u!61 &3281528354775423067
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -197,3 +179,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.02, y: 3.48}
   m_EdgeRadius: 0
+--- !u!114 &8259754727003986032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7411004096755111367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ea925d475b0b74fac14d7158b9e206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inSpirit: 0
+  isReal: 0
+  idBox: 0
+  beingPushed: 0
+  isPlayerNearby: 0
+  isMerged: 0

@@ -1,22 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KillPlayer : MonoBehaviour
 {
     public GameObject player;
     public Transform respawnPoint;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public ParticleSystem[] smokeParticle; 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -28,12 +19,26 @@ public class KillPlayer : MonoBehaviour
 
     void Die()
     {
-        StartCoroutine(Respawn(0.7f));
+        StartCoroutine(RespawnWithEffects(5f));
     }
 
-    IEnumerator Respawn(float duration)
+    IEnumerator RespawnWithEffects(float particleDuration)
     {
-        yield return new WaitForSeconds(duration);
         player.transform.position = respawnPoint.position;
+
+        foreach (var particle in smokeParticle)
+        {
+            particle.Play();
+        }
+
+        yield return new WaitForSeconds(particleDuration);
+        player.transform.position = respawnPoint.position;
+
+        foreach (var particle in smokeParticle)
+        {
+            particle.Stop();
+        }
+
+
     }
 }

@@ -29,7 +29,7 @@ public class InteractBox : MonoBehaviour
     {
         if (!beingPushed && isPlayerNearby && !isMerged)
         {
-            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
         else if (!beingPushed && isPlayerNearby && isMerged)
         {

@@ -152,9 +152,6 @@ public class PlayerMovement : MonoBehaviour
                     case true:
                         Box = hit.collider.gameObject;
                         Box.GetComponent<FixedJoint2D>().enabled = true;
-                        FixedJoint2D joint = Box.GetComponent<FixedJoint2D>();
-                        Rigidbody2D rigidbody = Box.GetComponent<Rigidbody2D>();
-                        joint.frequency = 3f;
                         Box.GetComponent<InteractBox>().beingPushed = true;
                         Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
                         isHoldingBox = true;
@@ -164,8 +161,7 @@ public class PlayerMovement : MonoBehaviour
 
                     case false:
                         Box.GetComponent<FixedJoint2D>().enabled = false;
-                        FixedJoint2D releaseJoint = Box.GetComponent<FixedJoint2D>();
-                        releaseJoint.frequency = 0f;
+
                         Box.GetComponent<InteractBox>().beingPushed = false;
                         Box.GetComponent<FixedJoint2D>().connectedBody = null;
                         isHoldingBox = false;
