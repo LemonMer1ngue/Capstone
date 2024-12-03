@@ -11,11 +11,6 @@ public class EnhancedCameraFollow : MonoBehaviour
     public Vector2 minBounds = new Vector2(-10, -5); // Minimum boundaries for the camera
     public Vector2 maxBounds = new Vector2(10, 5); // Maximum boundaries for the camera
 
-    [Header("Zoom Settings")]
-    public bool enableZoom = true; // Toggle for zooming
-    public float zoomSpeed = 2f; // Speed of zooming
-    public float minZoom = 5f; // Minimum zoom level
-    public float maxZoom = 15f; // Maximum zoom level
 
     private Camera cam;
 
@@ -44,13 +39,6 @@ public class EnhancedCameraFollow : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
 
         // Handle zooming if enabled
-        if (enableZoom)
-        {
-            float scrollData = Input.GetAxis("Mouse ScrollWheel");
-            if (scrollData != 0)
-            {
-                cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - scrollData * zoomSpeed, minZoom, maxZoom);
-            }
-        }
+
     }
 }
