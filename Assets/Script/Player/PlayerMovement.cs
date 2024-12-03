@@ -55,6 +55,48 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
+
+        if (isHoldingBox && Box != null)
+        {
+            float horizontalInput = Input.GetAxisRaw("Horizontal");
+
+            if (horizontalInput > 0 && Box.transform.position.x > transform.position.x)
+            {
+                // Player di kiri, box di kanan, animasi push
+                animator.SetBool("isPushing", true);
+                animator.SetBool("isPulling", false);
+            }
+            else if (horizontalInput < 0 && Box.transform.position.x > transform.position.x)
+            {
+                // Player di kiri, box di kanan, animasi pull
+                animator.SetBool("isPushing", false);
+                animator.SetBool("isPulling", true);
+            }
+            else if (horizontalInput < 0 && Box.transform.position.x < transform.position.x)
+            {
+                // Player di kanan, box di kiri, animasi push
+                animator.SetBool("isPushing", true);
+                animator.SetBool("isPulling", false);
+            }
+            else if (horizontalInput > 0 && Box.transform.position.x < transform.position.x)
+            {
+                // Player di kanan, box di kiri, animasi pull
+                animator.SetBool("isPushing", false);
+                animator.SetBool("isPulling", true);
+            }
+            else
+            {
+                // Tidak ada input, matikan push dan pull
+                animator.SetBool("isPushing", false);
+                animator.SetBool("isPulling", false);
+            }
+        }
+        else
+        {
+            // Tidak sedang memegang box, matikan push dan pull
+            animator.SetBool("isPushing", false);
+            animator.SetBool("isPulling", false);
+        }
     }
 
 
@@ -103,16 +145,16 @@ public class PlayerMovement : MonoBehaviour
                 InteractBox boxScript = hit.collider.gameObject.GetComponent<InteractBox>();
                 if (boxScript != null)
                 {
-                    Debug.Log($"Interacted with Box ID: {boxScript.idBox}");
+                    Debug.Log($"{boxScript.idBox}");
                 }
-                switch (!isHoldingBox && IsBoxGrounded(hit.collider.gameObject))
+                switch (!isHoldingBox)
                 {
                     case true:
                         Box = hit.collider.gameObject;
                         Box.GetComponent<FixedJoint2D>().enabled = true;
                         FixedJoint2D joint = Box.GetComponent<FixedJoint2D>();
                         Rigidbody2D rigidbody = Box.GetComponent<Rigidbody2D>();
-                        joint.frequency = 5f;
+                        joint.frequency = 3f;
                         Box.GetComponent<InteractBox>().beingPushed = true;
                         Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
                         isHoldingBox = true;
