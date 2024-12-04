@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimation();
         PlayerPushBox();
         UpdateInteractText();
-        StopMoveAtDialog();
+        
     }
 
     
@@ -211,16 +211,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
     }
-    void StopMoveAtDialog()
-    {
-        if (DialogueManager.Instance != null)
-        {
-            rb.velocity = Vector2.zero;
-            return;
-        }
-            
-        
-    }
+    
 
     bool IsGrounded()
     {
