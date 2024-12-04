@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimation();
         PlayerPushBox();
         UpdateInteractText();
-
+        UpdateBoxAnimation();
     }
 
     void Move()
@@ -46,60 +46,12 @@ public class PlayerMovement : MonoBehaviour
         float effectiveMoveSpeed = isHoldingBox ? moveSpeed * 0.5f : moveSpeed;
         rb.velocity = new Vector2(moveInput * effectiveMoveSpeed, rb.velocity.y);
 
-        // Update the player's direction based on input
-        if (moveInput < 0) // Moving left (pressing 'A')
+        if (moveInput != 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        else if (moveInput > 0) // Moving right (pressing 'D')
-        {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(Mathf.Sign(moveInput), 1, 1);
         }
 
-        if (isHoldingBox && Box != null)
-        {
-            float horizontalInput = Input.GetAxisRaw("Horizontal");
-
-            if (horizontalInput > 0 && Box.transform.position.x > transform.position.x)
-            {
-                // Player di kiri, box di kanan, animasi push
-                animator.SetBool("isPushing", true);
-                animator.SetBool("isPulling", false);
-            }
-            else if (horizontalInput < 0 && Box.transform.position.x > transform.position.x)
-            {
-                // Player di kiri, box di kanan, animasi pull
-                animator.SetBool("isPushing", false);
-                animator.SetBool("isPulling", true);
-            }
-            else if (horizontalInput < 0 && Box.transform.position.x < transform.position.x)
-            {
-                // Player di kanan, box di kiri, animasi push
-                animator.SetBool("isPushing", true);
-                animator.SetBool("isPulling", false);
-            }
-            else if (horizontalInput > 0 && Box.transform.position.x < transform.position.x)
-            {
-                // Player di kanan, box di kiri, animasi pull
-                animator.SetBool("isPushing", false);
-                animator.SetBool("isPulling", true);
-            }
-            else
-            {
-                // Tidak ada input, matikan push dan pull
-                animator.SetBool("isPushing", false);
-                animator.SetBool("isPulling", false);
-            }
-        }
-        else
-        {
-            // Tidak sedang memegang box, matikan push dan pull
-            animator.SetBool("isPushing", false);
-            animator.SetBool("isPulling", false);
-        }
     }
-
-
     void Jump()
     {
         switch (isHoldingBox)
@@ -132,6 +84,34 @@ public class PlayerMovement : MonoBehaviour
             animator.ResetTrigger("isFalling"); // Reset the isFalling trigger when grounded
         }
     }
+    
+    void UpdateBoxAnimation()
+    {
+        if (isHoldingBox)
+        {
+            float horizontalInput = Input.GetAxisRaw("Horizontal");
+
+            if (horizontalInput > 0)
+            {
+                animator.SetFloat("Blendtree", 1); // Push
+            }
+            else if (horizontalInput < 0)
+            {
+                animator.SetFloat("Blendtree", -1); // Pull
+            }
+            else
+            {
+                animator.SetFloat("Blendtree", 0); // Idle
+            }
+
+            // Debugging
+            Debug.Log($"Horizontal Input: {horizontalInput}, Blendtree Value: {animator.GetFloat("Blendtree")}");
+        }
+        else
+        {
+            animator.SetFloat("Blendtree", 0); // Default to Idle when not holding box
+        }
+    }
 
     void PlayerPushBox()
     {
@@ -147,30 +127,29 @@ public class PlayerMovement : MonoBehaviour
                 {
                     Debug.Log($"{boxScript.idBox}");
                 }
-                switch (!isHoldingBox)
+
+                if (!isHoldingBox)
                 {
-                    case true:
-                        Box = hit.collider.gameObject;
-                        Box.GetComponent<FixedJoint2D>().enabled = true;
-                        Box.GetComponent<InteractBox>().beingPushed = true;
-                        Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
-                        isHoldingBox = true;
-                        holdingBoxID = boxScript.idBox;
-                        boxScript.HandleMergedPush(true);
-                        break;
-
-                    case false:
-                        Box.GetComponent<FixedJoint2D>().enabled = false;
-
-                        Box.GetComponent<InteractBox>().beingPushed = false;
-                        Box.GetComponent<FixedJoint2D>().connectedBody = null;
-                        isHoldingBox = false;
-                        boxScript.HandleMergedPush(false);
-                        holdingBoxID = -1;
-
-                        break;
+                    Box = hit.collider.gameObject;
+                    Box.GetComponent<FixedJoint2D>().enabled = true;
+                    Box.GetComponent<InteractBox>().beingPushed = true;
+                    Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+                    isHoldingBox = true;
+                    holdingBoxID = boxScript.idBox;                  
                 }
-                break; 
+                else
+                {
+                    Box.GetComponent<FixedJoint2D>().enabled = false;
+                    Box.GetComponent<InteractBox>().beingPushed = false;
+                    Box.GetComponent<FixedJoint2D>().connectedBody = null;
+                    isHoldingBox = false;
+                    Debug.Log("Box Released!"); // Debug kondisi
+                    animator.SetBool("InteractBox", false);  // Push
+
+
+                    holdingBoxID = -1;
+                }
+
             }
         }
     }
