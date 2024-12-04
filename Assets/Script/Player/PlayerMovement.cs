@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
@@ -37,8 +38,10 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimation();
         PlayerPushBox();
         UpdateInteractText();
-
+        StopMoveAtDialog();
     }
+
+    
 
     void Move()
     {
@@ -207,6 +210,16 @@ public class PlayerMovement : MonoBehaviour
                 case false:
                 break;
         }
+    }
+    void StopMoveAtDialog()
+    {
+        if (DialogueManager.Instance != null)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+            
+        
     }
 
     bool IsGrounded()

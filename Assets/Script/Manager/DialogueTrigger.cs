@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class DialogueCharacter
@@ -29,7 +30,15 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Start()
     {
-        TriggerDialogue();
+        if (SceneManager.GetActiveScene().name == "CutScene")
+        {
+            TriggerDialogue();
+        }
+        else
+        {
+            StartCoroutine(AwakenStart());
+        }
+        
     }
 
     public void TriggerDialogue()
@@ -43,5 +52,11 @@ public class DialogueTrigger : MonoBehaviour
         {
             TriggerDialogue();
         }
+    }
+
+    IEnumerator AwakenStart()
+    {
+        yield return new WaitForSeconds(3);
+        TriggerDialogue();
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -13,15 +14,16 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueArea;
 
     private Queue<DialogueLine> lines;
-    public bool isDialogueActive = false;
+    //public bool isDialogueActive = false;
 
     public float typingSpeed = 0.02f; // Typing speed more realistic
     private Animator animator;
 
     private bool isTyping = false;
     private DialogueLine currentLine;
-    private void Start()
+    private void Awake()
     {
+        gameObject.SetActive(false);
         animator = GetComponent<Animator>();
 
         if (Instance == null)
@@ -33,7 +35,7 @@ public class DialogueManager : MonoBehaviour
     private void Update()
     {
         // Detect left mouse click or Space key
-        if (isDialogueActive && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)))
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)))
         {
             if (isTyping)
             {
@@ -51,7 +53,8 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
-        isDialogueActive = true;
+        gameObject.SetActive (true);
+        //isDialogueActive = true;
         animator.SetTrigger("Start");
 
         lines.Clear();
@@ -102,11 +105,13 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator End()
     {
-        isDialogueActive = false;
+        //isDialogueActive = false;
         animator.SetTrigger("End");
-        LevelLoader.Instance.LoadNextLevelTutorial();
-        yield return new WaitForSeconds(1);
-        gameObject.SetActive(false);
-        
+        if (SceneManager.GetActiveScene().name == "CutScene")
+        {
+            LevelLoader.Instance.LoadNextLevelTutorial();
+        }
+            yield return new WaitForSeconds(1);
+            gameObject.SetActive(false);
     }
 }
