@@ -37,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimation();
         PlayerPushBox();
         UpdateInteractText();
-        UpdateBoxAnimation();
     }
 
     void Move()
@@ -84,35 +83,7 @@ public class PlayerMovement : MonoBehaviour
             animator.ResetTrigger("isFalling"); // Reset the isFalling trigger when grounded
         }
     }
-    
-    void UpdateBoxAnimation()
-    {
-        if (isHoldingBox)
-        {
-            float horizontalInput = Input.GetAxisRaw("Horizontal");
-
-            if (horizontalInput > 0)
-            {
-                animator.SetFloat("Blendtree", 1); // Push
-            }
-            else if (horizontalInput < 0)
-            {
-                animator.SetFloat("Blendtree", -1); // Pull
-            }
-            else
-            {
-                animator.SetFloat("Blendtree", 0); // Idle
-            }
-
-            // Debugging
-            Debug.Log($"Horizontal Input: {horizontalInput}, Blendtree Value: {animator.GetFloat("Blendtree")}");
-        }
-        else
-        {
-            animator.SetFloat("Blendtree", 0); // Default to Idle when not holding box
-        }
-    }
-
+   
     void PlayerPushBox()
     {
         Vector2[] directions = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
@@ -135,7 +106,9 @@ public class PlayerMovement : MonoBehaviour
                     Box.GetComponent<InteractBox>().beingPushed = true;
                     Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
                     isHoldingBox = true;
-                    holdingBoxID = boxScript.idBox;                  
+                    holdingBoxID = boxScript.idBox;
+                    animator.SetBool("isPushing", true);
+
                 }
                 else
                 {
@@ -143,10 +116,7 @@ public class PlayerMovement : MonoBehaviour
                     Box.GetComponent<InteractBox>().beingPushed = false;
                     Box.GetComponent<FixedJoint2D>().connectedBody = null;
                     isHoldingBox = false;
-                    Debug.Log("Box Released!"); // Debug kondisi
-                    animator.SetBool("InteractBox", false);  // Push
-
-
+                    animator.SetBool("isPushing", false);
                     holdingBoxID = -1;
                 }
 
