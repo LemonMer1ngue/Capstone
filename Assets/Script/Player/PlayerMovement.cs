@@ -107,7 +107,6 @@ public class PlayerMovement : MonoBehaviour
                     Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
                     isHoldingBox = true;
                     holdingBoxID = boxScript.idBox;
-                    animator.SetBool("isPushing", true);
 
                 }
                 else
@@ -116,7 +115,6 @@ public class PlayerMovement : MonoBehaviour
                     Box.GetComponent<InteractBox>().beingPushed = false;
                     Box.GetComponent<FixedJoint2D>().connectedBody = null;
                     isHoldingBox = false;
-                    animator.SetBool("isPushing", false);
                     holdingBoxID = -1;
                 }
 
