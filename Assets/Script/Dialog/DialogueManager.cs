@@ -9,14 +9,14 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
 
-    //public Image characterIcon;
+    public Image background;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
 
     private Queue<DialogueLine> lines;
-    //public bool isDialogueActive = false;
+    
 
-    public float typingSpeed = 0.02f; // Typing speed more realistic
+    public float typingSpeed = 0.01f; 
     private Animator animator;
 
     private bool isTyping = false;
@@ -29,12 +29,11 @@ public class DialogueManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
-        lines = new Queue<DialogueLine>(); // Initialize queue
+        lines = new Queue<DialogueLine>(); 
     }
 
     private void Update()
     {
-        // Detect left mouse click or Space key
         if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)))
         {
             if (isTyping)
@@ -54,7 +53,6 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     {
         gameObject.SetActive (true);
-        //isDialogueActive = true;
         animator.SetTrigger("Start");
 
         lines.Clear();
@@ -75,7 +73,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         currentLine = lines.Dequeue();
-        //characterIcon.sprite = currentLine.character.icon;
+        background.sprite = currentLine.character.bgImg;
         characterName.text = currentLine.character.name;
 
         StopAllCoroutines();
@@ -85,7 +83,7 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeSentence(DialogueLine dialogueLine)
     {
         dialogueArea.text = "";
-        isTyping = true; // Set typing status
+        isTyping = true; 
 
         foreach (char letter in dialogueLine.line.ToCharArray())
         {
@@ -93,7 +91,7 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
 
-        isTyping = false; // Typing finished
+        isTyping = false; 
     }
 
     void EndDialogue()
@@ -105,13 +103,14 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator End()
     {
-        //isDialogueActive = false;
+        
         animator.SetTrigger("End");
+        yield return new WaitForSeconds(1);
         if (SceneManager.GetActiveScene().name == "CutScene")
         {
             LevelLoader.Instance.LoadNextLevelTutorial();
         }
-            yield return new WaitForSeconds(1);
+            
             gameObject.SetActive(false);
     }
 }

@@ -3,27 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class NewBehaviourScript : MonoBehaviour
+public class DeathController : MonoBehaviour
 {
-    Vector2 startPos;
-    // Start is called before the first frame update
+    public static DeathController Instance;
+
+    public GameObject respawnAnimObject;
+    public Animator anim;
+    Vector2 checkpointPos;
+    Rigidbody2D playerRb;
+
     void Start()
     {
-        startPos = transform.position;
+        checkpointPos = transform.position;
+        playerRb = GetComponent<Rigidbody2D>();
+        respawnAnimObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Water"))
+        {
+            Die();
+        }
     }
+
+    public void UpdateCheckpoint(Vector3 pos)
+    {
+        checkpointPos = pos;
+    } 
 
     void Die()
     {
-        Respawn();
+        StartCoroutine(Respawn(1f));
     }
 
-    void Respawn()
+    IEnumerator Respawn(float duration)
     {
-        transform.position = startPos;
+        playerRb.velocity = new Vector2(0, 0);
+        respawnAnimObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        transform.position = checkpointPos;
+        anim.SetTrigger("Respawn");
+        yield return new WaitForSeconds(duration);
+        respawnAnimObject.SetActive(false);
+       
+       
     }
 }

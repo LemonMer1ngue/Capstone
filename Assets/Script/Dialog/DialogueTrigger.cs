@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class DialogueCharacter
 {
     public string name;
-    //public Sprite icon;
+    public Sprite bgImg;
 }
 
 [System.Serializable]

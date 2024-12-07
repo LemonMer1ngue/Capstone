@@ -2966,7 +2966,6 @@ GameObject:
   - component: {fileID: 3491863152747315685}
   - component: {fileID: 1487967666395729440}
   - component: {fileID: 2060903632559844912}
-  - component: {fileID: 5342148967564393832}
   m_Layer: 4
   m_Name: Springs
   m_TagString: Untagged
@@ -3373,21 +3372,6 @@ PolygonCollider2D:
       - {x: 51.490982, y: -2.753233}
       - {x: -13.307831, y: -3.9870672}
   m_UseDelaunayMesh: 0
---- !u!114 &5342148967564393832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8604931144901488708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79b562e57c2702644a739883970ccba3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  respawnPoint: {fileID: 0}
-  smokeParticle: []
 --- !u!1 &8839841146262399629
 GameObject:
   m_ObjectHideFlags: 0
