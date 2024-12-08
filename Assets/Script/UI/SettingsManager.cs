@@ -1,124 +1,144 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
+using TMPro; // For TextMeshPro
 
 public class SettingsManager : MonoBehaviour
 {
     // Graphics Settings
-    public Slider resolutionSlider;
-    public Toggle fullscreenToggle;
-    public Slider gammaSlider;
+    [Header("Graphics")]
+/*    public Slider resolutionSlider;*/
+    public TextMeshProUGUI fullscreenText;
+/*    public Slider gammaSlider;*/
 
     // Audio Settings
+    [Header("Audio")]
+    public AudioMixer audioMixer;
     public Slider masterVolumeSlider;
     public Slider sfxVolumeSlider;
     public Slider musicVolumeSlider;
 
-    // Audio sources for SFX and music (ensure you assign them in Unity)
-    public AudioSource sfxAudioSource;
-    public AudioSource musicAudioSource;
+    private string[] fullscreenOptions = { "Off", "On" };
+    private int fullscreenIndex;
 
-    private void Start()
+    private void Update()
     {
-        LoadSettings();  // Load saved settings when the scene starts
+
     }
 
-    // Call this to save settings
+    private void OnEnable()
+    {
+        LoadSettings(); // Load settings when menu is opened
+    }
+
+    // Save all settings to PlayerPrefs
     public void SaveSettings()
     {
-        // Save graphics settings
-        PlayerPrefs.SetFloat("Resolution", resolutionSlider.value);
-        PlayerPrefs.SetInt("Fullscreen", fullscreenToggle.isOn ? 1 : 0);
-        PlayerPrefs.SetFloat("Gamma", gammaSlider.value);
-
-        // Save audio settings
+/*        PlayerPrefs.SetFloat("Resolution", resolutionSlider.value);*/
+        PlayerPrefs.SetInt("Fullscreen", fullscreenIndex);
+/*        PlayerPrefs.SetFloat("Gamma", gammaSlider.value);*/
         PlayerPrefs.SetFloat("MasterVolume", masterVolumeSlider.value);
         PlayerPrefs.SetFloat("SFXVolume", sfxVolumeSlider.value);
         PlayerPrefs.SetFloat("MusicVolume", musicVolumeSlider.value);
-
-        PlayerPrefs.Save();
+        PlayerPrefs.Save(); // Save immediately
     }
 
-    // Call this to load settings
-    public void LoadSettings()
+    // Load settings from PlayerPrefs
+    private void LoadSettings()
     {
-        // Load graphics settings
-        resolutionSlider.value = PlayerPrefs.GetFloat("Resolution", 1); // Default is 1 (max resolution)
-        fullscreenToggle.isOn = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
-        gammaSlider.value = PlayerPrefs.GetFloat("Gamma", 1); // Default is 1 (neutral gamma)
+/*        resolutionSlider.value = PlayerPrefs.GetFloat("Resolution", resolutionSlider.value);*/
+        fullscreenIndex = PlayerPrefs.GetInt("Fullscreen", 0);
+        Screen.fullScreen = fullscreenIndex == 1;
 
-        // Load audio settings
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1); // Default is 1 (full volume)
-        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1); // Default is 1 (full volume)
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1); // Default is 1 (full volume)
+        UpdateFullscreenDisplay();
+/*        gammaSlider.value = PlayerPrefs.GetFloat("Gamma", gammaSlider.value);*/
+        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", masterVolumeSlider.value);
+        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", sfxVolumeSlider.value);
+        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", musicVolumeSlider.value);
 
-        ApplyGraphicsSettings(); // Apply graphics settings immediately
-        ApplyAudioSettings(); // Apply audio settings immediately
+/*        ApplyGraphicsSettings();*/
+        ApplyAudioSettings();
     }
 
     // Apply graphics settings (Resolution, Fullscreen, Gamma)
-    private void ApplyGraphicsSettings()
+/*    private void ApplyGraphicsSettings()
     {
         int resolutionIndex = Mathf.FloorToInt(resolutionSlider.value);
         Resolution[] resolutions = Screen.resolutions;
 
-        // Ensure we're within the available resolutions
         if (resolutionIndex >= 0 && resolutionIndex < resolutions.Length)
         {
-            // Change resolution dynamically based on slider value
-            Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, fullscreenToggle.isOn);
+            Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, fullscreenIndex == 1);
         }
 
-        // Apply gamma by adjusting ambient light or a post-processing effect
         RenderSettings.ambientLight = Color.white * gammaSlider.value;
-    }
+    }*/
 
     // Apply audio settings (Master, SFX, Music)
     private void ApplyAudioSettings()
     {
-        // Set master volume globally (affects all audio)
-        AudioListener.volume = masterVolumeSlider.value;
-
-        // Adjust specific audio sources (SFX and Music)
-        if (sfxAudioSource != null)
-            sfxAudioSource.volume = sfxVolumeSlider.value;
-
-        if (musicAudioSource != null)
-            musicAudioSource.volume = musicVolumeSlider.value;
+        audioMixer.SetFloat("MasterVolume", masterVolumeSlider.value);
+        audioMixer.SetFloat("SFXVolume", sfxVolumeSlider.value);
+        audioMixer.SetFloat("MusicVolume", musicVolumeSlider.value);
     }
 
-    // When resolution slider is changed, apply the new settings
+    // When fullscreen selector's left button is clicked
+    public void OnFullscreenLeft()
+    {
+        fullscreenIndex = (fullscreenIndex - 1 + fullscreenOptions.Length) % fullscreenOptions.Length;
+        Screen.fullScreen = fullscreenIndex == 1; // Apply the new fullscreen setting
+        UpdateFullscreenDisplay();
+    }
+
+    // When fullscreen selector's right button is clicked
+    public void OnFullscreenRight()
+    {
+        fullscreenIndex = (fullscreenIndex + 1) % fullscreenOptions.Length;
+        Screen.fullScreen = fullscreenIndex == 1; // Apply the new fullscreen setting
+        UpdateFullscreenDisplay();
+    }
+
+
+
+    // Update the text display for fullscreen
+    private void UpdateFullscreenDisplay()
+    {
+        fullscreenText.text = fullscreenOptions[fullscreenIndex];
+        fullscreenText.ForceMeshUpdate(); // Ensure TMP text updates
+    }
+
+/*    // Handlers for UI sliders
     public void OnResolutionChanged()
     {
         ApplyGraphicsSettings();
+        SaveSettings();
     }
 
-    // When gamma slider is changed, apply the new gamma value
     public void OnGammaChanged()
     {
         ApplyGraphicsSettings();
+        SaveSettings();
     }
-
-    // When fullscreen toggle is changed, apply the new fullscreen setting
-    public void OnFullscreenToggle()
-    {
-        Screen.fullScreen = fullscreenToggle.isOn;
-        ApplyGraphicsSettings();
-    }
-
-    // When audio sliders are changed, apply new audio settings
+*/
     public void OnMasterVolumeChanged()
     {
         ApplyAudioSettings();
-        Debug.Log("changed");
+        SaveSettings();
     }
 
     public void OnSFXVolumeChanged()
     {
         ApplyAudioSettings();
+        SaveSettings();
     }
 
     public void OnMusicVolumeChanged()
     {
         ApplyAudioSettings();
+        SaveSettings();
     }
+
+    // Call this function when you want to check the values in PlayerPrefs
+
+
 }
