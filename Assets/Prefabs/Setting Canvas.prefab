@@ -439,7 +439,7 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 6967095753793462016}
   toggleTransition: 1
-  graphic: {fileID: 0}
+  graphic: {fileID: 6284311155984020535}
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
@@ -964,11 +964,10 @@ MonoBehaviour:
   resolutionSlider: {fileID: 0}
   fullscreenToggle: {fileID: 4411963204729822158}
   gammaSlider: {fileID: 8437042749829583552}
+  audioMixer: {fileID: 24100000, guid: 7fae5913793413342a52afb20f75147d, type: 2}
   masterVolumeSlider: {fileID: 2192569809130148386}
   sfxVolumeSlider: {fileID: 3615349175117430944}
   musicVolumeSlider: {fileID: 3990981997549192043}
-  sfxAudioSource: {fileID: 0}
-  musicAudioSource: {fileID: 0}
 --- !u!1 &1304634681615461309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,8 +1442,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8984088834282486636}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 40, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3666,8 +3665,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3772792159378362795}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 40, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4001,7 +4000,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 5345379356484429839}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -100
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 1
@@ -5714,8 +5713,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 686912350925905440}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 40, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6423,7 +6422,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 7666263807224226539}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -100
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 1
@@ -7152,7 +7151,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 4188893708874761028}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -100
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 1
