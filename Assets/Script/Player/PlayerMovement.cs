@@ -5,28 +5,31 @@ using static DimensionChanger;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 10f;
-    [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float raycastDistance;
 
     private Rigidbody2D rb;
     private Animator animator;
     private bool isGrounded;
+    private BoxCollider2D boxcollider;
 
+    [Header("Interact To Box")]
     [SerializeField] private float distance;
     [SerializeField] private LayerMask boxMask;
     [SerializeField] private GameObject Box;
     public bool isHoldingBox = false;
-
     [SerializeField] private Text interactText;
     public int holdingBoxID = -1;
-
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         interactText.gameObject.SetActive(false);
+        boxcollider = GetComponent<BoxCollider2D>();    
     }
 
 
@@ -51,6 +54,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+    bool IsGrounded()
+    {
+        // Raycast ke arah bawah untuk mendeteksi ground
+        RaycastHit2D hit = Physics2D.Raycast(boxcollider.bounds.center, Vector2.down, boxcollider.bounds.extents.y + raycastDistance, groundLayer);
+        Debug.DrawRay(boxcollider.bounds.center, Vector2.down * (boxcollider.bounds.extents.y + raycastDistance), Color.red); // Debugging
+        return hit.collider != null;
+    }
     void Jump()
     {
         switch (isHoldingBox)
@@ -60,13 +70,14 @@ public class PlayerMovement : MonoBehaviour
             case false:
                 break;
         }
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        if (IsGrounded() && Input.GetButtonDown("Jump"))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
+
+
 
     void UpdateAnimation()
     {
@@ -139,32 +150,32 @@ public class PlayerMovement : MonoBehaviour
 
         interactText.gameObject.SetActive(showInteract);
     }
-    void CheckBoxDrop()
-    {
-        switch(isHoldingBox && (!IsGrounded() || !IsBoxGrounded(Box))){
-            case true:
-                Debug.Log("Player or box is not grounded. Releasing box.");
-                Box.GetComponent<FixedJoint2D>().enabled = false;
-                Box.GetComponent<InteractBox>().beingPushed = false;
-                Box.GetComponent<FixedJoint2D>().connectedBody = null;
-                Box = null;
-                isHoldingBox = false;
-                holdingBoxID = -1;
-                break;
-                case false:
-                break;
-        }
-    }
+    //void CheckBoxDrop()
+    //{
+    //    switch(isHoldingBox && (!IsGrounded() || !IsBoxGrounded(Box))){
+    //        case true:
+    //            Debug.Log("Player or box is not grounded. Releasing box.");
+    //            Box.GetComponent<FixedJoint2D>().enabled = false;
+    //            Box.GetComponent<InteractBox>().beingPushed = false;
+    //            Box.GetComponent<FixedJoint2D>().connectedBody = null;
+    //            Box = null;
+    //            isHoldingBox = false;
+    //            holdingBoxID = -1;
+    //            break;
+    //            case false:
+    //            break;
+    //    }
+    //}
 
-    bool IsGrounded()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-    }
+    //bool IsGrounded()
+    //{
+    //    return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+    //}
 
-    bool IsBoxGrounded(GameObject box)
-    {
-        return Physics2D.OverlapCircle(box.transform.position, 0.1f, groundLayer);
-    }
+    //bool IsBoxGrounded(GameObject box)
+    //{
+    //    return Physics2D.OverlapCircle(box.transform.position, 0.1f, groundLayer);
+    //}
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
