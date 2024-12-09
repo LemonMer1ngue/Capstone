@@ -54,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41d20bd9f25ccbe4987bc929f5ab4800, type: 2}
+  - {fileID: 2100000, guid: 98bf08ba4e546964ea073d624d1422ef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,5 +120,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8504447612918806396}
-  minDuration: 1
-  maxDuration: 5
+  minTransitionIndex: 1
+  maxTransitionIndex: 6
