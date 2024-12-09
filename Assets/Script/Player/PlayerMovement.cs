@@ -5,15 +5,19 @@ using static DimensionChanger;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float raycastDistance;
 
     private Rigidbody2D rb;
     private Animator animator;
     private bool isGrounded;
+    private BoxCollider2D boxcollider;
 
+    [Header("Interact To Box")]
     [SerializeField] private float distance;
     [SerializeField] private LayerMask boxMask;
     [SerializeField] private GameObject Box;
@@ -26,7 +30,9 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        interactText.gameObject.SetActive(false);
+        interactText.gameObject.SetActive(false); 
+        boxcollider = GetComponent<BoxCollider2D>();
+
     }
 
 
@@ -62,12 +68,17 @@ public class PlayerMovement : MonoBehaviour
         }
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        if (IsGrounded() && Input.GetButtonDown("Jump"))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
-
+    bool IsGrounded()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(boxcollider.bounds.center, Vector2.down, boxcollider.bounds.extents.y + raycastDistance, groundLayer);
+        Debug.DrawRay(boxcollider.bounds.center, Vector2.down * (boxcollider.bounds.extents.y + raycastDistance), Color.red); // Debugging
+        return hit.collider != null;
+    }
     void UpdateAnimation()
     {
         animator.SetBool("isWalking", Mathf.Abs(rb.velocity.x) > 0.1f);
@@ -156,10 +167,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    bool IsGrounded()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-    }
+    //bool IsGrounded()
+    //{
+    //    return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+    //}
 
     bool IsBoxGrounded(GameObject box)
     {
