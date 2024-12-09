@@ -51,11 +51,50 @@ public class PlayerMovement : MonoBehaviour
         float effectiveMoveSpeed = isHoldingBox ? moveSpeed * 0.5f : moveSpeed;
         rb.velocity = new Vector2(moveInput * effectiveMoveSpeed, rb.velocity.y);
 
-        if (moveInput != 0)
+        if (isHoldingBox)
         {
-            transform.localScale = new Vector3(Mathf.Sign(moveInput), 1, 1);
+            animationInteractBox();
         }
+        else
+        {
+            if (moveInput != 0)
+            {
+                transform.localScale = new Vector3(Mathf.Sign(moveInput), 1, 1);
+            }
 
+            animator.SetFloat("Blendtree", 0f);
+        }
+    }
+
+    private void animationInteractBox()
+    {
+        float moveInput = Input.GetAxisRaw("Horizontal");
+
+            if (moveInput > 0 && Box.transform.position.x > transform.position.x)
+            {
+                animator.SetBool("isPushing", true);
+                animator.SetBool("isPulling", false);
+            }
+            else if (moveInput < 0 && Box.transform.position.x > transform.position.x)
+            {
+                animator.SetBool("isPushing", false);
+                animator.SetBool("isPulling", true);
+            }else if (moveInput > 0 && Box.transform.position.x < transform.position.x)
+            {
+                animator.SetBool("isPushing", false);
+                animator.SetBool("isPulling", true);
+            }else if(moveInput < 0 && Box.transform.position.x < transform.position.x)
+            {
+                animator.SetBool("isPushing", true);
+                animator.SetBool("isPulling", false);
+            }
+            else 
+            {
+                animator.SetBool("isPushing", false);
+                animator.SetBool("isPulling", false);
+            }
+
+        
     }
     void Jump()
     {
@@ -66,7 +105,6 @@ public class PlayerMovement : MonoBehaviour
             case false:
                 break;
         }
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
         if (IsGrounded() && Input.GetButtonDown("Jump"))
         {
@@ -81,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void UpdateAnimation()
     {
-        animator.SetBool("isWalking", Mathf.Abs(rb.velocity.x) > 0.1f);
+        animator.SetBool("isWalking", Input.GetAxisRaw("Horizontal") != 0 && !isHoldingBox);
         animator.SetBool("isGround", isGrounded);
         animator.SetBool("isJumping", !isGrounded);
 
@@ -112,6 +150,7 @@ public class PlayerMovement : MonoBehaviour
 
                 if (!isHoldingBox)
                 {
+
                     Box = hit.collider.gameObject;
                     Box.GetComponent<FixedJoint2D>().enabled = true;
                     Box.GetComponent<InteractBox>().beingPushed = true;
@@ -122,6 +161,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
+
                     Box.GetComponent<FixedJoint2D>().enabled = false;
                     Box.GetComponent<InteractBox>().beingPushed = false;
                     Box.GetComponent<FixedJoint2D>().connectedBody = null;

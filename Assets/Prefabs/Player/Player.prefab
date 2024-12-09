@@ -98,6 +98,8 @@ GameObject:
   - component: {fileID: 3462881623360681461}
   - component: {fileID: 2502794700034055995}
   - component: {fileID: 5043167911943173595}
+  - component: {fileID: 8173441738579224097}
+  - component: {fileID: 5647132109434734979}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -299,6 +301,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  raycastDistance: 0
   distance: 1
   boxMask:
     serializedVersion: 2
@@ -315,6 +318,35 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2422829358133470944}
   m_Enabled: 1
+--- !u!114 &8173441738579224097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2422829358133470944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792173975d57f5c4d902a51375f07d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnAnimObject: {fileID: 0}
+  anim: {fileID: 0}
+--- !u!114 &5647132109434734979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2422829358133470944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450c2f71b39ff3c4cbab6e254890be7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabDetect: {fileID: 0}
+  boxHolder: {fileID: 0}
+  rayDist: 0
 --- !u!1 &8338335648938779322
 GameObject:
   m_ObjectHideFlags: 0
