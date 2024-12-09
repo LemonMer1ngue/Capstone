@@ -119,9 +119,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   offset: {x: 0, y: 2, z: 0}
-  smoothSpeed: 0.125
-  minBounds: {x: 10, y: 15}
-  maxBounds: {x: 460, y: 31}
+  smoothSpeed: 0.03
+  minBounds: {x: 10, y: 7}
+  maxBounds: {x: 1000, y: 31}
   normalFoV: 10
   zoomFoV: 17
   zoomSpeed: 5
@@ -144,6 +144,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   player: {fileID: 0}
   platformsToToggle:
   - {fileID: 0}
@@ -151,6 +155,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   SwitchBox:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

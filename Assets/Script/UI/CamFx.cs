@@ -70,8 +70,8 @@ public class InteractableCameraEffect : MonoBehaviour
         volume = targetCamera.GetComponent<Volume>();
         volume.profile.TryGet(out colorAdjustments);
         volume.profile.TryGet(out chromaticAberration);
-        volume.profile.TryGet(out vignette);
-        volume.profile.TryGet(out filmGrain);
+/*        volume.profile.TryGet(out vignette);
+        volume.profile.TryGet(out filmGrain);*/
         playerMovement = player.GetComponent<PlayerMovement>();
 
     }
@@ -147,8 +147,8 @@ public class InteractableCameraEffect : MonoBehaviour
             saturation = colorAdjustments.saturation.value,
             contrast = colorAdjustments.contrast.value,
             ca = chromaticAberration.intensity.value,
-            vignette = vignette.intensity.value,
-            filmGrain = filmGrain.intensity.value
+/*            vignette = vignette.intensity.value,
+            filmGrain = filmGrain.intensity.value*/
         };
 
         // Determine target values based on effectsActive state
@@ -157,8 +157,8 @@ public class InteractableCameraEffect : MonoBehaviour
             enableSaturation ? targetSaturation : 0f,
             enableContrast ? targetContrast : 0f,
             enableChromaticAberration ? targetCAIntensity : 0f,
-            enableVignette ? targetVignetteIntensity : 0f,
-            enableFilmGrain ? targetFilmGrainIntensity : 0f
+/*            enableVignette ? targetVignetteIntensity : 0f,
+            enableFilmGrain ? targetFilmGrainIntensity : 0f*/
         };
 
         yield return new WaitForSeconds(effectDelay); // Delay before starting effects
@@ -172,8 +172,8 @@ public class InteractableCameraEffect : MonoBehaviour
             if (enableSaturation) colorAdjustments.saturation.value = Mathf.Lerp(startingValues.saturation, targetValues[0], t);
             if (enableContrast) colorAdjustments.contrast.value = Mathf.Lerp(startingValues.contrast, targetValues[1], t);
             if (enableChromaticAberration) chromaticAberration.intensity.value = Mathf.Lerp(startingValues.ca, targetValues[2], t);
-            if (enableVignette) vignette.intensity.value = Mathf.Lerp(startingValues.vignette, targetValues[3], t);
-            if (enableFilmGrain) filmGrain.intensity.value = Mathf.Lerp(startingValues.filmGrain, targetValues[4], t);
+/*            if (enableVignette) vignette.intensity.value = Mathf.Lerp(startingValues.vignette, targetValues[3], t);
+            if (enableFilmGrain) filmGrain.intensity.value = Mathf.Lerp(startingValues.filmGrain, targetValues[4], t);*/
 
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -183,8 +183,8 @@ public class InteractableCameraEffect : MonoBehaviour
         colorAdjustments.saturation.value = targetValues[0];
         colorAdjustments.contrast.value = targetValues[1];
         chromaticAberration.intensity.value = targetValues[2];
-        vignette.intensity.value = targetValues[3];
-        filmGrain.intensity.value = targetValues[4];
+/*        vignette.intensity.value = targetValues[3];
+        filmGrain.intensity.value = targetValues[4];*/
 
         // Toggle platforms if enabled
         if (togglePlatforms)
