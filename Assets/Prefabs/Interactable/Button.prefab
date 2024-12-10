@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlledPlatforms: []
+  controlledWalls: []
 --- !u!61 &1641935440658733181
 BoxCollider2D:
   m_ObjectHideFlags: 0

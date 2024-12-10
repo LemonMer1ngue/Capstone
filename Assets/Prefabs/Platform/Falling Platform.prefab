@@ -484,6 +484,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: StillPlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 2695246687794317312, guid: 9a77ea17a0cd76b41834e1ad60a14ccd, type: 3}
+      propertyPath: m_Size.x
+      value: 8.545626
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695246687794317312, guid: 9a77ea17a0cd76b41834e1ad60a14ccd, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5767946
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695246687794317312, guid: 9a77ea17a0cd76b41834e1ad60a14ccd, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0071878433
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695246687794317312, guid: 9a77ea17a0cd76b41834e1ad60a14ccd, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.011868715
+      objectReference: {fileID: 0}
     - target: {fileID: 5966186527975168352, guid: 9a77ea17a0cd76b41834e1ad60a14ccd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 157.86
@@ -523,6 +539,18 @@ PrefabInstance:
     - target: {fileID: 5966186527975168352, guid: 9a77ea17a0cd76b41834e1ad60a14ccd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7554083837448349991, guid: 9a77ea17a0cd76b41834e1ad60a14ccd, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9009434
+      objectReference: {fileID: 0}
+    - target: {fileID: 7554083837448349991, guid: 9a77ea17a0cd76b41834e1ad60a14ccd, type: 3}
+      propertyPath: m_Color.g
+      value: 0.94539946
+      objectReference: {fileID: 0}
+    - target: {fileID: 7554083837448349991, guid: 9a77ea17a0cd76b41834e1ad60a14ccd, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7554083837448349991, guid: 9a77ea17a0cd76b41834e1ad60a14ccd, type: 3}
       propertyPath: m_Enabled

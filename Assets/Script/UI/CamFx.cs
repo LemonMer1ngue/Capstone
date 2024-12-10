@@ -79,7 +79,7 @@ public class InteractableCameraEffect : MonoBehaviour
     private void Update()
     {
         // Check if player is in any interactable area
-        if (IsPlayerInAnyArea() && Input.GetKeyDown(KeyCode.J) && Time.time >= lastInteractTime + interactionCooldown)
+        if (IsPlayerInAnyArea() && Input.GetKeyDown(KeyCode.E) && Time.time >= lastInteractTime + interactionCooldown)
         {
             lastInteractTime = Time.time; // Update last interaction time
             PlayInteractSound(); // Play interaction sound

@@ -24,14 +24,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject Box;
     public bool isHoldingBox = false;
 
-    [SerializeField] private Text interactText;
+    
     public int holdingBoxID = -1;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        interactText.gameObject.SetActive(false);
         boxcollider = GetComponent<BoxCollider2D>();
 
     }
@@ -42,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
         Jump();
         UpdateAnimation();
         PlayerPushBox();
-        UpdateInteractText();
         CheckBoxDrop();
     }
 
@@ -210,23 +208,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void UpdateInteractText()
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, distance, boxMask);
-
-        bool showInteract = false;
-
-        foreach (Collider2D hit in hits)
-        {
-            if (hit.gameObject.CompareTag("InteractAble") && !isHoldingBox)
-            {
-                showInteract = true;
-                break;
-            }
-        }
-
-        interactText.gameObject.SetActive(showInteract);
-    }
+    
     void CheckBoxDrop()
     {
         if (isHoldingBox && Box != null)
