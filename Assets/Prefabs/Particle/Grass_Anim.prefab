@@ -121,4 +121,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6328625017769336193}
   minTransitionIndex: 1
-  maxTransitionIndex: 6
+  maxTransitionIndex: 8
