@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ButtonController : MonoBehaviour
 {
-    // Daftar platform yang dikontrol tombol ini
+    // Daftar platform dan wall yang dikontrol tombol ini
     [SerializeField] private List<MovingPlatform> controlledPlatforms;
+    [SerializeField] private List<WallsMovement> controlledWalls;
 
     private bool isPressed = false; // Status tombol
 
@@ -15,7 +16,7 @@ public class ButtonController : MonoBehaviour
         if (collision.CompareTag("Player") || collision.CompareTag("InteractAble"))
         {
             isPressed = true;  // Tombol ditekan
-            UpdatePlatforms(); // Update status pada semua platform yang dikontrol
+            UpdateControlledObjects(); // Update status pada semua objek yang dikontrol
         }
     }
 
@@ -25,18 +26,28 @@ public class ButtonController : MonoBehaviour
         if (collision.CompareTag("Player") || collision.CompareTag("InteractAble"))
         {
             isPressed = false;  // Tombol dilepas
-            UpdatePlatforms();  // Update status pada semua platform yang dikontrol
+            UpdateControlledObjects();  // Update status pada semua objek yang dikontrol
         }
     }
 
-    // Update status platform berdasarkan status tombol
-    private void UpdatePlatforms()
+    // Update status semua objek yang dikontrol
+    private void UpdateControlledObjects()
     {
+        // Update status MovingPlatform
         foreach (MovingPlatform platform in controlledPlatforms)
         {
             if (platform != null)
             {
                 platform.SetButtonPressed(isPressed);  // Mengubah status isButtonPressed pada platform
+            }
+        }
+
+        // Update status MovingWalls
+        foreach (WallsMovement wall in controlledWalls)
+        {
+            if (wall != null)
+            {
+                wall.SetButtonPressed(isPressed);  // Mengubah status isButtonPressed pada wall
             }
         }
     }
@@ -56,6 +67,24 @@ public class ButtonController : MonoBehaviour
         if (controlledPlatforms.Contains(platform))
         {
             controlledPlatforms.Remove(platform);
+        }
+    }
+
+    // Menambahkan wall untuk dikontrol oleh tombol ini
+    public void AddWall(WallsMovement wall)
+    {
+        if (!controlledWalls.Contains(wall))
+        {
+            controlledWalls.Add(wall);
+        }
+    }
+
+    // Menghapus wall dari kontrol tombol ini
+    public void RemoveWall(WallsMovement wall)
+    {
+        if (controlledWalls.Contains(wall))
+        {
+            controlledWalls.Remove(wall);
         }
     }
 }
