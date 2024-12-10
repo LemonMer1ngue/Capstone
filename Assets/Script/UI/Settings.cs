@@ -25,6 +25,7 @@ public class Setting : MonoBehaviour
         controlButton.onClick.AddListener(ControlSetting);
         graphicsButton.onClick.AddListener(GraphicsSetting);
         audioButton.onClick.AddListener(AudioSetting);
+        Settings.SetActive(true);
         Control.SetActive(false);
         Graphics.SetActive(false);
         Audio.SetActive(false);
