@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class InteractBox : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class InteractBox : MonoBehaviour
     [SerializeField] private bool isMerged; 
     private Rigidbody2D rb;
     private Vector2 initialPosition;
+    [SerializeField] private GameObject font;
+
 
     void Start()
     {
@@ -19,10 +22,9 @@ public class InteractBox : MonoBehaviour
         beingPushed = false;
         isPlayerNearby = false;
         isMerged = false;
-
         initialPosition = transform.position;
-
         transform.position = initialPosition;
+        font.SetActive(false);
     }
 
     void FixedUpdate()
@@ -36,10 +38,17 @@ public class InteractBox : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 
         }
+        else if (!beingPushed)
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+
+        }
         else if (beingPushed || isMerged)
         {
             rb.constraints = RigidbodyConstraints2D.None;
         }
+
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -47,11 +56,14 @@ public class InteractBox : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNearby = true;
+            font.SetActive(true);
+
         }
 
         if (collision.gameObject.CompareTag("InteractAble"))
         {
-            isMerged = true; 
+            isMerged = true;
+            collision.transform.SetParent(transform);
         }
     }
 
@@ -60,13 +72,17 @@ public class InteractBox : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNearby = false;
+            font.SetActive(false);
         }
 
         if (collision.gameObject.CompareTag("InteractAble"))
         {
-            isMerged = false; 
+            isMerged = false;
+            collision.transform.SetParent(null);
+
         }
     }
+
 
     public void HandleMergedPush(bool beingPushed)
     {

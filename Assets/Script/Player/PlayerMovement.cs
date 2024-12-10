@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using UnityEngine.VFX;
 using static DimensionChanger;
 
@@ -30,11 +31,10 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        interactText.gameObject.SetActive(false); 
+        interactText.gameObject.SetActive(false);
         boxcollider = GetComponent<BoxCollider2D>();
 
     }
-
 
     void Update()
     {
@@ -43,17 +43,40 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimation();
         PlayerPushBox();
         UpdateInteractText();
+        CheckBoxDrop();
     }
 
     void Move()
     {
+
         float moveInput = Input.GetAxisRaw("Horizontal");
-        float effectiveMoveSpeed = isHoldingBox ? moveSpeed * 0.5f : moveSpeed;
-        rb.velocity = new Vector2(moveInput * effectiveMoveSpeed, rb.velocity.y);
+        if (isHoldingBox && Box != null)
+        {
+            animationInteractBox(moveInput);
+
+            if (moveInput != 0)
+            {
+                MoveBox(moveInput);
+            }
+            else
+            {
+                StopPlayer();
+                StopBox();
+            }
+        }
+        else
+        {
+            MovePlayer(moveInput);
+        }
+    }
+
+    void MovePlayer(float moveInput)
+    {
+        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
         if (isHoldingBox)
         {
-            animationInteractBox();
+            animationInteractBox(moveInput);
         }
         else
         {
@@ -62,53 +85,66 @@ public class PlayerMovement : MonoBehaviour
                 transform.localScale = new Vector3(Mathf.Sign(moveInput), 1, 1);
             }
 
-            animator.SetFloat("Blendtree", 0f);
         }
+
+    }
+    void MoveBox(float moveInput)
+    {
+        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        Rigidbody2D boxRb = Box.GetComponent<Rigidbody2D>();
+        boxRb.velocity = new Vector2(moveInput * moveSpeed, boxRb.velocity.y);
     }
 
-    private void animationInteractBox()
+    void StopPlayer()
     {
-        float moveInput = Input.GetAxisRaw("Horizontal");
+        rb.velocity = Vector2.zero;
+    }
 
-            if (moveInput > 0 && Box.transform.position.x > transform.position.x)
-            {
-                animator.SetBool("isPushing", true);
-                animator.SetBool("isPulling", false);
-            }
-            else if (moveInput < 0 && Box.transform.position.x > transform.position.x)
-            {
-                animator.SetBool("isPushing", false);
-                animator.SetBool("isPulling", true);
-            }else if (moveInput > 0 && Box.transform.position.x < transform.position.x)
-            {
-                animator.SetBool("isPushing", false);
-                animator.SetBool("isPulling", true);
-            }else if(moveInput < 0 && Box.transform.position.x < transform.position.x)
-            {
-                animator.SetBool("isPushing", true);
-                animator.SetBool("isPulling", false);
-            }
-            else 
-            {
-                animator.SetBool("isPushing", false);
-                animator.SetBool("isPulling", false);
-            }
+    void StopBox()
+    {
+        if (Box != null)
+        {
+            Rigidbody2D boxRb = Box.GetComponent<Rigidbody2D>();
+            boxRb.velocity = Vector2.zero;
+        }
 
-        
+    }
+
+    private void animationInteractBox(float moveInput)
+    {
+        if (moveInput > 0 && Box.transform.position.x > transform.position.x)
+        {
+            animator.SetBool("isPushing", true);
+            animator.SetBool("isPulling", false);
+        }
+        else if (moveInput < 0 && Box.transform.position.x > transform.position.x)
+        {
+            animator.SetBool("isPushing", false);
+            animator.SetBool("isPulling", true);
+        }
+        else if (moveInput > 0 && Box.transform.position.x < transform.position.x)
+        {
+            animator.SetBool("isPushing", false);
+            animator.SetBool("isPulling", true);
+        }
+        else if (moveInput < 0 && Box.transform.position.x < transform.position.x)
+        {
+            animator.SetBool("isPushing", true);
+            animator.SetBool("isPulling", false);
+        }
+        else
+        {
+            animator.SetBool("isPushing", false);
+            animator.SetBool("isPulling", false);
+        }
+
+
     }
     void Jump()
     {
-        switch (isHoldingBox)
+        if (!isHoldingBox && IsGrounded() && Input.GetButtonDown("Jump"))
         {
-            case true:
-                return;
-            case false:
-                break;
-        }
-
-        if (IsGrounded() && Input.GetButtonDown("Jump"))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce); // Menerapkan gaya lompat
         }
     }
     bool IsGrounded()
@@ -132,7 +168,13 @@ public class PlayerMovement : MonoBehaviour
             animator.ResetTrigger("isFalling"); // Reset the isFalling trigger when grounded
         }
     }
-   
+    void ResetAnimation()
+    {
+        animator.SetBool("isPulling", false);
+        animator.SetBool("isPushing", false);
+        animator.SetBool("isWalking", Input.GetAxisRaw("Horizontal") != 0);
+    }
+
     void PlayerPushBox()
     {
         Vector2[] directions = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
@@ -150,23 +192,18 @@ public class PlayerMovement : MonoBehaviour
 
                 if (!isHoldingBox)
                 {
-
                     Box = hit.collider.gameObject;
-                    Box.GetComponent<FixedJoint2D>().enabled = true;
                     Box.GetComponent<InteractBox>().beingPushed = true;
-                    Box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
                     isHoldingBox = true;
                     holdingBoxID = boxScript.idBox;
-
                 }
                 else
                 {
-
-                    Box.GetComponent<FixedJoint2D>().enabled = false;
-                    Box.GetComponent<InteractBox>().beingPushed = false;
-                    Box.GetComponent<FixedJoint2D>().connectedBody = null;
                     isHoldingBox = false;
+                    Box.GetComponent<InteractBox>().beingPushed = false;
                     holdingBoxID = -1;
+                    ResetAnimation();
+                    StopBox();
                 }
 
             }
@@ -192,29 +229,25 @@ public class PlayerMovement : MonoBehaviour
     }
     void CheckBoxDrop()
     {
-        switch(isHoldingBox && (!IsGrounded() || !IsBoxGrounded(Box))){
-            case true:
-                Debug.Log("Player or box is not grounded. Releasing box.");
-                Box.GetComponent<FixedJoint2D>().enabled = false;
+        if (isHoldingBox && Box != null)
+        {
+            if (!IsBoxGrounded(Box)) 
+            {
                 Box.GetComponent<InteractBox>().beingPushed = false;
-                Box.GetComponent<FixedJoint2D>().connectedBody = null;
                 Box = null;
                 isHoldingBox = false;
                 holdingBoxID = -1;
-                break;
-                case false:
-                break;
+
+                ResetAnimation();
+                StopBox();
+            }
         }
     }
-
-    //bool IsGrounded()
-    //{
-    //    return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-    //}
-
     bool IsBoxGrounded(GameObject box)
     {
-        return Physics2D.OverlapCircle(box.transform.position, 0.1f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(box.transform.position, Vector2.down, raycastDistance, groundLayer);
+        Debug.DrawRay(box.transform.position, Vector2.down * raycastDistance, Color.blue); 
+        return hit.collider != null;
     }
     void OnDrawGizmos()
     {
