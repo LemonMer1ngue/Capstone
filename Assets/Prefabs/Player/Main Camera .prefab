@@ -121,8 +121,8 @@ MonoBehaviour:
   target: {fileID: 0}
   offset: {x: 0, y: 1.56, z: 0}
   smoothSpeed: 0.03
-  minBounds: {x: 10, y: 7}
-  maxBounds: {x: 1000, y: 31}
+  minBounds: {x: 3.98, y: 7}
+  maxBounds: {x: 2031, y: 65.5}
   normalFoV: 12
   zoomFoV: 17
   zoomSpeed: 5
