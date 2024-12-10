@@ -62,6 +62,54 @@ MonoBehaviour:
   - {fileID: 3025744243032729680}
   - {fileID: -8944327420498985316}
   - {fileID: 5545674512278716624}
+  - {fileID: 1688992781905884484}
+--- !u!114 &1688992781905884484
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
+  m_Name: Bloom
+  m_EditorClassIdentifier: 
+  active: 1
+  skipIterations:
+    m_OverrideState: 1
+    m_Value: 1
+  threshold:
+    m_OverrideState: 1
+    m_Value: 0.06
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.32
+  scatter:
+    m_OverrideState: 1
+    m_Value: 0.654
+  clamp:
+    m_OverrideState: 1
+    m_Value: 65472
+  tint:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  highQualityFiltering:
+    m_OverrideState: 1
+    m_Value: 0
+  downscale:
+    m_OverrideState: 0
+    m_Value: 0
+  maxIterations:
+    m_OverrideState: 0
+    m_Value: 6
+  dirtTexture:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: b9a7783edd3adea439ab3eb5d9e38c67, type: 3}
+    dimension: 1
+  dirtIntensity:
+    m_OverrideState: 1
+    m_Value: 0.29
 --- !u!114 &3025744243032729680
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -130,13 +178,13 @@ MonoBehaviour:
   active: 1
   type:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.428
+    m_Value: 0.391
   response:
     m_OverrideState: 1
-    m_Value: 0.7
+    m_Value: 0.676
   texture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
