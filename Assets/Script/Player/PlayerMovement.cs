@@ -22,10 +22,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float distance;
     [SerializeField] private LayerMask boxMask;
     [SerializeField] private GameObject Box;
-    public bool isHoldingBox = false;
-
-    
+    public bool isHoldingBox = false;        
     public int holdingBoxID = -1;
+    public ParticleSystem dust;
 
     void Start()
     {
@@ -66,10 +65,13 @@ public class PlayerMovement : MonoBehaviour
         {
             MovePlayer(moveInput);
         }
+
+        
     }
 
     void MovePlayer(float moveInput)
     {
+        
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
         if (isHoldingBox)
@@ -81,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
             if (moveInput != 0)
             {
                 transform.localScale = new Vector3(Mathf.Sign(moveInput), 1, 1);
+                dust.Play();
             }
 
         }
@@ -142,6 +145,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isHoldingBox && IsGrounded() && Input.GetButtonDown("Jump"))
         {
+            dust.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce); // Menerapkan gaya lompat
         }
     }
