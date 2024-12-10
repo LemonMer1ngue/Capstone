@@ -5,8 +5,8 @@ using UnityEngine;
 public class ButtonController : MonoBehaviour
 {
     // Daftar platform dan wall yang dikontrol tombol ini
-    [SerializeField] private List<MovingPlatform> controlledPlatforms;
-    [SerializeField] private List<WallsMovement> controlledWalls;
+    [SerializeField] private List<GameObject> controlledPlatforms;
+    [SerializeField] private List<GameObject> controlledWalls;
 
     private bool isPressed = false; // Status tombol
 
@@ -33,27 +33,27 @@ public class ButtonController : MonoBehaviour
     // Update status semua objek yang dikontrol
     private void UpdateControlledObjects()
     {
-        // Update status MovingPlatform
-        foreach (MovingPlatform platform in controlledPlatforms)
+        foreach (GameObject obj in controlledPlatforms)
         {
+            MovingPlatform platform = obj.GetComponent<MovingPlatform>();
             if (platform != null)
             {
-                platform.SetButtonPressed(isPressed);  // Mengubah status isButtonPressed pada platform
+                platform.SetButtonPressed(isPressed);
             }
         }
 
-        // Update status MovingWalls
-        foreach (WallsMovement wall in controlledWalls)
+        foreach (GameObject obj in controlledWalls)
         {
+            WallsMovement wall = obj.GetComponent<WallsMovement>();
             if (wall != null)
             {
-                wall.SetButtonPressed(isPressed);  // Mengubah status isButtonPressed pada wall
+                wall.SetButtonPressed(isPressed);
             }
         }
     }
 
     // Menambahkan platform untuk dikontrol oleh tombol ini
-    public void AddPlatform(MovingPlatform platform)
+    public void AddPlatform(GameObject platform)
     {
         if (!controlledPlatforms.Contains(platform))
         {
@@ -62,7 +62,7 @@ public class ButtonController : MonoBehaviour
     }
 
     // Menghapus platform dari kontrol tombol ini
-    public void RemovePlatform(MovingPlatform platform)
+    public void RemovePlatform(GameObject platform)
     {
         if (controlledPlatforms.Contains(platform))
         {
@@ -71,7 +71,7 @@ public class ButtonController : MonoBehaviour
     }
 
     // Menambahkan wall untuk dikontrol oleh tombol ini
-    public void AddWall(WallsMovement wall)
+    public void AddWall(GameObject wall)
     {
         if (!controlledWalls.Contains(wall))
         {
@@ -80,7 +80,7 @@ public class ButtonController : MonoBehaviour
     }
 
     // Menghapus wall dari kontrol tombol ini
-    public void RemoveWall(WallsMovement wall)
+    public void RemoveWall(GameObject wall)
     {
         if (controlledWalls.Contains(wall))
         {
