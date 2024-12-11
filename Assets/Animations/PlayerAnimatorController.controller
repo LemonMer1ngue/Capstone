@@ -107,9 +107,6 @@ AnimatorStateMachine:
     m_State: {fileID: 7854750893678330261}
     m_Position: {x: 630, y: 190, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -4115299117811733680}
-    m_Position: {x: 549.8424, y: 411.7716, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: -2921429353455666728}
     m_Position: {x: 980, y: 300, z: 0}
   - serializedVersion: 1
@@ -118,12 +115,15 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 2846270049790704538}
     m_Position: {x: 606.14, y: 311.74945, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -3471275384925338610}
+    m_Position: {x: 320, y: 110, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
+  m_AnyStatePosition: {x: 500, y: 40, z: 0}
   m_EntryPosition: {x: 40, y: 160, z: 0}
   m_ExitPosition: {x: 950, y: 20, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
@@ -153,14 +153,14 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1102 &-4115299117811733680
+--- !u!1102 &-3471275384925338610
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New State
+  m_Name: RakaJump
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -173,7 +173,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: e37949fce68b5e641a4efea362603473, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
