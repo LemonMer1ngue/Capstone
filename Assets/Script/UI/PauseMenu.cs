@@ -16,6 +16,7 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         settingsCanvas.SetActive(false);
+        pauseMenu.SetActive(true);
 
         // Ensure the pause menu is not visible at the start
         foreach (Transform child in pauseMenu.transform)
