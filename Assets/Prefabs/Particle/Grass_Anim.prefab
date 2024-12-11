@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 809436084445719108}
   - component: {fileID: 6328625017769336193}
   - component: {fileID: 3231948051947888604}
-  - component: {fileID: 6987973573557965270}
   m_Layer: 0
   m_Name: Grass_Anim
   m_TagString: Untagged
@@ -123,16 +122,3 @@ MonoBehaviour:
   animator: {fileID: 6328625017769336193}
   minTransitionIndex: 1
   maxTransitionIndex: 8
---- !u!114 &6987973573557965270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6696390730237898257}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 009841a58d08c0743ae6ce52f04a29cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colorToTurnTo: {r: 1, g: 1, b: 1, a: 1}
