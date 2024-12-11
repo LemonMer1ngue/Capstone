@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 using TMPro;
 
 public class SettingsManager : MonoBehaviour
@@ -11,7 +9,6 @@ public class SettingsManager : MonoBehaviour
     [Header("Graphics")]
     public TextMeshProUGUI fullscreenText;
     public TextMeshProUGUI resolutionText;
-    public Volume volume;
 
     // Audio Settings
     [Header("Audio")]
@@ -19,12 +16,6 @@ public class SettingsManager : MonoBehaviour
     public Slider masterVolumeSlider;
     public Slider sfxVolumeSlider;
     public Slider musicVolumeSlider;
-
-    // Gamma Settings
-    [Header("Gamma")]
-    public Slider gammaSlider; // New gamma slider
-
-    private LiftGammaGain liftGammaGain;
 
     private string[] fullscreenOptions = { "Off", "On" };
     private int fullscreenIndex;
@@ -42,7 +33,6 @@ public class SettingsManager : MonoBehaviour
 
     private void OnEnable()
     {
-        InitializeVolume(); // Initialize volume for gamma
         LoadSettings(); // Load settings when menu is opened
     }
 
@@ -57,14 +47,11 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat("SFXVolume", sfxVolumeSlider.value);
         PlayerPrefs.SetFloat("MusicVolume", musicVolumeSlider.value);
 
-        // Save gamma setting
-        PlayerPrefs.SetFloat("Gamma", gammaSlider.value);
-
         PlayerPrefs.Save(); // Save immediately
-        Debug.Log("Settings Saved.");
+        Debug.Log($"Settings Saved: MasterVolume={masterVolumeSlider.value}, SFXVolume={sfxVolumeSlider.value}, MusicVolume={musicVolumeSlider.value}");
     }
 
-    public void LoadSettings()
+    private void LoadSettings()
     {
         // Load fullscreen and resolution settings
         fullscreenIndex = PlayerPrefs.GetInt("Fullscreen", 0);
@@ -78,42 +65,19 @@ public class SettingsManager : MonoBehaviour
         float sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
         float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
 
+        // Apply loaded values to sliders
         masterVolumeSlider.value = masterVolume;
         sfxVolumeSlider.value = sfxVolume;
         musicVolumeSlider.value = musicVolume;
 
+        // Apply loaded settings
         ApplyAudioSettings();
-
-        // Load gamma setting
-        float gammaValue = PlayerPrefs.GetFloat("Gamma", 1.0f);
-        gammaSlider.value = gammaValue;
-        ApplyGammaSetting(gammaValue);
 
         // Update UI
         UpdateFullscreenDisplay();
         UpdateResolutionDisplay();
 
-        Debug.Log("Settings Loaded.");
-    }
-
-    public void InitializeVolume()
-    {
-        volume.profile.TryGet(out liftGammaGain);
-        gammaSlider.onValueChanged.AddListener(OnGammaChanged);
-    }
-
-    private void ApplyGammaSetting(float value)
-    {
-        if (liftGammaGain != null)
-        {
-            liftGammaGain.gamma.value = new Vector4(0.1f, 0.1f, 0.1f, value);
-            Debug.Log($"Gamma Applied: {value}");
-        }
-    }
-
-    private void OnGammaChanged(float value)
-    {
-        ApplyGammaSetting(value);
+        Debug.Log($"Settings Loaded: MasterVolume={masterVolume}, SFXVolume={sfxVolume}, MusicVolume={musicVolume}");
     }
 
     private void ApplyResolutionSetting()
@@ -127,19 +91,21 @@ public class SettingsManager : MonoBehaviour
         audioMixer.SetFloat("MasterVolume", masterVolumeSlider.value);
         audioMixer.SetFloat("SFXVolume", sfxVolumeSlider.value);
         audioMixer.SetFloat("MusicVolume", musicVolumeSlider.value);
+
+        Debug.Log($"Audio Settings Applied: Master = {masterVolumeSlider.value}, SFX = {sfxVolumeSlider.value}, Music = {musicVolumeSlider.value}");
     }
 
     private void UpdateFullscreenDisplay()
     {
         fullscreenText.text = fullscreenOptions[fullscreenIndex];
-        fullscreenText.ForceMeshUpdate();
+        fullscreenText.ForceMeshUpdate(); // Ensure TMP text updates
     }
 
     private void UpdateResolutionDisplay()
     {
         (int width, int height) resolution = customResolutions[resolutionIndex];
         resolutionText.text = $"{resolution.width} x {resolution.height}";
-        resolutionText.ForceMeshUpdate();
+        resolutionText.ForceMeshUpdate(); // Ensure TMP text updates
     }
 
     public void OnFullscreenLeft()
