@@ -31,21 +31,29 @@ public class InteractBox : MonoBehaviour
     {
         if (!beingPushed && isPlayerNearby && !isMerged)
         {
+            font.SetActive(true);
+
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
         else if (!beingPushed && isPlayerNearby && isMerged)
         {
+            font.SetActive(true);
+
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 
         }
         else if (!beingPushed)
         {
+            font.SetActive(false);
+
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 
         }
         else if (beingPushed || isMerged)
         {
             rb.constraints = RigidbodyConstraints2D.None;
+            font.SetActive(false);
+
         }
 
 
@@ -56,7 +64,6 @@ public class InteractBox : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNearby = true;
-            font.SetActive(true);
 
         }
 
@@ -72,7 +79,6 @@ public class InteractBox : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNearby = false;
-            font.SetActive(false);
         }
 
         if (collision.gameObject.CompareTag("InteractAble"))
