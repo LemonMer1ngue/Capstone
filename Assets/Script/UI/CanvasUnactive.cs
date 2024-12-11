@@ -4,9 +4,11 @@ public class CanvasFade : MonoBehaviour
 {
     public GameObject targetObject; // Objek target (Canvas)
     public float fadeDuration = 1f; // Durasi fade-in/fade-out
+    public float displayDuration = 3f; // Durasi tampilan sebelum fade-out
 
     private CanvasGroup canvasGroup;
     private bool isFading = false;
+    private Collider2D triggerCollider;
 
     void Start()
     {
@@ -22,6 +24,9 @@ public class CanvasFade : MonoBehaviour
                 targetObject.SetActive(false); // Target mulai dalam keadaan nonaktif
             }
         }
+
+        // Simpan referensi collider trigger
+        triggerCollider = GetComponent<Collider2D>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -31,14 +36,22 @@ public class CanvasFade : MonoBehaviour
             Debug.Log("Player menyentuh trigger, memulai fade-in!");
             targetObject.SetActive(true); // Aktifkan target object
             StartCoroutine(FadeCanvas(1f)); // Fade-in (alpha ke 1)
+
+            if (triggerCollider != null)
+            {
+                triggerCollider.enabled = false; // Nonaktifkan collider trigger
+            }
+
+            // Mulai timer untuk fade-out setelah durasi tertentu
+            Invoke(nameof(StartFadeOut), displayDuration);
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    private void StartFadeOut()
     {
-        if (other.CompareTag("Player") && !isFading)
+        if (!isFading)
         {
-            Debug.Log("Player keluar dari trigger, memulai fade-out!");
+            Debug.Log("Timer selesai, memulai fade-out!");
             StartCoroutine(FadeCanvas(0f)); // Fade-out (alpha ke 0)
         }
     }
