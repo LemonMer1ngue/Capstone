@@ -3051,6 +3051,7 @@ GameObject:
   - component: {fileID: 9192057826541510707}
   - component: {fileID: 9192057826541510708}
   - component: {fileID: 2353548560415618637}
+  - component: {fileID: -4784409688414133378}
   m_Layer: 4
   m_Name: Springs
   m_TagString: Water
@@ -3494,6 +3495,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 43.16911, y: 8.000001}
   m_EdgeRadius: 0
+--- !u!114 &-4784409688414133378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9192057826541510713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79b562e57c2702644a739883970ccba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  respawnPoint: {fileID: 0}
+  smokeParticle: []
 --- !u!1 &9192057827315693970
 GameObject:
   m_ObjectHideFlags: 0
