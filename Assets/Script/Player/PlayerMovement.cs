@@ -22,15 +22,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float distance;
     [SerializeField] private LayerMask boxMask;
     [SerializeField] private GameObject Box;
-    public bool isHoldingBox = false;        
+    public bool isHoldingBox = false;
     public int holdingBoxID = -1;
     public ParticleSystem dust;
+
+    private bool debugLoggedHoldingBox = false; // Untuk memastikan log hanya dicetak sekali
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         boxcollider = GetComponent<BoxCollider2D>();
+        debugLoggedHoldingBox = true;
 
     }
 
@@ -66,14 +69,12 @@ public class PlayerMovement : MonoBehaviour
             MovePlayer(moveInput);
         }
 
-        
+
     }
 
     void MovePlayer(float moveInput)
     {
-        
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-
         if (isHoldingBox)
         {
             animationInteractBox(moveInput);
@@ -91,9 +92,11 @@ public class PlayerMovement : MonoBehaviour
     }
     void MoveBox(float moveInput)
     {
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        float adjustedSpeed = isHoldingBox ? moveSpeed / 2 : moveSpeed;
+
+        rb.velocity = new Vector2(moveInput * adjustedSpeed, rb.velocity.y);
         Rigidbody2D boxRb = Box.GetComponent<Rigidbody2D>();
-        boxRb.velocity = new Vector2(moveInput * moveSpeed, boxRb.velocity.y);
+        boxRb.velocity = new Vector2(moveInput * adjustedSpeed, boxRb.velocity.y);
     }
 
     void StopPlayer()
@@ -198,6 +201,11 @@ public class PlayerMovement : MonoBehaviour
                     Box.GetComponent<InteractBox>().beingPushed = true;
                     isHoldingBox = true;
                     holdingBoxID = boxScript.idBox;
+
+                    if (!debugLoggedHoldingBox) // Log kecepatan sebelum memegang box
+                    {
+                        debugLoggedHoldingBox = true;
+                    }
                 }
                 else
                 {
@@ -206,18 +214,23 @@ public class PlayerMovement : MonoBehaviour
                     holdingBoxID = -1;
                     ResetAnimation();
                     StopBox();
+
+                    if (debugLoggedHoldingBox) // Log kecepatan setelah melepas box
+                    {
+                        debugLoggedHoldingBox = false;
+                    }
                 }
 
             }
         }
     }
 
-    
+
     void CheckBoxDrop()
     {
         if (isHoldingBox && Box != null)
         {
-            if (!IsBoxGrounded(Box)) 
+            if (!IsBoxGrounded(Box))
             {
                 Box.GetComponent<InteractBox>().beingPushed = false;
                 Box = null;
@@ -226,13 +239,19 @@ public class PlayerMovement : MonoBehaviour
 
                 ResetAnimation();
                 StopBox();
+
+                if (debugLoggedHoldingBox) // Log kecepatan setelah drop
+                {
+                    Debug.Log($"Speed after dropping box: {rb.velocity}");
+                    debugLoggedHoldingBox = false;
+                }
             }
         }
     }
     bool IsBoxGrounded(GameObject box)
     {
         RaycastHit2D hit = Physics2D.Raycast(box.transform.position, Vector2.down, raycastDistance, groundLayer);
-        Debug.DrawRay(box.transform.position, Vector2.down * raycastDistance, Color.blue); 
+        Debug.DrawRay(box.transform.position, Vector2.down * raycastDistance, Color.blue);
         return hit.collider != null;
     }
     void OnDrawGizmos()
