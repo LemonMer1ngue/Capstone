@@ -51,7 +51,7 @@ public class InteractBox : MonoBehaviour
         }
         else if (beingPushed || isMerged)
         {
-            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             font.SetActive(false);
 
         }

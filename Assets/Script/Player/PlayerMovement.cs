@@ -25,15 +25,13 @@ public class PlayerMovement : MonoBehaviour
     public bool isHoldingBox = false;
     public int holdingBoxID = -1;
     public ParticleSystem dust;
-
-    private bool debugLoggedHoldingBox = false; // Untuk memastikan log hanya dicetak sekali
+    [SerializeField] private float maxDistanceToBox = 1f; 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         boxcollider = GetComponent<BoxCollider2D>();
-        debugLoggedHoldingBox = true;
 
     }
 
@@ -45,6 +43,28 @@ public class PlayerMovement : MonoBehaviour
         PlayerPushBox();
         CheckBoxDrop();
         GroundCheck();
+        CheckBoxDistance();
+    }
+    void CheckBoxDistance()
+    {
+        if (isHoldingBox && Box != null)
+        {
+            Vector2 directionToBox = Box.transform.position - transform.position;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToBox.normalized, maxDistanceToBox, boxMask);
+            Debug.DrawRay(transform.position, directionToBox.normalized * maxDistanceToBox, Color.red);
+
+            if (hit.collider == null || hit.collider.gameObject != Box)
+            {
+                Debug.Log("Box dropped due to exceeding maximum distance or no longer in line of sight.");
+                Box.GetComponent<InteractBox>().beingPushed = false;
+                Box = null;
+                isHoldingBox = false;
+                holdingBoxID = -1;
+
+                ResetAnimation();
+                StopBox();
+            }
+        }
     }
 
     void Move()
