@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimation();
         PlayerPushBox();
         CheckBoxDrop();
+        GroundCheck();
     }
 
     void Move()
@@ -80,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (moveInput != 0)
+            if (moveInput != 0 && (isGrounded == true)) 
             {
                 transform.localScale = new Vector3(Mathf.Sign(moveInput), 1, 1);
                 dust.Play();
@@ -148,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
             dust.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce); // Menerapkan gaya lompat
         }
+
     }
     bool IsGrounded()
     {
@@ -155,11 +157,24 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(boxcollider.bounds.center, Vector2.down * (boxcollider.bounds.extents.y + raycastDistance), Color.red); // Debugging
         return hit.collider != null;
     }
+
+    void GroundCheck()
+    {
+        if (IsGrounded() == true)
+        {
+            animator.SetBool("isGround", true);
+            isGrounded = true;
+        }
+        else
+        {
+            animator.SetBool("isGround", false);
+            isGrounded = false;
+        }
+    }
+
     void UpdateAnimation()
     {
         animator.SetBool("isWalking", Input.GetAxisRaw("Horizontal") != 0 && !isHoldingBox);
-        animator.SetBool("isGround", isGrounded);
-        animator.SetBool("isJumping", !isGrounded);
 
         if (!isGrounded && rb.velocity.y < 0)
         {
