@@ -3050,6 +3050,7 @@ GameObject:
   - component: {fileID: 9192057826541510711}
   - component: {fileID: 9192057826541510707}
   - component: {fileID: 9192057826541510708}
+  - component: {fileID: 5160645338002020755}
   m_Layer: 4
   m_Name: Springs
   m_TagString: Untagged
@@ -3066,7 +3067,7 @@ Transform:
   m_GameObject: {fileID: 9192057826541510713}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.16, y: -9.19, z: -0.12}
+  m_LocalPosition: {x: -5.16, y: -9.19, z: 0}
   m_LocalScale: {x: 1.6525, y: 1.9468, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3115,7 +3116,7 @@ SpriteShapeRenderer:
   m_SortingLayerID: -2068140037
   m_SortingLayer: 1
   m_SortingOrder: 5
-  m_Color: {r: 0, g: 0.8328998, b: 1, a: 0.64705884}
+  m_Color: {r: 0.06064615, g: 0.219, b: 0.1853077, a: 0.6509804}
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 2800000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
   m_Sprites:
@@ -3128,8 +3129,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: 7.0000005, y: 1.0000002, z: 0}
-    m_Extent: {x: 12.000001, y: 4.0000005, z: 0}
+    m_Center: {x: 9.030934, y: 1.0000002, z: 0}
+    m_Extent: {x: 21.584557, y: 4.0000005, z: 0}
   m_SpriteSortPoint: 0
 --- !u!114 &9192057826541510710
 MonoBehaviour:
@@ -3448,6 +3449,21 @@ PolygonCollider2D:
       - {x: 19, y: -3}
       - {x: -5, y: -3}
   m_UseDelaunayMesh: 0
+--- !u!114 &5160645338002020755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9192057826541510713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79b562e57c2702644a739883970ccba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  respawnPoint: {fileID: 0}
+  smokeParticle: []
 --- !u!1 &9192057827315693970
 GameObject:
   m_ObjectHideFlags: 0

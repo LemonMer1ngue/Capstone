@@ -95,10 +95,10 @@ GameObject:
   - component: {fileID: 7490418235464004747}
   - component: {fileID: 4231393812197502847}
   - component: {fileID: 2675741848643602891}
-  - component: {fileID: 3462881623360681461}
   - component: {fileID: 2502794700034055995}
   - component: {fileID: 5043167911943173595}
   - component: {fileID: 8173441738579224097}
+  - component: {fileID: 5056217282904983206}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -269,20 +269,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3462881623360681461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2422829358133470944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d83e45ed6e547040bac6e20a0f2395d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigidbody2D: {fileID: 7490418235464004747}
-  forceAmount: 10
 --- !u!114 &2502794700034055995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +318,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnAnimObject: {fileID: 0}
   anim: {fileID: 0}
+--- !u!114 &5056217282904983206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2422829358133470944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d759f40a26d29f3448610c03c62af2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbody2D: {fileID: 7490418235464004747}
+  forceAmount: 10
 --- !u!1 &8338335648938779322
 GameObject:
   m_ObjectHideFlags: 0

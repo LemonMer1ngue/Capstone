@@ -293,7 +293,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7411004096755111367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d83e45ed6e547040bac6e20a0f2395d, type: 3}
+  m_Script: {fileID: 11500000, guid: d759f40a26d29f3448610c03c62af2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody2D: {fileID: 4062871979516774445}
