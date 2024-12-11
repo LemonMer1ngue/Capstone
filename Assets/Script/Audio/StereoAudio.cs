@@ -12,6 +12,23 @@ public class StereoAudioEffect : MonoBehaviour
     private const float maxVolume = 0.1f; // Set maximum volume to 0.1
     private const float panMultiplier = 2f; // Multiplier for pan effect
 
+    private void Awake()
+    {
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            listener = player.transform;
+            if (listener == null)
+            {
+                Debug.LogError("DeathController tidak ditemukan pada object player!");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player tidak ditemukan di scene!");
+        }
+    }
+
     void Start()
     {
         if (audioSource == null)

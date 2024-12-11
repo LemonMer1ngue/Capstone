@@ -34,12 +34,9 @@ public class DialogueTrigger : MonoBehaviour
         {
             TriggerDialogue();
         }
-        else
-        {
-            StartCoroutine(AwakenStart());
-        }
-        
+
     }
+
 
     public void TriggerDialogue()
     {
@@ -50,7 +47,14 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            TriggerDialogue();
+            if (SceneManager.GetActiveScene().name == "CutScene")
+            {
+                TriggerDialogue();
+            }
+            else
+            {
+                StartCoroutine(AwakenStart());
+            }
         }
     }
 

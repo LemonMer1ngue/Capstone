@@ -9,7 +9,7 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
 
-    public Image background;
+    public GameObject background;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
 
@@ -73,7 +73,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         currentLine = lines.Dequeue();
-        background.sprite = currentLine.character.bgImg;
+        background.GetComponent<SpriteRenderer>().sprite = currentLine.character.bgImg;
         characterName.text = currentLine.character.name;
 
         StopAllCoroutines();

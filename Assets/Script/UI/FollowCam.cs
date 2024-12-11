@@ -19,6 +19,23 @@ public class EnhancedCameraFollow : MonoBehaviour
     private Camera cam;
     private bool isZoomed = false; // State of zoom
 
+    private void Awake()
+    {
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            target =  player.transform;
+            if (target == null)
+            {
+                Debug.LogError("target tidak ditemukan pada object player!");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player tidak ditemukan di scene!");
+        }
+    
+    }
     private void Start()
     {
         cam = Camera.main; // Get the main camera
