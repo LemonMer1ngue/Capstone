@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7168326838494260682}
   - component: {fileID: 2703199361583764522}
   - component: {fileID: 6789804471257309138}
+  - component: {fileID: -3580292076912610337}
   m_Layer: 0
   m_Name: 'Main Camera '
   m_TagString: MainCamera
@@ -339,3 +340,60 @@ MonoBehaviour:
   volume: {fileID: 5360355249764750220}
   wiggleSpeed: 4
   wiggleAmount: 0.025
+--- !u!114 &-3580292076912610337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8018710458404472816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c5289c33ec1b194387d92c34acbf06d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objects:
+  - {fileID: 0}
+  - {fileID: 0}
+  objectsSettings:
+  - title: 
+    theGameObject: {fileID: 0}
+    theRenderer: {fileID: 0}
+    sized: {x: 0, y: 0}
+    center: {x: 0, y: 0}
+    TopRight: {x: 0, y: 0}
+    TopLeft: {x: 0, y: 0}
+    BottomLeft: {x: 0, y: 0}
+    BottomRight: {x: 0, y: 0}
+    right: 0
+    left: 0
+    top: 0
+    bottom: 0
+    additiveSize: {x: 0, y: 0}
+    showBorders: 1
+    drawColor: {r: 1, g: 1, b: 1, a: 1}
+    isStatic: 1
+  - title: 
+    theGameObject: {fileID: 0}
+    theRenderer: {fileID: 0}
+    sized: {x: 0, y: 0}
+    center: {x: 0, y: 0}
+    TopRight: {x: 0, y: 0}
+    TopLeft: {x: 0, y: 0}
+    BottomLeft: {x: 0, y: 0}
+    BottomRight: {x: 0, y: 0}
+    right: 0
+    left: 0
+    top: 0
+    bottom: 0
+    additiveSize: {x: 0, y: 0}
+    showBorders: 1
+    drawColor: {r: 1, g: 1, b: 1, a: 1}
+    isStatic: 1
+  updateRateInSeconds: 0.1
+  additiveSizeAll: {x: 0, y: 0}
+  overrideAllObjectsSettings: 1
+  overridingShowBordersAll: 1
+  overridingDrawColorAll: {r: 1, g: 1, b: 1, a: 1}
+  overridingIsStaticAll: 1
+  isInitialized: 0
