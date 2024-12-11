@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu; // Reference to the pause menu (the parent)
+    public GameObject settingsCanvas;
     public Button resumeButton; // Button to resume the game
     public Button mainMenuButton; // Button to go to the main menu
     public Button exitButton; // Button to exit the game
@@ -14,6 +15,8 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
+        settingsCanvas.SetActive(false);
+
         // Ensure the pause menu is not visible at the start
         foreach (Transform child in pauseMenu.transform)
         {
@@ -68,7 +71,7 @@ public class PauseMenu : MonoBehaviour
 
     void OpenSettings()
     {
-        // Open settings logic goes here
+        settingsCanvas.SetActive(true);
     }
     void ExitGame()
     {
