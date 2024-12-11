@@ -201,11 +201,6 @@ public class PlayerMovement : MonoBehaviour
                     Box.GetComponent<InteractBox>().beingPushed = true;
                     isHoldingBox = true;
                     holdingBoxID = boxScript.idBox;
-
-                    if (!debugLoggedHoldingBox) // Log kecepatan sebelum memegang box
-                    {
-                        debugLoggedHoldingBox = true;
-                    }
                 }
                 else
                 {
@@ -214,11 +209,6 @@ public class PlayerMovement : MonoBehaviour
                     holdingBoxID = -1;
                     ResetAnimation();
                     StopBox();
-
-                    if (debugLoggedHoldingBox) // Log kecepatan setelah melepas box
-                    {
-                        debugLoggedHoldingBox = false;
-                    }
                 }
 
             }
@@ -239,12 +229,6 @@ public class PlayerMovement : MonoBehaviour
 
                 ResetAnimation();
                 StopBox();
-
-                if (debugLoggedHoldingBox) // Log kecepatan setelah drop
-                {
-                    Debug.Log($"Speed after dropping box: {rb.velocity}");
-                    debugLoggedHoldingBox = false;
-                }
             }
         }
     }
