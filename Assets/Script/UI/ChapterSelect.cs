@@ -9,6 +9,9 @@ public class ChapterSelect : MonoBehaviour
     public Button chapter3Button;
     public Button backButton;
 
+    private int c1Scene;
+    private int c2Scene;
+
     void Start()
     {
         // Add listeners to the buttons
@@ -28,12 +31,29 @@ public class ChapterSelect : MonoBehaviour
 
     public void Chapter1()
     {
-        //SceneManager.LoadScene("");
+        c1Scene = PlayerPrefs.GetInt("C1SavedScene");
+        if (c1Scene != 0) 
+        {
+            SceneManager.LoadScene(c1Scene);
+        }
+        else
+        {
+            return;
+        }
+    
     }
 
     public void Chapter2()
     {
-        //SceneManager.LoadScene("");
+        c2Scene = PlayerPrefs.GetInt("C2SavedScene");
+        if (c2Scene != 0)
+        {
+            SceneManager.LoadScene(c2Scene);
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void Chapter3()
