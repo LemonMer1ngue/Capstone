@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToBox.normalized, maxDistanceToBox, boxMask);
             Debug.DrawRay(transform.position, directionToBox.normalized * maxDistanceToBox, Color.red);
 
-            if (hit.collider == null || hit.collider.gameObject != Box)
+            if (hit.collider == null)
             {
                 Debug.Log("Box dropped due to exceeding maximum distance or no longer in line of sight.");
                 Box.GetComponent<InteractBox>().beingPushed = false;
