@@ -9,6 +9,9 @@ public class Setting : MonoBehaviour
     public Button controlButton;
     public Button graphicsButton;
     public Button audioButton;
+    public Button gammaButton;
+    public GameObject settingCanvas;
+    public GameObject gammaCanvas;
     public GameObject Settings;
     public GameObject Control;
     public GameObject Graphics;
@@ -21,6 +24,7 @@ public class Setting : MonoBehaviour
             button.onClick.AddListener(BackSet);
         }
 
+        gammaButton.onClick.AddListener(GammaSetting);
         backButton.onClick.AddListener(Back);
         controlButton.onClick.AddListener(ControlSetting);
         graphicsButton.onClick.AddListener(GraphicsSetting);
@@ -29,6 +33,7 @@ public class Setting : MonoBehaviour
         Control.SetActive(false);
         Graphics.SetActive(false);
         Audio.SetActive(false);
+        gammaCanvas.SetActive(false);
     }
 
     void Update()
@@ -41,6 +46,12 @@ public class Setting : MonoBehaviour
         {
             BackSet();
         }
+    }
+
+    public void GammaSetting()
+    {
+        settingCanvas.SetActive(false);
+        gammaCanvas.SetActive(true);
     }
 
     public void ControlSetting()
