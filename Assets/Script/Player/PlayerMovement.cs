@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -25,7 +26,8 @@ public class PlayerMovement : MonoBehaviour
     public bool isHoldingBox = false;
     public int holdingBoxID = -1;
     public ParticleSystem dust;
-    [SerializeField] private float maxDistanceToBox = 1f; 
+    [SerializeField] private float maxDistanceToBox = 1f;
+    private bool isMoving = false;
 
     void Start()
     {
@@ -37,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        isMoving = Input.GetAxisRaw("Horizontal") != 0;
         Move();
         Jump();
         UpdateAnimation();
@@ -102,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (moveInput != 0 && (isGrounded == true)) 
+            if (moveInput != 0 && (isGrounded == true))
             {
                 transform.localScale = new Vector3(Mathf.Sign(moveInput), 1, 1);
                 dust.Play();
@@ -277,5 +280,10 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * distance);
+    }
+
+    internal bool IsMoving()
+    {
+        return isMoving || rb.velocity.x != 0 || rb.velocity.y != 0;
     }
 }
