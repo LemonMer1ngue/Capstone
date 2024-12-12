@@ -194,8 +194,15 @@ public class PlayerMovement : MonoBehaviour
     }
     bool IsGrounded()
     {
-        RaycastHit2D hit = Physics2D.Raycast(boxcollider.bounds.center, Vector2.down, boxcollider.bounds.extents.y + raycastDistance, groundLayer);
-        Debug.DrawRay(boxcollider.bounds.center, Vector2.down * (boxcollider.bounds.extents.y + raycastDistance), Color.red); // Debugging
+        Vector2 boxCenter = boxcollider.bounds.center;
+        Vector2 boxSize = new Vector2(boxcollider.bounds.size.x, raycastDistance); // Tinggi sesuai `raycastDistance`
+        RaycastHit2D hit = Physics2D.BoxCast(boxCenter, boxSize, 0f, Vector2.down, raycastDistance, groundLayer);
+
+        // Debugging BoxCast
+        Debug.DrawRay(boxCenter + new Vector2(-boxSize.x / 2, 0), Vector2.down * raycastDistance, Color.red); // Kiri bawah
+        Debug.DrawRay(boxCenter + new Vector2(boxSize.x / 2, 0), Vector2.down * raycastDistance, Color.red);  // Kanan bawah
+        Debug.DrawRay(boxCenter + new Vector2(-boxSize.x / 2, -raycastDistance), Vector2.right * boxSize.x, Color.red); // Dasar kotak
+
         return hit.collider != null;
     }
 
