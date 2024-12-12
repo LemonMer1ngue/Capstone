@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class InteractBox : MonoBehaviour
 {
@@ -10,11 +9,13 @@ public class InteractBox : MonoBehaviour
     public int idBox;
     public bool beingPushed;
     [SerializeField] private bool isPlayerNearby;
-    [SerializeField] private bool isMerged; 
+    [SerializeField] private bool isMerged;
     private Rigidbody2D rb;
     private Vector2 initialPosition;
     [SerializeField] private GameObject font;
-
+    [SerializeField] private Collider2D topDetector; 
+    private Transform mergedBox;
+    private Vector2 mergedBoxInitialPosition; 
 
     void Start()
     {
@@ -25,6 +26,11 @@ public class InteractBox : MonoBehaviour
         initialPosition = transform.position;
         transform.position = initialPosition;
         font.SetActive(false);
+
+        if (topDetector != null)
+        {
+            topDetector.isTrigger = true; 
+        }
     }
 
     void FixedUpdate()
@@ -32,72 +38,50 @@ public class InteractBox : MonoBehaviour
         if (!beingPushed && isPlayerNearby && !isMerged)
         {
             font.SetActive(true);
-
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
         else if (!beingPushed && isPlayerNearby && isMerged)
         {
             font.SetActive(true);
-
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-
         }
         else if (!beingPushed)
         {
             font.SetActive(false);
-
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-
         }
-else if (beingPushed || isMerged)
-{
-    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-    font.SetActive(false);
-
-    foreach (Transform child in transform)
-    {
-        if (child.CompareTag("InteractAble"))
+        else if (beingPushed)
         {
-            Rigidbody2D childRb = child.GetComponent<Rigidbody2D>();
-            if (childRb != null)
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            font.SetActive(false);
+
+            if (isMerged && mergedBox != null)
             {
-                // Sinkronisasi velocity
-                childRb.velocity = rb.velocity;
+                mergedBox.position = new Vector2(transform.position.x, mergedBox.position.y);
             }
         }
-    }
-}
 
-        //if (isMerged && beingPushed)
-        //{
-        //    // Teruskan velocity dari box ini ke anak-anaknya (box atas)
-        //    foreach (Transform child in transform)
-        //    {
-        //        if (child.CompareTag("InteractAble"))
-        //        {
-        //            Rigidbody2D childRb = child.GetComponent<Rigidbody2D>();
-        //            if (childRb != null)
-        //            {
-        //                childRb.velocity = rb.velocity;
-        //            }
-        //        }
-        //    }
-        //}
+        if (!beingPushed && isMerged && mergedBox != null)
+        {
+            mergedBox.position = new Vector2(transform.position.x, mergedBox.position.y);
+        }
 
+        if (mergedBox != null && !isMerged)
+        {
+            mergedBox.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        }
+        else if (mergedBox != null && isMerged)
+        {
+            mergedBox.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+        }
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNearby = true;
-
-        }
-
-        if (collision.gameObject.CompareTag("InteractAble"))
-        {
-            isMerged = true;
-            collision.transform.SetParent(transform);
         }
     }
 
@@ -107,15 +91,26 @@ else if (beingPushed || isMerged)
         {
             isPlayerNearby = false;
         }
+    }
 
-        if (collision.gameObject.CompareTag("InteractAble"))
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (topDetector != null && other.CompareTag("InteractAble"))
         {
-            isMerged = false;
-            collision.transform.SetParent(null);
-
+            isMerged = true;
+            mergedBox = other.transform; 
+            mergedBoxInitialPosition = mergedBox.position; 
         }
     }
 
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (topDetector != null && other.CompareTag("InteractAble"))
+        {
+            isMerged = false;
+            mergedBox = null; 
+        }
+    }
 
     public void HandleMergedPush(bool beingPushed)
     {
