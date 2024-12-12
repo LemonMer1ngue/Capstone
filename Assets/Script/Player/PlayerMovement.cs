@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask movingPlatformLayer;
     [SerializeField] private float raycastDistance;
 
     private Rigidbody2D rb;
@@ -28,6 +29,10 @@ public class PlayerMovement : MonoBehaviour
     public ParticleSystem dust;
     [SerializeField] private float maxDistanceToBox = 1f;
     private bool isMoving = false;
+
+    [Header("Physics Materials")]
+    [SerializeField] private PhysicsMaterial2D highFrictionMaterial;
+    [SerializeField] private PhysicsMaterial2D lowFrictionMaterial;
 
     void Start()
     {
@@ -47,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         CheckBoxDrop();
         GroundCheck();
         CheckBoxDistance();
+        UpdatePhysicsMaterial();
     }
     void CheckBoxDistance()
     {
@@ -95,7 +101,14 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-
+    public void UpdatePhysicsMaterial() { float moveInput = Input.GetAxisRaw("Horizontal"); 
+        if (IsOnMovingPlatform()) { boxcollider.sharedMaterial = lowFrictionMaterial; } 
+        else if (IsGrounded()) { 
+            if (moveInput == 0) { boxcollider.sharedMaterial = highFrictionMaterial; } 
+            else { boxcollider.sharedMaterial = lowFrictionMaterial; } } }
+    bool IsOnMovingPlatform() { 
+        RaycastHit2D hit = Physics2D.Raycast(boxcollider.bounds.center, Vector2.down, boxcollider.bounds.extents.y + raycastDistance, movingPlatformLayer); 
+        return hit.collider != null; }
     void MovePlayer(float moveInput)
     {
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
