@@ -49,7 +49,7 @@ public class EnhancedCameraFollow : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
+    public void LateUpdate()
     {
         if (target == null) return; // Exit if no target is assigned
 
