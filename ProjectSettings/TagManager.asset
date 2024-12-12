@@ -9,6 +9,7 @@ TagManager:
   - ground
   - Spring
   - FallingObject
+  - SoundArea
   layers:
   - Default
   - TransparentFX
