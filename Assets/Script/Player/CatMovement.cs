@@ -34,6 +34,9 @@ public class CatMovement : MonoBehaviour
     {
         Move();
         Jump();
+        GroundCheck();
+        UpdateAnimation();
+
     }
     void Move()
     {

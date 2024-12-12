@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         CheckBoxDistance();
         UpdatePhysicsMaterial();
+        IsBox();
     }
     void CheckBoxDistance()
     {
@@ -78,7 +79,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-
         float moveInput = Input.GetAxisRaw("Horizontal");
         if (isHoldingBox && Box != null)
         {
@@ -195,17 +195,38 @@ public class PlayerMovement : MonoBehaviour
     bool IsGrounded()
     {
         Vector2 boxCenter = boxcollider.bounds.center;
-        Vector2 boxSize = new Vector2(boxcollider.bounds.size.x, raycastDistance); // Tinggi sesuai `raycastDistance`
+        Vector2 boxSize = new Vector2(boxcollider.bounds.size.x, raycastDistance); 
         RaycastHit2D hit = Physics2D.BoxCast(boxCenter, boxSize, 0f, Vector2.down, raycastDistance, groundLayer);
 
-        // Debugging BoxCast
-        Debug.DrawRay(boxCenter + new Vector2(-boxSize.x / 2, 0), Vector2.down * raycastDistance, Color.red); // Kiri bawah
-        Debug.DrawRay(boxCenter + new Vector2(boxSize.x / 2, 0), Vector2.down * raycastDistance, Color.red);  // Kanan bawah
-        Debug.DrawRay(boxCenter + new Vector2(-boxSize.x / 2, -raycastDistance), Vector2.right * boxSize.x, Color.red); // Dasar kotak
-
+        Debug.DrawRay(boxCenter + new Vector2(-boxSize.x / 2, 0), Vector2.down * raycastDistance, Color.red); 
+        Debug.DrawRay(boxCenter + new Vector2(boxSize.x / 2, 0), Vector2.down * raycastDistance, Color.red);  
+        Debug.DrawRay(boxCenter + new Vector2(-boxSize.x / 2, -raycastDistance), Vector2.right * boxSize.x, Color.red); 
         return hit.collider != null;
     }
+    public void IsBox()
+    {
+        Vector2 boxCenter = boxcollider.bounds.center;
+        Vector2 boxSize = new Vector2(boxcollider.bounds.size.x, raycastDistance);
+        RaycastHit2D hit = Physics2D.BoxCast(boxCenter, boxSize, 0f, Vector2.down, raycastDistance, groundLayer);
+        Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.green); 
 
+        if (hit.collider != null)
+        {
+            InteractBox interactBox = hit.collider.GetComponent<InteractBox>();
+
+            if (interactBox != null)
+            {
+                interactBox.enabled = false;
+            }
+            else
+            {
+                interactBox.enabled = true;
+
+            }
+
+        }
+     
+    }
     void GroundCheck()
     {
         if (IsGrounded() == true)

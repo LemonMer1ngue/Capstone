@@ -40,11 +40,6 @@ public class InteractBox : MonoBehaviour
             font.SetActive(true);
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
-        else if (!beingPushed && isPlayerNearby && isMerged)
-        {
-            font.SetActive(true);
-            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-        }
         else if (!beingPushed)
         {
             font.SetActive(false);
