@@ -28,11 +28,11 @@ public class MovingPlatform : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, posA.position) < .1f)
             {
-                targetPos = posB.position;
+                StartCoroutine(WaitAndMove(posB.position));
             }
             else if (Vector2.Distance(transform.position, posB.position) < .1f)
             {
-                targetPos = posA.position;
+                StartCoroutine(WaitAndMove(posA.position));
             }
         }
         else
@@ -89,6 +89,10 @@ public class MovingPlatform : MonoBehaviour
     public void SetButtonPressed(bool pressed)
     {
         isButtonPressed = pressed;
+    }
+    private IEnumerator WaitAndMove(Vector2 newTargetPos)
+    {
+        yield return new WaitForSeconds(5f); targetPos = newTargetPos;
     }
 }
 
