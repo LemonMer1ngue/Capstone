@@ -8,6 +8,7 @@ public class DialogueCharacter
 {
     public string name;
     public Sprite bgImg;
+    public Sprite canvasBgImg;
 }
 
 [System.Serializable]
@@ -37,7 +38,7 @@ public class DialogueTrigger : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
-            StartCoroutine(AwakenStart());
+            DialogueManager.Instance.DialogueStartTutorial(dialogue);
         }
 
     }
@@ -58,7 +59,7 @@ public class DialogueTrigger : MonoBehaviour
 
     IEnumerator AwakenStart()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         TriggerDialogue();
     }
 }

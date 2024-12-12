@@ -10,10 +10,11 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
 
-    public GameObject target;
+    public GameObject Player;
 
     [Header("Dialgue")]
     public GameObject background;
+    public Image canvasBG;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
 
@@ -38,8 +39,8 @@ public class DialogueManager : MonoBehaviour
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
-            target = player;
-            if (target.GetComponent<PlayerMovement>() == null)
+            Player = player;
+            if (Player.GetComponent<PlayerMovement>() == null)
             {
                 Debug.LogError("Komponen PlayerMovement tidak ditemukan pada object Player! Pastikan Player memiliki komponen PlayerMovement.");
             }
@@ -74,9 +75,9 @@ public class DialogueManager : MonoBehaviour
         gameObject.SetActive (true);
         animator.SetTrigger("Start");
 
-        if (target != null && target.GetComponent<PlayerMovement>() != null)
+        if (Player != null && Player.GetComponent<PlayerMovement>() != null)
         {
-            target.GetComponent<PlayerMovement>().enabled = false; // Disable PlayerMovement during dialogue
+            Player.GetComponent<PlayerMovement>().enabled = false; // Disable PlayerMovement during dialogue
         }
 
         lines.Clear();
@@ -86,6 +87,15 @@ public class DialogueManager : MonoBehaviour
         }
 
         DisplayNextDialogueLine();
+    }
+
+    public void DialogueStartTutorial(Dialogue dialogue)
+    {
+        gameObject.SetActive(true);
+        transform.Find("Name").gameObject.SetActive(false);
+        transform.Find("DialogueText").gameObject.SetActive(false);
+        transform.Find("Body").gameObject.SetActive(false);
+        StartCoroutine(AwakenStartDialogue(dialogue));
     }
 
     public void DisplayNextDialogueLine()
@@ -98,6 +108,7 @@ public class DialogueManager : MonoBehaviour
 
         currentLine = lines.Dequeue();
         background.GetComponent<SpriteRenderer>().sprite = currentLine.character.bgImg;
+        canvasBG.sprite = currentLine.character.canvasBgImg;
         characterName.text = currentLine.character.name;
 
         StopAllCoroutines();
@@ -136,9 +147,32 @@ public class DialogueManager : MonoBehaviour
         }
             
             gameObject.SetActive(false);
-        if (target != null && target.GetComponent<PlayerMovement>() != null)
+        if (Player != null && Player.GetComponent<PlayerMovement>() != null)
         {
-            target.GetComponent<PlayerMovement>().enabled = true; 
+            Player.GetComponent<PlayerMovement>().enabled = true; 
         }
+    }
+
+    IEnumerator AwakenStartDialogue(Dialogue dialogue)
+    {
+        
+        yield return new WaitForSeconds(2);
+        transform.Find("Name").gameObject.SetActive(true);
+        transform.Find("DialogueText").gameObject.SetActive(true);
+        transform.Find("Body").gameObject.SetActive(true);
+        animator.SetTrigger("Start");
+
+        if (Player != null && Player.GetComponent<PlayerMovement>() != null)
+        {
+            Player.GetComponent<PlayerMovement>().enabled = false; // Disable PlayerMovement during dialogue
+        }
+
+        lines.Clear();
+        foreach (DialogueLine dialogueLine in dialogue.dialogueLines)
+        {
+            lines.Enqueue(dialogueLine);
+        }
+
+        DisplayNextDialogueLine();
     }
 }
