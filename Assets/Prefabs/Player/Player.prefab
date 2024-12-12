@@ -353,15 +353,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c08240484d6084459c079bc5f0cfe78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 2792584904539567460}
-  stoneClips:
-  - {fileID: 8300000, guid: f6bce213f640ede4e83bbc48d53072c7, type: 3}
-  grassClips:
-  - {fileID: 8300000, guid: 27a511bef625309429d03bcc7746e1eb, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   raycastDistance: 1.35
+  raycastOriginOffset: 0.1
+  grassFS:
+  - {fileID: 8300000, guid: f6bce213f640ede4e83bbc48d53072c7, type: 3}
+  - {fileID: 8300000, guid: eac981cbcbf247a4985a2171e4b43b4a, type: 3}
+  - {fileID: 8300000, guid: f1ac3ad88291d3a4689750b798855ce9, type: 3}
+  - {fileID: 8300000, guid: 29699c38245bb1348945cf787f8b667b, type: 3}
+  rockFS: []
+  woodFS: []
+  dirtFS:
+  - {fileID: 8300000, guid: 27a511bef625309429d03bcc7746e1eb, type: 3}
+  - {fileID: 8300000, guid: 3985280975a93be4fa7e52caa3a26975, type: 3}
+  - {fileID: 8300000, guid: 66940b5583918c440b8467b7b8e2415e, type: 3}
+  - {fileID: 8300000, guid: aa568840842211f499971f3a772be56a, type: 3}
+  jellyFS: []
+  footstepSource: {fileID: 2792584904539567460}
+  footstepInterval: 0.5
+  pitchMin: 0.9
+  pitchMax: 1.1
+  volumeMin: 0.8
+  volumeMax: 1
 --- !u!82 &2792584904539567460
 AudioSource:
   m_ObjectHideFlags: 0
