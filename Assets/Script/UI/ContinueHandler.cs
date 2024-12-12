@@ -2,31 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using System.IO;
+
 
 public class ContinueHandler : MonoBehaviour
 {
-    public GameObject continueButton;
-    private int continueScene;
+    public Button continueButton;
+    public GameObject test;
+    private string saveFilePath;
 
     private void Start()
     {
+        saveFilePath = Application.persistentDataPath + "/save.json";
+
         CheckSave();
+        continueButton.onClick.AddListener(ContinueGame);
     }
     private void CheckSave()
     {
-        continueScene = PlayerPrefs.GetInt("SavedScene");
-        if (continueScene != 0)
+        if (File.Exists(saveFilePath))
         {
-            continueButton.SetActive(true);
+            test.SetActive(true);
         }
         else 
-        { 
-            continueButton.SetActive(false); 
+        {
+            test.SetActive(false);
         }
     }
 
     public void ContinueGame()
     {
-        SceneManager.LoadScene(continueScene);
+        string json = File.ReadAllText(saveFilePath);
+        SaveData saveData = JsonUtility.FromJson<SaveData>(json);
+
+        Debug.Log("Loading Scene Index from JSON: " + saveData.savedSceneIndex);
+        SceneManager.LoadScene(saveData.savedSceneIndex);
     }
 }

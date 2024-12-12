@@ -1,21 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class C2 : MonoBehaviour
 {
-    private int c2SceneIndex;
+    private string saveFilePath;
 
-    public void C2Save()
+    private void Start()
     {
-        c2SceneIndex = SceneManager.GetActiveScene().buildIndex;
-        PlayerPrefs.SetInt("C2SavedScene", c2SceneIndex);
+        saveFilePath = Application.persistentDataPath + "/save2.json";
     }
 
-    // Update is called once per frame
-    void Update()
+    // This method is called when another collider enters the trigger area
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        C2Save();
+        // Check if the object that entered the trigger is the player (or any tag you set)
+        if (other.CompareTag("Player"))  // Replace "Player" with the tag of your player object
+        {
+            SaveScene();
+        }
+    }
+
+    public void SaveScene()
+    {
+        SaveData2 saveData = new SaveData2();
+        saveData.c2SceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        string json = JsonUtility.ToJson(saveData);
+        File.WriteAllText(saveFilePath, json);
+
+        Debug.Log("Scene saved to JSON: " + json);
     }
 }

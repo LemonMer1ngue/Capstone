@@ -11,6 +11,7 @@ public class SaveScene : MonoBehaviour
     {
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         PlayerPrefs.SetInt("SavedScene", currentSceneIndex);
+        PlayerPrefs.Save();
     }
 
     // Update is called once per frame

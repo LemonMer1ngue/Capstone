@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class ChapterSelect : MonoBehaviour
 {
@@ -9,15 +10,17 @@ public class ChapterSelect : MonoBehaviour
     public Button chapter3Button;
     public Button backButton;
 
-    private int c1Scene;
-    private int c2Scene;
+    private string saveFilePath1;
+    private string saveFilePath2;
 
     void Start()
     {
+        saveFilePath1 = Application.persistentDataPath + "/save1.json";
+        saveFilePath2 = Application.persistentDataPath + "/save2.json";
         // Add listeners to the buttons
         chapter1Button.onClick.AddListener(Chapter1);
-        chapter1Button.onClick.AddListener(Chapter2);
-        chapter1Button.onClick.AddListener(Chapter3);
+        chapter2Button.onClick.AddListener(Chapter2);
+        chapter3Button.onClick.AddListener(Chapter3);
         backButton.onClick.AddListener(Back);
     }
 
@@ -31,29 +34,36 @@ public class ChapterSelect : MonoBehaviour
 
     public void Chapter1()
     {
-        c1Scene = PlayerPrefs.GetInt("C1SavedScene");
-        if (c1Scene != 0) 
+        if (File.Exists(saveFilePath1))
         {
-            SceneManager.LoadScene(c1Scene);
+            string json = File.ReadAllText(saveFilePath1);
+            SaveData1 saveData1 = JsonUtility.FromJson<SaveData1>(json);
+
+            Debug.Log("Loading Scene Index from JSON: " + saveData1.c1SceneIndex);
+            SceneManager.LoadScene(saveData1.c1SceneIndex);
         }
         else
         {
             return;
         }
-    
+
     }
 
     public void Chapter2()
     {
-        c2Scene = PlayerPrefs.GetInt("C2SavedScene");
-        if (c2Scene != 0)
+        if (File.Exists(saveFilePath2))
         {
-            SceneManager.LoadScene(c2Scene);
+            string json = File.ReadAllText(saveFilePath2);
+            SaveData2 saveData2 = JsonUtility.FromJson<SaveData2>(json);
+
+            Debug.Log("Loading Scene Index from JSON: " + saveData2.c2SceneIndex);
+            SceneManager.LoadScene(saveData2.c2SceneIndex);
         }
-        else
-        {
-            return;
+        else 
+        { 
+            return; 
         }
+
     }
 
     public void Chapter3()
