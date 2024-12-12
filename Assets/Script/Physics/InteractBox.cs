@@ -49,13 +49,40 @@ public class InteractBox : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 
         }
-        else if (beingPushed || isMerged)
+else if (beingPushed || isMerged)
+{
+    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    font.SetActive(false);
+
+    foreach (Transform child in transform)
+    {
+        if (child.CompareTag("InteractAble"))
         {
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            font.SetActive(false);
-
+            Rigidbody2D childRb = child.GetComponent<Rigidbody2D>();
+            if (childRb != null)
+            {
+                // Sinkronisasi velocity
+                childRb.velocity = rb.velocity;
+            }
         }
+    }
+}
 
+        //if (isMerged && beingPushed)
+        //{
+        //    // Teruskan velocity dari box ini ke anak-anaknya (box atas)
+        //    foreach (Transform child in transform)
+        //    {
+        //        if (child.CompareTag("InteractAble"))
+        //        {
+        //            Rigidbody2D childRb = child.GetComponent<Rigidbody2D>();
+        //            if (childRb != null)
+        //            {
+        //                childRb.velocity = rb.velocity;
+        //            }
+        //        }
+        //    }
+        //}
 
     }
 

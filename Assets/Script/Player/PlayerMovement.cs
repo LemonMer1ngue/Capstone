@@ -134,6 +134,8 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(moveInput * adjustedSpeed, rb.velocity.y);
         Rigidbody2D boxRb = Box.GetComponent<Rigidbody2D>();
         boxRb.velocity = new Vector2(moveInput * adjustedSpeed, boxRb.velocity.y);
+
+
     }
 
     void StopPlayer()
