@@ -4,11 +4,15 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using static UnityEngine.GraphicsBuffer;
 
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
 
+    public GameObject target;
+
+    [Header("Dialgue")]
     public GameObject background;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
@@ -29,7 +33,22 @@ public class DialogueManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
-        lines = new Queue<DialogueLine>(); 
+        lines = new Queue<DialogueLine>();
+
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            target = player;
+            if (target.GetComponent<PlayerMovement>() == null)
+            {
+                Debug.LogError("Komponen PlayerMovement tidak ditemukan pada object Player! Pastikan Player memiliki komponen PlayerMovement.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player tidak ditemukan di scene!");
+        }
+
     }
 
     private void Update()
@@ -54,6 +73,11 @@ public class DialogueManager : MonoBehaviour
     {
         gameObject.SetActive (true);
         animator.SetTrigger("Start");
+
+        if (target != null && target.GetComponent<PlayerMovement>() != null)
+        {
+            target.GetComponent<PlayerMovement>().enabled = false; // Disable PlayerMovement during dialogue
+        }
 
         lines.Clear();
         foreach (DialogueLine dialogueLine in dialogue.dialogueLines)
@@ -112,5 +136,9 @@ public class DialogueManager : MonoBehaviour
         }
             
             gameObject.SetActive(false);
+        if (target != null && target.GetComponent<PlayerMovement>() != null)
+        {
+            target.GetComponent<PlayerMovement>().enabled = true; 
+        }
     }
 }

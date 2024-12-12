@@ -60,7 +60,7 @@ public class DeathController : MonoBehaviour
         //yield return new WaitUntil(() => SceneManager.GetActiveScene().name == currentSceneName);
         anim.SetTrigger("Respawn");
         transform.position = checkpointPos;
-        //SaveSystem.Load();
+        SaveSystem.Load();
         yield return new WaitForSeconds(duration);
         
         respawnAnimObject.SetActive(false);
