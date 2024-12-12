@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3861702005518202381}
   - component: {fileID: 3444125673996609446}
   - component: {fileID: 715177010143378845}
+  - component: {fileID: 4725185355226464093}
   m_Layer: 0
   m_Name: Wood
   m_TagString: Untagged
@@ -96,7 +97,7 @@ EdgeCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4211760684589816490}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 4e2d90b5173295a448388061e214ae38, type: 2}
   m_IncludeLayers:
@@ -208,6 +209,51 @@ MonoBehaviour:
   isPlayerNearby: 0
   isMerged: 0
   font: {fileID: 5263315692651973499, guid: 9257de640df5c2e43b5df71ae0fdd823, type: 3}
+--- !u!61 &4725185355226464093
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4211760684589816490}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 8.82, y: 7.23}
+    newSize: {x: 8.82, y: 7.23}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 8.82, y: 7.23}
+  m_EdgeRadius: 0
 --- !u!1 &8529794204235336396
 GameObject:
   m_ObjectHideFlags: 0
