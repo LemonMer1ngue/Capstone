@@ -284,10 +284,7 @@ MonoBehaviour:
   isPlayerNearby: 0
   isMerged: 0
   font: {fileID: 5263315692651973499}
-  raycastDistance: 2.02
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 3327
+  topDetector: {fileID: 0}
 --- !u!114 &262940063030912370
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -78,22 +78,9 @@ public class InteractableCameraEffect : MonoBehaviour
 
     private void Update()
     {
-        bool isPlayerInArea = IsEntityInAnyArea(player);
-        bool isCatInArea = IsEntityInAnyArea(cat);
-
-        if (isCatInArea && !isPlayerInArea)
-        {
-            // Deactivate player if only the cat is in the area
-            player.SetActive(false);
-        }
-        else
-        {
-            // Ensure player is active when conditions don't match
-            player.SetActive(true);
-        }
-
         // Handle dimension switch when the player interacts
-        if (isPlayerInArea && Input.GetKeyDown(KeyCode.E) && Time.time >= lastInteractTime + interactionCooldown)
+        // Check if player is in any interactable area for changing dimension
+        if (IsPlayerInAnyArea() && Input.GetKeyDown(KeyCode.E) && Time.time >= lastInteractTime + interactionCooldown)
         {
             lastInteractTime = Time.time; // Update last interaction time
             PlayInteractSound(); // Play interaction sound
@@ -105,9 +92,9 @@ public class InteractableCameraEffect : MonoBehaviour
                 StopCoroutine(fadeCoroutine);
             }
             diGaib = !diGaib;
-
             fadeCoroutine = StartCoroutine(FadeEffects());
         }
+
     }
 
     public void PlayInteractSound()
@@ -148,20 +135,6 @@ public class InteractableCameraEffect : MonoBehaviour
             }
         }
         return false; // Player is not in any area
-    }
-    public GameObject cat; // Reference to the cat object
-
-    private bool IsEntityInAnyArea(GameObject entity)
-    {
-        // Check if a specific entity (player or cat) is in any defined interactable area
-        foreach (GameObject area in interactableAreas)
-        {
-            if (area.TryGetComponent<Collider2D>(out var areaCollider) && areaCollider.OverlapPoint(entity.transform.position))
-            {
-                return true;
-            }
-        }
-        return false;
     }
     public IEnumerator FadeEffects()
     {
