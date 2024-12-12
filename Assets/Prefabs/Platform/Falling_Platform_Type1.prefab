@@ -484,6 +484,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StillPlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 415268924705155223, guid: 9a77ea17a0cd76b41834e1ad60a14ccd, type: 3}
+      propertyPath: m_TagString
+      value: Wood
+      objectReference: {fileID: 0}
     - target: {fileID: 2695246687794317312, guid: 9a77ea17a0cd76b41834e1ad60a14ccd, type: 3}
       propertyPath: m_Size.x
       value: 8.545626

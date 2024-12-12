@@ -180,6 +180,10 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: -0.69102454
       objectReference: {fileID: 0}
+    - target: {fileID: 3372877605090680818, guid: 6e5f25a38bf636f448ea4187630646b4, type: 3}
+      propertyPath: m_TagString
+      value: Wood
+      objectReference: {fileID: 0}
     - target: {fileID: 3820280749062863581, guid: 6e5f25a38bf636f448ea4187630646b4, type: 3}
       propertyPath: m_Constraints
       value: 7
@@ -215,6 +219,10 @@ PrefabInstance:
     - target: {fileID: 4442436477386804970, guid: 6e5f25a38bf636f448ea4187630646b4, type: 3}
       propertyPath: m_Name
       value: Still_Platform_Type2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4442436477386804970, guid: 6e5f25a38bf636f448ea4187630646b4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4453693000792566656, guid: 6e5f25a38bf636f448ea4187630646b4, type: 3}
       propertyPath: m_Constraints

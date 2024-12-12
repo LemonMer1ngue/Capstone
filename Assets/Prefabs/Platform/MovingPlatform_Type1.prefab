@@ -340,6 +340,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Still_Platform_Type1
       objectReference: {fileID: 0}
+    - target: {fileID: 3782435785251806798, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
+      propertyPath: m_TagString
+      value: Wood
+      objectReference: {fileID: 0}
     - target: {fileID: 3829943710371605669, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
       propertyPath: m_Constraints
       value: 7

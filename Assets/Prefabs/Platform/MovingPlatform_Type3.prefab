@@ -272,6 +272,10 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7032238797685559518, guid: 96351b680afc4af41b44a35bb9edc556, type: 3}
+      propertyPath: m_TagString
+      value: Wood
+      objectReference: {fileID: 0}
     - target: {fileID: 7490896034782470893, guid: 96351b680afc4af41b44a35bb9edc556, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 3.667515
