@@ -44,6 +44,7 @@ public class LevelLoader : MonoBehaviour
         transition.SetTrigger("Blink");
         yield return new WaitForSeconds(transitionTime);
         AsyncOperation operation = SceneManager.LoadSceneAsync("Tutorial");
+        yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "Tutorial");
         transition.SetTrigger("Awake");
     }
 }

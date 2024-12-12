@@ -10,6 +10,9 @@ public class SoundManager : MonoBehaviour
     public AudioSource whisperSound;
     public AudioSource laughSound;
     public AudioSource breathingSound;
+    public AudioSource beachWaves;
+    public AudioSource beachWind;
+    public AudioSource suspence;
 
     private void Awake()
     {
@@ -22,6 +25,7 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        StopAllSounds();
     }
 
     public void PlayHeartBeatSound()
@@ -49,4 +53,29 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    public void PlayWaveSound()
+    {
+        beachWaves.Play();
+    }
+
+    public void PlayWindSound()
+    {
+        beachWind.Play();
+    }
+
+    public void PlaySuspenceSound()
+    {
+        suspence.Play();
+    }
+
+    public void StopAllSounds()
+    {
+        heartBeatSound.Stop();
+        whisperSound.Stop();
+        laughSound.Stop();
+        breathingSound.Stop();
+        beachWaves.Stop();
+        beachWind.Stop();
+        suspence.Stop();
+    }
 }

@@ -33,6 +33,11 @@ public class DialogueTrigger : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "CutScene")
         {
             TriggerDialogue();
+           
+        }
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            StartCoroutine(AwakenStart());
         }
 
     }
@@ -47,14 +52,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            if (SceneManager.GetActiveScene().name == "CutScene")
-            {
-                TriggerDialogue();
-            }
-            else
-            {
-                StartCoroutine(AwakenStart());
-            }
+            TriggerDialogue();
         }
     }
 
