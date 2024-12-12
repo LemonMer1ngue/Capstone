@@ -24,7 +24,7 @@ public class EnhancedCameraFollow : MonoBehaviour
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
-            target =  player.transform;
+            target = player.transform;
             if (target == null)
             {
                 Debug.LogError("target tidak ditemukan pada object player!");
@@ -34,7 +34,7 @@ public class EnhancedCameraFollow : MonoBehaviour
         {
             Debug.LogError("Player tidak ditemukan di scene!");
         }
-    
+
     }
     private void Start()
     {
@@ -76,5 +76,9 @@ public class EnhancedCameraFollow : MonoBehaviour
 
         float targetFoV = isZoomed ? zoomFoV : normalFoV;
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFoV, Time.deltaTime * zoomSpeed);
+    }
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
     }
 }
