@@ -7,7 +7,8 @@ public class EnhancedOcclusionCulling2D : MonoBehaviour
 {
     [SerializeField] private GameObject[] objects = new GameObject[0];
 
-    [System.Serializable] internal class ObjectSettings
+    [System.Serializable]
+    internal class ObjectSettings
     {
         [SerializeField, HideInInspector] internal string title;
         [SerializeField, HideInInspector] internal GameObject theGameObject;
@@ -42,7 +43,8 @@ public class EnhancedOcclusionCulling2D : MonoBehaviour
     [SerializeField, HideInInspector] private bool isInitialized;
     private bool hasSavedOverridingSettings = true;
 
-    private Bounds GetCombinedBounds(GameObject parent) {
+    private Bounds GetCombinedBounds(GameObject parent)
+    {
 
         Vector3 absScale = new Vector3(Mathf.Abs(parent.transform.localScale.x), Mathf.Abs(parent.transform.localScale.y), 0);
         Bounds combinedBounds = new Bounds(parent.transform.position, absScale);
@@ -51,9 +53,11 @@ public class EnhancedOcclusionCulling2D : MonoBehaviour
         Renderer[] renderers = parent.GetComponentsInChildren<Renderer>(GetComponent<Renderer>());
 
         //grow combined bounds with every children renderer, foreach will not be called if there are no renderers
-        foreach (Renderer rendererChild in renderers) {
+        foreach (Renderer rendererChild in renderers)
+        {
 
-            if (combinedBounds.size == absScale) { // the first one which is the parent of all
+            if (combinedBounds.size == absScale)
+            { // the first one which is the parent of all
                 combinedBounds = rendererChild.bounds;
             }
 
@@ -186,14 +190,15 @@ public class EnhancedOcclusionCulling2D : MonoBehaviour
     }
 #endif
 
-    void Awake(){ 
+    void Awake()
+    {
         camera = GetComponent<Camera>();
     }
-    
+
     void FixedUpdate()
     {
         timer += Time.deltaTime;
-        if(timer > updateRateInSeconds) timer = 0;
+        if (timer > updateRateInSeconds) timer = 0;
         else return;
 
         float cameraHalfWidth = camera.orthographicSize * ((float)Screen.width / (float)Screen.height);
@@ -202,13 +207,16 @@ public class EnhancedOcclusionCulling2D : MonoBehaviour
         float cameraTop = camera.transform.position.y + camera.orthographicSize;
         float cameraBottom = camera.transform.position.y - camera.orthographicSize;
 
-        foreach(ObjectSettings o in objectsSettings) {
+        foreach (ObjectSettings o in objectsSettings)
+        {
 
-            if(o.theGameObject) {
-                
+            if (o.theGameObject)
+            {
+
                 bool checkStatic = overrideAllObjectsSettings ? overridingIsStaticAll : o.isStatic;
 
-                if(!checkStatic){
+                if (!checkStatic)
+                {
                     o.center = GetCombinedBounds(o.theGameObject).center;
                     o.right = o.center.x + o.sized.x;
                     o.left = o.center.x - o.sized.x;
