@@ -20,8 +20,12 @@ public class CameraTriggerZone : MonoBehaviour
     private Vector2 originalMinBounds;
     private Vector2 originalMaxBounds;
 
-    private bool isPlayerInZone = false;
-    private static CameraTriggerZone currentTriggerZone = null; // Static reference to the current active zone
+    private Vector3 currentOffset;
+    private float currentFoV;
+    private Vector2 currentMinBounds;
+    private Vector2 currentMaxBounds;
+
+    private bool isTransitioning = false;
 
     private void Start()
     {
@@ -37,43 +41,34 @@ public class CameraTriggerZone : MonoBehaviour
         originalFoV = cameraFollow.normalFoV;
         originalMinBounds = cameraFollow.minBounds;
         originalMaxBounds = cameraFollow.maxBounds;
+
+        currentOffset = originalOffset;
+        currentFoV = originalFoV;
+        currentMinBounds = originalMinBounds;
+        currentMaxBounds = originalMaxBounds;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            // Ensure the previous trigger zone stops its transition
-            if (currentTriggerZone != null && currentTriggerZone != this)
+            if (!isTransitioning)
             {
-                currentTriggerZone.ResetZone();
+                // Set the current state as the new starting point
+                originalOffset = cameraFollow.offset;
+                originalFoV = cameraFollow.normalFoV;
+                originalMinBounds = cameraFollow.minBounds;
+                originalMaxBounds = cameraFollow.maxBounds;
+                transitionTime = 0f;
             }
 
-            // Set this as the current active zone
-            currentTriggerZone = this;
-
-            isPlayerInZone = true;
-            transitionTime = 0f;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            // Clear the current active zone if the player exits
-            if (currentTriggerZone == this)
-            {
-                currentTriggerZone = null;
-            }
-
-            isPlayerInZone = false;
+            isTransitioning = true;
         }
     }
 
     private void Update()
     {
-        if (isPlayerInZone)
+        if (isTransitioning)
         {
             SmoothTransitionToNewSettings();
         }
@@ -87,21 +82,24 @@ public class CameraTriggerZone : MonoBehaviour
         {
             transitionTime += Time.deltaTime;
         }
+        else
+        {
+            isTransitioning = false;
+        }
 
         if (cameraFollow != null)
         {
-            cameraFollow.offset = Vector3.Lerp(cameraFollow.offset, newOffset, lerpFactor);
-            cameraFollow.minBounds = Vector2.Lerp(cameraFollow.minBounds, newMinBounds, lerpFactor);
-            cameraFollow.maxBounds = Vector2.Lerp(cameraFollow.maxBounds, newMaxBounds, lerpFactor);
-            cameraFollow.normalFoV = Mathf.Lerp(cameraFollow.normalFoV, newFoV, lerpFactor);
+            currentOffset = Vector3.Lerp(originalOffset, newOffset, lerpFactor);
+            currentMinBounds = Vector2.Lerp(originalMinBounds, newMinBounds, lerpFactor);
+            currentMaxBounds = Vector2.Lerp(originalMaxBounds, newMaxBounds, lerpFactor);
+            currentFoV = Mathf.Lerp(originalFoV, newFoV, lerpFactor);
 
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, newFoV, lerpFactor);
+            cameraFollow.offset = currentOffset;
+            cameraFollow.minBounds = currentMinBounds;
+            cameraFollow.maxBounds = currentMaxBounds;
+            cameraFollow.normalFoV = currentFoV;
+
+            cam.fieldOfView = currentFoV;
         }
-    }
-
-    private void ResetZone()
-    {
-        isPlayerInZone = false;
-        transitionTime = 0f;
     }
 }
