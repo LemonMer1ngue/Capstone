@@ -39,10 +39,11 @@ public class Checkpoint : MonoBehaviour
         {
             if (DeathController != null)
             {
+                SaveSystem.Save();
                 animator.enabled = true;
                 DeathController.UpdateCheckpoint(transform.position);
                 Collider.enabled = false;
-                SaveSystem.Save();
+                
             }
         }
     }

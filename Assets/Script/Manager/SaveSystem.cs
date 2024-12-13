@@ -11,7 +11,7 @@ public class SaveSystem
     public struct SaveData
     {
         public PlayerSaveData PlayerData;
-        public CatSavedata CatSavedata;
+        //public CatSavedata CatSavedata;
     }
 
     public static string SaveFileName()
@@ -29,7 +29,7 @@ public class SaveSystem
     private static void HandleSaveData()
     {
         GameManager.Instance.Death.Save(ref _saveData.PlayerData);
-        GameManager.Instance.CatMovement.Save(ref _saveData.CatSavedata);
+        //GameManager.Instance.CatMovement.Save(ref _saveData.CatSavedata);
     }
 
     public static void Load()
@@ -42,6 +42,6 @@ public class SaveSystem
     private static void HandleLoadData()
     {
         GameManager.Instance.Death.Load(_saveData.PlayerData);
-        GameManager.Instance.CatMovement.Load(_saveData.CatSavedata);
+        //GameManager.Instance.CatMovement.Load(_saveData.CatSavedata);
     }
 }
