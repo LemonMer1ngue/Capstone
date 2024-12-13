@@ -64,6 +64,14 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: 0.0000016111104
       objectReference: {fileID: 0}
+    - target: {fileID: 709500606378265711, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_Size.y
+      value: 0.64094096
+      objectReference: {fileID: 0}
+    - target: {fileID: 709500606378265711, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.29057917
+      objectReference: {fileID: 0}
     - target: {fileID: 1516537994257110437, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_TagString
       value: Wood

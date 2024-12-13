@@ -240,6 +240,14 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2156892757192783102, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
+      propertyPath: m_Size.y
+      value: 0.2848065
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156892757192783102, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.19979155
+      objectReference: {fileID: 0}
     - target: {fileID: 2245054671070332625, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 3.7252645
