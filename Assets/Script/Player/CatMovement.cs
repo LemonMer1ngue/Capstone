@@ -17,11 +17,6 @@ public class CatMovement : MonoBehaviour
     private bool isGrounded;
     private BoxCollider2D boxcollider;
 
-    // public ParticleSystem dust;
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,58 +24,53 @@ public class CatMovement : MonoBehaviour
         boxcollider = GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Move();
         Jump();
         GroundCheck();
         UpdateAnimation();
-
     }
+
     void Move()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
         MovePlayer(moveInput);
     }
+
     void MovePlayer(float moveInput)
     {
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-        if (moveInput != 0 && (isGrounded == true))
+
+        if (moveInput != 0 && isGrounded)
         {
-            transform.localScale = new Vector3(Mathf.Sign(moveInput), 1, 1);
-            // dust.Play();
+            transform.localScale = new Vector3(Mathf.Sign(moveInput) * 0.6f, 0.6f, 0.6f);
+        }
+        else if (moveInput == 0)
+        {
+            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
     }
+
     void Jump()
     {
         if (IsGrounded() && Input.GetButtonDown("Jump"))
         {
-            // dust.Play();
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce); // Menerapkan gaya lompat
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
-
     }
 
     bool IsGrounded()
     {
         RaycastHit2D hit = Physics2D.Raycast(boxcollider.bounds.center, Vector2.down, boxcollider.bounds.extents.y + raycastDistance, groundLayer);
-        Debug.DrawRay(boxcollider.bounds.center, Vector2.down * (boxcollider.bounds.extents.y + raycastDistance), Color.red); // Debugging
+        Debug.DrawRay(boxcollider.bounds.center, Vector2.down * (boxcollider.bounds.extents.y + raycastDistance), Color.red);
         return hit.collider != null;
     }
 
     void GroundCheck()
     {
-        if (IsGrounded() == true)
-        {
-            animator.SetBool("isGround", true);
-            isGrounded = true;
-        }
-        else
-        {
-            animator.SetBool("isGround", false);
-            isGrounded = false;
-        }
+        isGrounded = IsGrounded();
+        animator.SetBool("isGround", isGrounded);
     }
 
     void UpdateAnimation()
@@ -93,7 +83,7 @@ public class CatMovement : MonoBehaviour
         }
         else if (isGrounded)
         {
-            animator.ResetTrigger("isFalling"); // Reset the isFalling trigger when grounded
+            animator.ResetTrigger("isFalling");
         }
     }
 }
