@@ -26,6 +26,9 @@ public class MoveTargetObjectOnTrigger : MonoBehaviour
                 color.a = 0f;
                 spriteRenderer.color = color;
             }
+
+            // Pastikan objek target tidak aktif di awal
+            targetObject.SetActive(false);
         }
     }
 
@@ -38,7 +41,7 @@ public class MoveTargetObjectOnTrigger : MonoBehaviour
             targetObject.transform.position = new Vector3(targetObject.transform.position.x, newY, targetObject.transform.position.z);
 
             // Jika objek sudah mencapai target Y, berhenti bergerak ke atas
-            if (targetObject.transform.position.y == targetY)
+            if (Mathf.Approximately(targetObject.transform.position.y, targetY))
             {
                 moveObjectUp = false;
                 Debug.Log("Objek telah mencapai posisi target!");
@@ -52,7 +55,7 @@ public class MoveTargetObjectOnTrigger : MonoBehaviour
             targetObject.transform.position = new Vector3(targetObject.transform.position.x, newY, targetObject.transform.position.z);
 
             // Jika objek sudah kembali ke posisi awal, berhenti bergerak ke bawah
-            if (targetObject.transform.position.y == initialPosition.y)
+            if (Mathf.Approximately(targetObject.transform.position.y, initialPosition.y))
             {
                 moveObjectDown = false;
                 Debug.Log("Objek kembali ke posisi awal!");
@@ -65,23 +68,26 @@ public class MoveTargetObjectOnTrigger : MonoBehaviour
         // Memeriksa apakah objek yang menyentuh trigger adalah pemain (misalnya, tag "Player")
         if (other.CompareTag("Player"))
         {
-            // Aktifkan target objek jika belum aktif
-            if (targetObject != null && !targetObject.activeSelf)
+            if (targetObject != null)
             {
-                targetObject.SetActive(true);
-                Debug.Log("Target object diaktifkan!");
-            }
+                // Aktifkan target objek jika belum aktif
+                if (!targetObject.activeSelf)
+                {
+                    targetObject.SetActive(true);
+                    Debug.Log("Target object diaktifkan!");
+                }
 
-            // Fade-in objek
-            if (spriteRenderer != null)
-            {
-                StartCoroutine(FadeSprite(0f, 1f));
-            }
+                // Fade-in objek
+                if (spriteRenderer != null)
+                {
+                    StartCoroutine(FadeSprite(0f, 1f));
+                }
 
-            // Mulai pergerakan objek menuju posisi target (naik)
-            moveObjectUp = true;
-            moveObjectDown = false; // Pastikan pergerakan turun dihentikan saat trigger pertama kali dipicu
-            Debug.Log("Player menyentuh trigger, objek mulai bergerak ke atas!");
+                // Mulai pergerakan objek menuju posisi target (naik)
+                moveObjectUp = true;
+                moveObjectDown = false; // Pastikan pergerakan turun dihentikan saat trigger pertama kali dipicu
+                Debug.Log("Player menyentuh trigger, objek mulai bergerak ke atas!");
+            }
         }
     }
 
@@ -90,16 +96,19 @@ public class MoveTargetObjectOnTrigger : MonoBehaviour
         // Memeriksa apakah objek yang keluar dari trigger adalah pemain (misalnya, tag "Player")
         if (other.CompareTag("Player"))
         {
-            // Fade-out objek
-            if (spriteRenderer != null)
+            if (targetObject != null)
             {
-                StartCoroutine(FadeSprite(1f, 0f));
-            }
+                // Fade-out objek
+                if (spriteRenderer != null)
+                {
+                    StartCoroutine(FadeSprite(1f, 0f));
+                }
 
-            // Mulai pergerakan objek kembali ke posisi awal (ke bawah)
-            moveObjectDown = true;
-            moveObjectUp = false; // Pastikan pergerakan naik dihentikan saat pemain keluar trigger
-            Debug.Log("Player keluar dari trigger, objek mulai kembali ke posisi awal!");
+                // Mulai pergerakan objek kembali ke posisi awal (ke bawah)
+                moveObjectDown = true;
+                moveObjectUp = false; // Pastikan pergerakan naik dihentikan saat pemain keluar trigger
+                Debug.Log("Player keluar dari trigger, objek mulai kembali ke posisi awal!");
+            }
         }
     }
 
