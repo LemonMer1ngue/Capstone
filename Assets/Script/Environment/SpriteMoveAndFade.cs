@@ -7,6 +7,7 @@ public class SpriteMoveAndFade : MonoBehaviour
     public float moveDuration = 1f; // Durasi perpindahan
     public float holdDuration = 2f; // Durasi bertahan di alpha 1
     public float fadeDuration = 1f; // Durasi fade-in/fade-out
+    public GameObject objectToActivate; // GameObject yang akan diaktifkan
 
     private SpriteRenderer spriteRenderer;
     private bool isMoving = false;
@@ -29,6 +30,12 @@ public class SpriteMoveAndFade : MonoBehaviour
 
         // Simpan referensi collider trigger
         triggerCollider = GetComponent<Collider2D>();
+
+        // Pastikan objectToActivate dinonaktifkan di awal
+        if (objectToActivate != null)
+        {
+            objectToActivate.SetActive(false);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -42,6 +49,13 @@ public class SpriteMoveAndFade : MonoBehaviour
             if (triggerCollider != null)
             {
                 triggerCollider.enabled = false;
+            }
+
+            // Aktifkan objectToActivate
+            if (objectToActivate != null)
+            {
+                objectToActivate.SetActive(true);
+                Debug.Log("Object telah diaktifkan.");
             }
         }
     }
