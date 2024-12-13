@@ -6,6 +6,9 @@ using UnityEngine.UIElements;
 
 public class DeathController : MonoBehaviour
 {
+    public delegate void PlayerInitialized(GameObject player);
+    public static event PlayerInitialized OnPlayerInitialized;
+
     public static DeathController Instance;
 
     public GameObject respawnAnimObject;
@@ -15,18 +18,19 @@ public class DeathController : MonoBehaviour
 
     private void Awake()
     {
-/*        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }else
-        {
-            Destroy(gameObject);    
-        }*/
+        //if (Instance == null)
+        //{
+        //    Instance = this;
+        //    DontDestroyOnLoad(gameObject);
+        //}else
+        //{
+        //    Destroy(gameObject);    
+        //}
     }
 
     void Start()
     {
+        OnPlayerInitialized?.Invoke(gameObject);
         checkpointPos = transform.position;
         playerRb = GetComponent<Rigidbody2D>();
         respawnAnimObject.SetActive(false);
@@ -47,19 +51,20 @@ public class DeathController : MonoBehaviour
 
     void Die()
     {
-        StartCoroutine(Respawn(1f));
+        playerRb.velocity = new Vector2(0, 0);
+        LoadSystem.instance.Respawn();
     }
 
     IEnumerator Respawn(float duration)
     {
-        playerRb.velocity = new Vector2(0, 0);
+        
         respawnAnimObject.SetActive(true);
         yield return new WaitForSeconds(duration);
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
-        //yield return new WaitUntil(() => SceneManager.GetActiveScene().name == currentSceneName);
+        yield return new WaitUntil(() => SceneManager.GetActiveScene().name == currentSceneName);
         anim.SetTrigger("Respawn");
-        transform.position = checkpointPos;
+        //transform.position = checkpointPos;
         SaveSystem.Load();
         yield return new WaitForSeconds(duration);
         

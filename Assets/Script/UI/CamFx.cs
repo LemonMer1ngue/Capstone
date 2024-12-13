@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using System.Collections;
+using static UnityEngine.GraphicsBuffer;
 
 public class InteractableCameraEffect : MonoBehaviour
 {
@@ -63,6 +64,23 @@ public class InteractableCameraEffect : MonoBehaviour
     private bool effectsActive = false; // Track if effects are currently active
     private PlayerMovement playerMovement;
 
+    private void Awake()
+    {
+
+        GameObject targetPlayer = GameObject.FindWithTag("Player");
+        if (targetPlayer != null)
+        {
+            player = targetPlayer.gameObject;
+            if (player == null)
+            {
+                Debug.LogError("target tidak ditemukan pada object player!");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player tidak ditemukan di scene!");
+        }
+    }
     private void Start()
     {
         // Initialize target camera and get post-processing components

@@ -19,7 +19,10 @@ public class CatMovement : MonoBehaviour
 
     // public ParticleSystem dust;
 
-
+    private void Awake()
+    {
+        GameManager.Instance.CatMovement = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -96,4 +99,23 @@ public class CatMovement : MonoBehaviour
             animator.ResetTrigger("isFalling"); // Reset the isFalling trigger when grounded
         }
     }
+
+
+    #region Save and Load
+    public void Save(ref CatSavedata data)
+    {
+        data.Position = transform.position;
+    }
+
+    public void Load(CatSavedata data) 
+    {
+        transform.position = data.Position;
+    }
+    #endregion
+}
+
+[System.Serializable]
+public struct CatSavedata
+{
+    public Vector3 Position;
 }
