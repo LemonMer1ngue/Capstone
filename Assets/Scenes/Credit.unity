@@ -4607,7 +4607,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '@xxxxxx'
+  m_text: '@achkahlil'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 34efa70f485b399498b14fd74607d9ae, type: 2}
   m_sharedMaterial: {fileID: 4187186765732477564, guid: 34efa70f485b399498b14fd74607d9ae, type: 2}
@@ -5273,7 +5273,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '@xxxxxx'
+  m_text: '@wil_dan_s'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 34efa70f485b399498b14fd74607d9ae, type: 2}
   m_sharedMaterial: {fileID: 4187186765732477564, guid: 34efa70f485b399498b14fd74607d9ae, type: 2}
@@ -8835,7 +8835,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '@xxxxxx'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 34efa70f485b399498b14fd74607d9ae, type: 2}
   m_sharedMaterial: {fileID: 4187186765732477564, guid: 34efa70f485b399498b14fd74607d9ae, type: 2}
@@ -10958,7 +10958,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2117868944}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 845721925}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2117868944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11169,7 +11181,6 @@ MonoBehaviour:
   enableFilmGrain: 1
   targetFilmGrainIntensity: 0.35
   interactionCooldown: 1
-  cat: {fileID: 0}
 --- !u!114 &5360355249732409860
 MonoBehaviour:
   m_ObjectHideFlags: 0
