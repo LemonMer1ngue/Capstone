@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 161089393681155621}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: posA
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3141772989956795178}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: MovingPlatform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 7913781808516872813}
   - component: {fileID: 2297735436776537995}
   - component: {fileID: 5064798762867452401}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: Platform
   m_TagString: Jelly
   m_Icon: {fileID: 0}
@@ -1029,7 +1029,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7559623250889383325}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: posB
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
