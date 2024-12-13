@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Checkpoint : MonoBehaviour
 {
@@ -10,14 +11,25 @@ public class Checkpoint : MonoBehaviour
 
     private void Awake()
     {
-        DeathController = FindObjectOfType<DeathController>();
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            DeathController = FindObjectOfType<DeathController>();
+            if (DeathController == null)
+            {
+                Debug.LogError("DeathController tidak ditemukan pada object player!");
+            }
+
+        }
+        else
+        {
+            Debug.LogError("Player tidak ditemukan di scene!");
+        }
+
         Collider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
 
-        if (DeathController == null)
-        {
-            Debug.LogError("DeathController tidak ditemukan di scene!");
-        }
+        
    
     }
 

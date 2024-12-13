@@ -15,8 +15,12 @@ public class InteractBox : MonoBehaviour
     [SerializeField] private GameObject font;
     [SerializeField] private Collider2D topDetector; 
     private Transform mergedBox;
-    private Vector2 mergedBoxInitialPosition; 
-
+    private List<Transform> stackedBoxes = new List<Transform>();
+    private Vector2 mergedBoxInitialPosition;
+    [Header("BoxCast Settings")]
+    [SerializeField] private Vector2 boxSize = new Vector2(1f, 1f); // Ukuran Raycast kotak
+    [SerializeField] private Vector2 boxOffset = new Vector2(0f, 0.5f); // Posisi relatif dari kotak
+    [SerializeField] private LayerMask playerLayer;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,6 +39,8 @@ public class InteractBox : MonoBehaviour
 
     void FixedUpdate()
     {
+        CheckPlayerInBox();
+
         if (!beingPushed && isPlayerNearby && !isMerged)
         {
             font.SetActive(true);
@@ -70,7 +76,23 @@ public class InteractBox : MonoBehaviour
             mergedBox.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
     }
+    private void CheckPlayerInBox()
+    {
+        Vector2 boxPosition = (Vector2)transform.position + boxOffset;
 
+        Collider2D hit = Physics2D.OverlapBox(boxPosition, boxSize, 0f, playerLayer);
+
+        if (hit != null && hit.CompareTag("Player"))
+        {
+            isMerged = false;
+        }
+        else
+        {
+            isMerged = true;   
+        }
+
+        Debug.DrawLine(boxPosition - boxSize / 2, boxPosition + boxSize / 2, Color.green);
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -104,19 +126,6 @@ public class InteractBox : MonoBehaviour
         {
             isMerged = false;
             mergedBox = null; 
-        }
-    }
-
-    public void HandleMergedPush(bool beingPushed)
-    {
-        if (isMerged && beingPushed)
-        {
-            rb.constraints = RigidbodyConstraints2D.None;
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        }
-        else if (!beingPushed)
-        {
-            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
     }
 }

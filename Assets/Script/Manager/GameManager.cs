@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     }
 
     public DeathController Death { get; set; }
-    
+    public CatMovement CatMovement { get; set; }
 
     private void Awake()
     {
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }else
         {
-            DontDestroyOnLoad(gameObject);
+            Destroy(gameObject);
         }
 
         GameObject player = GameObject.FindWithTag("Player");
@@ -50,6 +50,25 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogError("Player tidak ditemukan di scene!");
+        }
+    }
+
+    private void OnEnable()
+    {
+        DeathController.OnPlayerInitialized += UpdatePlayerReference;
+    }
+
+    private void OnDisable()
+    {
+        DeathController.OnPlayerInitialized -= UpdatePlayerReference;
+    }
+
+    private void UpdatePlayerReference(GameObject player)
+    {
+        Death = player.GetComponent<DeathController>();
+        if (Death == null)
+        {
+            Debug.LogError("DeathController tidak ditemukan pada object player!");
         }
     }
 

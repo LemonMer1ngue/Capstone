@@ -17,6 +17,14 @@ public class CatMovement : MonoBehaviour
     private bool isGrounded;
     private BoxCollider2D boxcollider;
 
+    // public ParticleSystem dust;
+
+    private void Awake()
+    {
+        GameManager.Instance.CatMovement = this;
+    }
+
+    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -86,4 +94,23 @@ public class CatMovement : MonoBehaviour
             animator.ResetTrigger("isFalling");
         }
     }
+
+
+    #region Save and Load
+    public void Save(ref CatSavedata data)
+    {
+        data.Position = transform.position;
+    }
+
+    public void Load(CatSavedata data) 
+    {
+        transform.position = data.Position;
+    }
+    #endregion
+}
+
+[System.Serializable]
+public struct CatSavedata
+{
+    public Vector3 Position;
 }
