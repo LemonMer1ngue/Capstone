@@ -28,20 +28,8 @@ public class Dialogue
 public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
-    private static bool isFirstTimeLoaded = true;
+    Collider2D Collider;
 
-    void Awake()
-    {
-        if (isFirstTimeLoaded)
-        {
-            isFirstTimeLoaded = false;
-            DontDestroyOnLoad(gameObject); // Optional jika ingin memastikan objek tidak dihancurkan saat pindah scene
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     private void Start()
     {
         if (SceneManager.GetActiveScene().name == "CutScene")
@@ -49,20 +37,20 @@ public class DialogueTrigger : MonoBehaviour
             TriggerDialogue();
            
         }
-        if (SceneManager.GetActiveScene().name == "Tutorial")
-        {
-            DialogueManager.Instance.DialogueStartTutorial(dialogue);
-        }
-
-        PlayerPrefs.DeleteAll(); // Hapus semua data PlayerPrefs
-        Debug.Log("PlayerPrefs telah dihapus.");
-
+        
+        
+        Collider = GetComponent<Collider2D>();
     }
 
 
     public void TriggerDialogue()
     {
         DialogueManager.Instance.StartDialogue(dialogue);
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            DialogueManager.Instance.DialogueStartTutorial(dialogue);
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -70,6 +58,7 @@ public class DialogueTrigger : MonoBehaviour
         if (collision.tag == "Player")
         {
             TriggerDialogue();
+            Collider.enabled = false;
         }
     }
 

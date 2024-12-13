@@ -57,7 +57,7 @@ public class DialogueManager : MonoBehaviour
         if (isFirstTimeLoaded)
         {
             isFirstTimeLoaded = false;
-            DontDestroyOnLoad(gameObject); // Optional jika ingin memastikan objek tidak dihancurkan saat pindah scene
+           
         }
         else
         {
@@ -158,15 +158,13 @@ public class DialogueManager : MonoBehaviour
         {
             LevelLoader.Instance.LoadNextLevelTutorial();
         }
-            
-            gameObject.SetActive(false);
         if (Player != null && Player.GetComponent<PlayerMovement>() != null)
         {
             Player.GetComponent<PlayerMovement>().enabled = true;
         }
+        gameObject.SetActive(false);
+        
 
-        yield return new WaitForSeconds(5);
-        Destroy(gameObject);
     }
 
     IEnumerator AwakenStartDialogue(Dialogue dialogue)
@@ -178,10 +176,10 @@ public class DialogueManager : MonoBehaviour
         transform.Find("Body").gameObject.SetActive(true);
         animator.SetTrigger("Start");
 
-        //if (Player != null && Player.GetComponent<PlayerMovement>() != null)
-        //{
-        //    Player.GetComponent<PlayerMovement>().enabled = false; // Disable PlayerMovement during dialogue
-        //}
+        if (Player != null && Player.GetComponent<PlayerMovement>() != null)
+        {
+            Player.GetComponent<PlayerMovement>().enabled = false; // Disable PlayerMovement during dialogue
+        }
 
         lines.Clear();
         foreach (DialogueLine dialogueLine in dialogue.dialogueLines)
