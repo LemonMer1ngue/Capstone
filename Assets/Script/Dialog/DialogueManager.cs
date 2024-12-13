@@ -75,10 +75,10 @@ public class DialogueManager : MonoBehaviour
         gameObject.SetActive (true);
         animator.SetTrigger("Start");
 
-        if (Player != null && Player.GetComponent<PlayerMovement>() != null)
-        {
-            Player.GetComponent<PlayerMovement>().enabled = false; // Disable PlayerMovement during dialogue
-        }
+        //if (Player != null && Player.GetComponent<PlayerMovement>() != null)
+        //{
+        //    Player.GetComponent<PlayerMovement>().enabled = false; // Disable PlayerMovement during dialogue
+        //}
 
         lines.Clear();
         foreach (DialogueLine dialogueLine in dialogue.dialogueLines)
@@ -92,9 +92,9 @@ public class DialogueManager : MonoBehaviour
     public void DialogueStartTutorial(Dialogue dialogue)
     {
         gameObject.SetActive(true);
-        transform.Find("Name").gameObject.SetActive(false);
-        transform.Find("DialogueText").gameObject.SetActive(false);
-        transform.Find("Body").gameObject.SetActive(false);
+        //transform.Find("Name").gameObject.SetActive(false);
+        //transform.Find("DialogueText").gameObject.SetActive(false);
+        //transform.Find("Body").gameObject.SetActive(false);
         StartCoroutine(AwakenStartDialogue(dialogue));
     }
 
@@ -149,7 +149,7 @@ public class DialogueManager : MonoBehaviour
             gameObject.SetActive(false);
         if (Player != null && Player.GetComponent<PlayerMovement>() != null)
         {
-            Player.GetComponent<PlayerMovement>().enabled = true; 
+            Player.GetComponent<PlayerMovement>().enabled = true;
         }
     }
 
@@ -162,10 +162,10 @@ public class DialogueManager : MonoBehaviour
         transform.Find("Body").gameObject.SetActive(true);
         animator.SetTrigger("Start");
 
-        if (Player != null && Player.GetComponent<PlayerMovement>() != null)
-        {
-            Player.GetComponent<PlayerMovement>().enabled = false; // Disable PlayerMovement during dialogue
-        }
+        //if (Player != null && Player.GetComponent<PlayerMovement>() != null)
+        //{
+        //    Player.GetComponent<PlayerMovement>().enabled = false; // Disable PlayerMovement during dialogue
+        //}
 
         lines.Clear();
         foreach (DialogueLine dialogueLine in dialogue.dialogueLines)
