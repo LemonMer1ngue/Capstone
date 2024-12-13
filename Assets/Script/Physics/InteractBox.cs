@@ -9,7 +9,7 @@ public class InteractBox : MonoBehaviour
     public int idBox;
     public bool beingPushed;
     [SerializeField] private bool isPlayerNearby;
-    [SerializeField] private bool isMerged;
+    public bool isMerged;
     private Rigidbody2D rb;
     private Vector2 initialPosition;
     [SerializeField] private GameObject font;

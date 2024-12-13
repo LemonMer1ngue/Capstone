@@ -29,7 +29,8 @@ public class PlayerMovement : MonoBehaviour
     public ParticleSystem dust;
     [SerializeField] private float maxDistanceToBox = 1f;
     private bool isMoving = false;
-
+    [SerializeField] private float raycastDistanceBox = 1.0f;  // Jarak raycast
+    [SerializeField] private LayerMask interactableLayer;
     [Header("Physics Materials")]
     [SerializeField] private PhysicsMaterial2D highFrictionMaterial;
     [SerializeField] private PhysicsMaterial2D lowFrictionMaterial;
@@ -176,6 +177,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
     //---------------------------//Box//----------------------------//
 
     //---------------------------//Player//----------------------------//
