@@ -34,6 +34,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PhysicsMaterial2D highFrictionMaterial;
     [SerializeField] private PhysicsMaterial2D lowFrictionMaterial;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioSource moveBoxSound;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -54,6 +57,103 @@ public class PlayerMovement : MonoBehaviour
         CheckBoxDistance();
         UpdatePhysicsMaterial();
         
+    }
+
+    //---------------------------//Sound//----------------------------//
+    void PlayMoveSound()
+    {
+        if (!moveBoxSound.isPlaying)
+        {
+            moveBoxSound.Play(); 
+        }
+    }
+
+    void StopMoveSound()
+    {
+        if (moveBoxSound.isPlaying)
+        {
+            moveBoxSound.Stop();  
+        }
+    }
+    //---------------------------//Sound//----------------------------//
+
+
+    //---------------------------//Box//----------------------------//
+    void MoveBox(float moveInput)
+    {
+        float adjustedSpeed = isHoldingBox ? moveSpeed / 2 : moveSpeed;
+
+        rb.velocity = new Vector2(moveInput * adjustedSpeed, rb.velocity.y);
+        Rigidbody2D boxRb = Box.GetComponent<Rigidbody2D>();
+        boxRb.velocity = new Vector2(moveInput * adjustedSpeed, boxRb.velocity.y);
+
+
+    }
+    void PlayerPushBox()
+    {
+        Vector2[] directions = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
+
+        foreach (Vector2 direction in directions)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, boxMask);
+            if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && Input.GetKeyDown(KeyCode.F))
+            {
+                InteractBox boxScript = hit.collider.gameObject.GetComponent<InteractBox>();
+                if (boxScript != null)
+                {
+                    Debug.Log($"{boxScript.idBox}");
+                }
+
+                if (!isHoldingBox)
+                {
+                    Box = hit.collider.gameObject;
+                    Box.GetComponent<InteractBox>().beingPushed = true;
+                    isHoldingBox = true;
+                    holdingBoxID = boxScript.idBox;
+                }
+                else
+                {
+                    isHoldingBox = false;
+                    Box.GetComponent<InteractBox>().beingPushed = false;
+                    holdingBoxID = -1;
+                    ResetAnimation();
+                    StopBox();
+                }
+
+            }
+        }
+    }
+    void CheckBoxDrop()
+    {
+        if (isHoldingBox && Box != null)
+        {
+            if (!IsBoxGrounded(Box))
+            {
+                Box.GetComponent<InteractBox>().beingPushed = false;
+                Box = null;
+                isHoldingBox = false;
+                holdingBoxID = -1;
+
+                ResetAnimation();
+                StopBox();
+            }
+        }
+    }
+    bool IsBoxGrounded(GameObject box)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(box.transform.position, Vector2.down, raycastDistance, groundLayer);
+        Debug.DrawRay(box.transform.position, Vector2.down * raycastDistance, Color.blue);
+        return hit.collider != null;
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * distance);
+    }
+
+    internal bool IsMoving()
+    {
+        return isMoving || rb.velocity.x != 0 || rb.velocity.y != 0;
     }
     void CheckBoxDistance()
     {
@@ -76,10 +176,14 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    //---------------------------//Box//----------------------------//
+
+    //---------------------------//Player//----------------------------//
 
     void Move()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
+
         if (isHoldingBox && Box != null)
         {
             animationInteractBox(moveInput);
@@ -87,19 +191,20 @@ public class PlayerMovement : MonoBehaviour
             if (moveInput != 0)
             {
                 MoveBox(moveInput);
+                PlayMoveSound();  // Memutar suara saat bergerak
             }
             else
             {
                 StopPlayer();
                 StopBox();
+                StopMoveSound();  // Menghentikan suara saat diam
             }
         }
         else
         {
             MovePlayer(moveInput);
+            StopMoveSound();  // Menghentikan suara saat tidak memegang kotak
         }
-
-
     }
     public void UpdatePhysicsMaterial() { float moveInput = Input.GetAxisRaw("Horizontal"); 
         if (IsOnMovingPlatform()) { boxcollider.sharedMaterial = lowFrictionMaterial; } 
@@ -125,16 +230,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-
-    }
-    void MoveBox(float moveInput)
-    {
-        float adjustedSpeed = isHoldingBox ? moveSpeed / 2 : moveSpeed;
-
-        rb.velocity = new Vector2(moveInput * adjustedSpeed, rb.velocity.y);
-        Rigidbody2D boxRb = Box.GetComponent<Rigidbody2D>();
-        boxRb.velocity = new Vector2(moveInput * adjustedSpeed, boxRb.velocity.y);
-
 
     }
 
@@ -237,73 +332,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isPushing", false);
         animator.SetBool("isWalking", Input.GetAxisRaw("Horizontal") != 0);
     }
-
-    void PlayerPushBox()
-    {
-        Vector2[] directions = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
-
-        foreach (Vector2 direction in directions)
-        {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, boxMask);
-            if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && Input.GetKeyDown(KeyCode.F))
-            {
-                InteractBox boxScript = hit.collider.gameObject.GetComponent<InteractBox>();
-                if (boxScript != null)
-                {
-                    Debug.Log($"{boxScript.idBox}");
-                }
-
-                if (!isHoldingBox)
-                {
-                    Box = hit.collider.gameObject;
-                    Box.GetComponent<InteractBox>().beingPushed = true;
-                    isHoldingBox = true;
-                    holdingBoxID = boxScript.idBox;
-                }
-                else
-                {
-                    isHoldingBox = false;
-                    Box.GetComponent<InteractBox>().beingPushed = false;
-                    holdingBoxID = -1;
-                    ResetAnimation();
-                    StopBox();
-                }
-
-            }
-        }
-    }
+    //---------------------------//Player//----------------------------//
 
 
-    void CheckBoxDrop()
-    {
-        if (isHoldingBox && Box != null)
-        {
-            if (!IsBoxGrounded(Box))
-            {
-                Box.GetComponent<InteractBox>().beingPushed = false;
-                Box = null;
-                isHoldingBox = false;
-                holdingBoxID = -1;
-
-                ResetAnimation();
-                StopBox();
-            }
-        }
-    }
-    bool IsBoxGrounded(GameObject box)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(box.transform.position, Vector2.down, raycastDistance, groundLayer);
-        Debug.DrawRay(box.transform.position, Vector2.down * raycastDistance, Color.blue);
-        return hit.collider != null;
-    }
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * distance);
-    }
-
-    internal bool IsMoving()
-    {
-        return isMoving || rb.velocity.x != 0 || rb.velocity.y != 0;
-    }
 }
