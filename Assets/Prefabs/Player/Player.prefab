@@ -304,6 +304,10 @@ MonoBehaviour:
   holdingBoxID: -1
   dust: {fileID: 8156048172068179363}
   maxDistanceToBox: 2
+  raycastDistanceBox: 1
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
   highFrictionMaterial: {fileID: 6200000, guid: a8108b917250c4e4db90b6c69cf03ce3, type: 2}
   lowFrictionMaterial: {fileID: 6200000, guid: d84bc3f2aa8b86f4f93cae9a07b52a0a, type: 2}
   moveBoxSound: {fileID: 7894254936649189881}
@@ -486,7 +490,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ce29612be56e5cc499c66d635e242cd2, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
