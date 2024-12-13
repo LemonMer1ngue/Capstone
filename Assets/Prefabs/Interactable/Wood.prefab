@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 3444125673996609446}
   - component: {fileID: 715177010143378845}
   - component: {fileID: 4725185355226464093}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wood
-  m_TagString: Untagged
+  m_TagString: InteractAble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,6 +209,7 @@ MonoBehaviour:
   isPlayerNearby: 0
   isMerged: 0
   font: {fileID: 5263315692651973499, guid: 9257de640df5c2e43b5df71ae0fdd823, type: 3}
+  topDetector: {fileID: 0}
 --- !u!61 &4725185355226464093
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -241,7 +242,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.28326416, y: -0.24630833}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -252,7 +253,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.82, y: 7.23}
+  m_Size: {x: 7.2681885, y: 6.737383}
   m_EdgeRadius: 0
 --- !u!1 &8529794204235336396
 GameObject:
@@ -264,7 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6521623809229633471}
   - component: {fileID: 2476771559947487345}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Font
   m_TagString: Untagged
   m_Icon: {fileID: 0}

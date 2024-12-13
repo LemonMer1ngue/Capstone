@@ -289,22 +289,22 @@ MonoBehaviour:
   groundCheck: {fileID: 5180964281634051003}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 2568
   movingPlatformLayer:
     serializedVersion: 2
-    m_Bits: 0
-  raycastDistance: 1
+    m_Bits: 2048
+  raycastDistance: 3
   distance: 1
   boxMask:
     serializedVersion: 2
-    m_Bits: 255
+    m_Bits: 3839
   Box: {fileID: 7411004096755111367, guid: 9257de640df5c2e43b5df71ae0fdd823, type: 3}
   isHoldingBox: 0
   holdingBoxID: -1
   dust: {fileID: 8156048172068179363}
-  maxDistanceToBox: 1
-  highFrictionMaterial: {fileID: 0}
-  lowFrictionMaterial: {fileID: 0}
+  maxDistanceToBox: 2
+  highFrictionMaterial: {fileID: 6200000, guid: a8108b917250c4e4db90b6c69cf03ce3, type: 2}
+  lowFrictionMaterial: {fileID: 6200000, guid: d84bc3f2aa8b86f4f93cae9a07b52a0a, type: 2}
 --- !u!81 &5043167911943173595
 AudioListener:
   m_ObjectHideFlags: 0
