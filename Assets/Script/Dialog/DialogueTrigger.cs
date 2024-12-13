@@ -28,7 +28,20 @@ public class Dialogue
 public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
+    private static bool isFirstTimeLoaded = true;
 
+    void Awake()
+    {
+        if (isFirstTimeLoaded)
+        {
+            isFirstTimeLoaded = false;
+            DontDestroyOnLoad(gameObject); // Optional jika ingin memastikan objek tidak dihancurkan saat pindah scene
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
         if (SceneManager.GetActiveScene().name == "CutScene")
@@ -40,6 +53,9 @@ public class DialogueTrigger : MonoBehaviour
         {
             DialogueManager.Instance.DialogueStartTutorial(dialogue);
         }
+
+        PlayerPrefs.DeleteAll(); // Hapus semua data PlayerPrefs
+        Debug.Log("PlayerPrefs telah dihapus.");
 
     }
 

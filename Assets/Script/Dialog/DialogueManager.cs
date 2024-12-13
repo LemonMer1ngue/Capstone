@@ -24,6 +24,7 @@ public class DialogueManager : MonoBehaviour
     public float typingSpeed = 0.01f; 
     private Animator animator;
 
+    private static bool isFirstTimeLoaded = true;
     private bool isTyping = false;
     private DialogueLine currentLine;
     private void Awake()
@@ -50,6 +51,18 @@ public class DialogueManager : MonoBehaviour
             Debug.LogError("Player tidak ditemukan di scene!");
         }
 
+        PlayerPrefs.DeleteAll(); // Hapus semua data PlayerPrefs
+        Debug.Log("PlayerPrefs telah dihapus.");
+
+        if (isFirstTimeLoaded)
+        {
+            isFirstTimeLoaded = false;
+            DontDestroyOnLoad(gameObject); // Optional jika ingin memastikan objek tidak dihancurkan saat pindah scene
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Update()
@@ -151,6 +164,9 @@ public class DialogueManager : MonoBehaviour
         {
             Player.GetComponent<PlayerMovement>().enabled = true;
         }
+
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
     }
 
     IEnumerator AwakenStartDialogue(Dialogue dialogue)
