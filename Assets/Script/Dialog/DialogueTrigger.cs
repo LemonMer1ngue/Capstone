@@ -31,7 +31,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "CutScene")
+        if (SceneManager.GetActiveScene().name == "CutScene" )
         {
             TriggerDialogue();
            
