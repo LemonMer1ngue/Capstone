@@ -9,10 +9,8 @@ public class PauseSetting : MonoBehaviour
     public Button controlButton;
     public Button graphicsButton;
     public Button audioButton;
-    public Button gammaButton;
     public GameObject settingCanvas;
     public GameObject pauseMenu;
-    public GameObject gammaCanvas;
     public GameObject Settings;
     public GameObject Control;
     public GameObject Graphics;
@@ -25,7 +23,7 @@ public class PauseSetting : MonoBehaviour
             button.onClick.AddListener(BackSet);
         }
 
-        gammaButton.onClick.AddListener(GammaSetting);
+
         backButton.onClick.AddListener(Back);
         controlButton.onClick.AddListener(ControlSetting);
         graphicsButton.onClick.AddListener(GraphicsSetting);
@@ -34,7 +32,7 @@ public class PauseSetting : MonoBehaviour
         Control.SetActive(false);
         Graphics.SetActive(false);
         Audio.SetActive(false);
-        gammaCanvas.SetActive(false);
+
     }
 
     void Update()
@@ -53,7 +51,7 @@ public class PauseSetting : MonoBehaviour
     {
         settingCanvas.SetActive(false);
         pauseMenu.SetActive(false);
-        gammaCanvas.SetActive(true);
+
     }
 
     public void ControlSetting()
