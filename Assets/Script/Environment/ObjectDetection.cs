@@ -54,6 +54,13 @@ public class MoveTargetObjectOnTrigger : MonoBehaviour
         // Memeriksa apakah objek yang menyentuh trigger adalah pemain (misalnya, tag "Player")
         if (other.CompareTag("Player"))
         {
+            // Aktifkan target objek jika belum aktif
+            if (targetObject != null && !targetObject.activeSelf)
+            {
+                targetObject.SetActive(true);
+                Debug.Log("Target object diaktifkan!");
+            }
+
             // Mulai pergerakan objek menuju posisi target (naik)
             moveObjectUp = true;
             moveObjectDown = false; // Pastikan pergerakan turun dihentikan saat trigger pertama kali dipicu

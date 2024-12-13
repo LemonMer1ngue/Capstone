@@ -1,22 +1,23 @@
 using UnityEngine;
 
-public class SpriteMoveAndFade : MonoBehaviour
+public class MoveTargetObjectOnTrigger : MonoBehaviour
 {
-    public GameObject targetSprite; // Sprite yang akan dipindahkan
-    public Vector3 targetPosition; // Posisi tujuan
-    public float moveDuration = 1f; // Durasi perpindahan
-    public float holdDuration = 2f; // Durasi bertahan di alpha 1
+    public GameObject targetObject; // Objek yang akan bergerak (ditetapkan di Inspector)
+    public float targetY = 10f; // Posisi Y target objek yang ingin dicapai
+    public float moveSpeed = 2f; // Kecepatan pergerakan objek
     public float fadeDuration = 1f; // Durasi fade-in/fade-out
-
-    private SpriteRenderer spriteRenderer;
-    private bool isMoving = false;
-    private Collider2D triggerCollider;
+    private bool moveObjectUp = false; // Flag untuk pergerakan naik
+    private bool moveObjectDown = false; // Flag untuk pergerakan turun
+    private Vector3 initialPosition; // Posisi awal objek target
+    private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer untuk mengatur transparansi
 
     void Start()
     {
-        if (targetSprite != null)
+        // Menyimpan posisi awal objek target
+        if (targetObject != null)
         {
-            spriteRenderer = targetSprite.GetComponent<SpriteRenderer>();
+            initialPosition = targetObject.transform.position;
+            spriteRenderer = targetObject.GetComponent<SpriteRenderer>();
 
             // Pastikan SpriteRenderer ada dan atur alpha awal ke 0
             if (spriteRenderer != null)
@@ -26,98 +27,106 @@ public class SpriteMoveAndFade : MonoBehaviour
                 spriteRenderer.color = color;
             }
         }
-
-        // Simpan referensi collider trigger
-        triggerCollider = GetComponent<Collider2D>();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void Update()
     {
-        if (other.CompareTag("Player") && !isMoving)
+        // Jika objek mulai bergerak ke atas, lakukan pergerakan secara bertahap
+        if (moveObjectUp && targetObject != null)
         {
-            Debug.Log("Player menyentuh trigger, memulai animasi!");
-            StartMove();
+            float newY = Mathf.MoveTowards(targetObject.transform.position.y, targetY, moveSpeed * Time.deltaTime);
+            targetObject.transform.position = new Vector3(targetObject.transform.position.x, newY, targetObject.transform.position.z);
 
-            // Nonaktifkan collider trigger agar tidak terpicu kembali
-            if (triggerCollider != null)
+            // Jika objek sudah mencapai target Y, berhenti bergerak ke atas
+            if (targetObject.transform.position.y == targetY)
             {
-                triggerCollider.enabled = false;
+                moveObjectUp = false;
+                Debug.Log("Objek telah mencapai posisi target!");
+            }
+        }
+
+        // Jika objek mulai bergerak ke bawah (kembali ke posisi awal), lakukan pergerakan mundur secara bertahap
+        if (moveObjectDown && targetObject != null)
+        {
+            float newY = Mathf.MoveTowards(targetObject.transform.position.y, initialPosition.y, moveSpeed * Time.deltaTime);
+            targetObject.transform.position = new Vector3(targetObject.transform.position.x, newY, targetObject.transform.position.z);
+
+            // Jika objek sudah kembali ke posisi awal, berhenti bergerak ke bawah
+            if (targetObject.transform.position.y == initialPosition.y)
+            {
+                moveObjectDown = false;
+                Debug.Log("Objek kembali ke posisi awal!");
             }
         }
     }
 
-    public void StartMove()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (!isMoving)
+        // Memeriksa apakah objek yang menyentuh trigger adalah pemain (misalnya, tag "Player")
+        if (other.CompareTag("Player"))
         {
-            StartCoroutine(MoveAndFade());
+            // Aktifkan target objek jika belum aktif
+            if (targetObject != null && !targetObject.activeSelf)
+            {
+                targetObject.SetActive(true);
+                Debug.Log("Target object diaktifkan!");
+            }
+
+            // Fade-in objek
+            if (spriteRenderer != null)
+            {
+                StartCoroutine(FadeSprite(0f, 1f));
+            }
+
+            // Mulai pergerakan objek menuju posisi target (naik)
+            moveObjectUp = true;
+            moveObjectDown = false; // Pastikan pergerakan turun dihentikan saat trigger pertama kali dipicu
+            Debug.Log("Player menyentuh trigger, objek mulai bergerak ke atas!");
         }
     }
 
-    private System.Collections.IEnumerator MoveAndFade()
+    void OnTriggerExit2D(Collider2D other)
+    {
+        // Memeriksa apakah objek yang keluar dari trigger adalah pemain (misalnya, tag "Player")
+        if (other.CompareTag("Player"))
+        {
+            // Fade-out objek
+            if (spriteRenderer != null)
+            {
+                StartCoroutine(FadeSprite(1f, 0f));
+            }
+
+            // Mulai pergerakan objek kembali ke posisi awal (ke bawah)
+            moveObjectDown = true;
+            moveObjectUp = false; // Pastikan pergerakan naik dihentikan saat pemain keluar trigger
+            Debug.Log("Player keluar dari trigger, objek mulai kembali ke posisi awal!");
+        }
+    }
+
+    private System.Collections.IEnumerator FadeSprite(float startAlpha, float endAlpha)
     {
         if (spriteRenderer == null) yield break;
 
-        isMoving = true;
-
-        Vector3 startPosition = targetSprite.transform.position;
         float elapsedTime = 0f;
+        Color color = spriteRenderer.color;
 
-        // Fade-in dan Pindah ke targetPosition
-        while (elapsedTime < moveDuration)
-        {
-            elapsedTime += Time.deltaTime;
-
-            // Interpolasi posisi
-            targetSprite.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
-
-            // Interpolasi alpha
-            float alpha = Mathf.Lerp(0f, 1f, elapsedTime / fadeDuration);
-            UpdateAlpha(alpha);
-
-            yield return null;
-        }
-
-        // Pastikan sprite berada di targetPosition dan alpha 1
-        targetSprite.transform.position = targetPosition;
-        UpdateAlpha(1f);
-
-        // Tahan di alpha 1
-        yield return new WaitForSeconds(holdDuration);
-
-        // Fade-out
-        elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
-
-            // Interpolasi alpha
-            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
-            UpdateAlpha(alpha);
-
+            color.a = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / fadeDuration);
+            spriteRenderer.color = color;
             yield return null;
         }
 
-        // Pastikan alpha kembali ke 0
-        UpdateAlpha(0f);
-
-        // Hancurkan targetSprite
-        if (targetSprite != null)
-        {
-            Destroy(targetSprite);
-            Debug.Log("Target Sprite dihancurkan.");
-        }
-
-        isMoving = false;
+        // Pastikan alpha sesuai target akhir
+        color.a = endAlpha;
+        spriteRenderer.color = color;
     }
 
-    private void UpdateAlpha(float alpha)
+    // Untuk menggambar trigger area di Scene (untuk debugging)
+    private void OnDrawGizmos()
     {
-        if (spriteRenderer != null)
-        {
-            Color color = spriteRenderer.color;
-            color.a = alpha;
-            spriteRenderer.color = color;
-        }
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, new Vector3(2f, 2f, 2f)); // Ukuran trigger area (misalnya 2x2x2)
     }
 }
