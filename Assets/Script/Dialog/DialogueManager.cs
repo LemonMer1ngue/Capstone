@@ -147,7 +147,6 @@ public class DialogueManager : MonoBehaviour
         }
             
             gameObject.SetActive(false);
-
         if (Player != null && Player.GetComponent<PlayerMovement>() != null)
         {
             Player.GetComponent<PlayerMovement>().enabled = true;
