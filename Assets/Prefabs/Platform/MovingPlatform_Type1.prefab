@@ -245,6 +245,10 @@ PrefabInstance:
       value: 0.2848065
       objectReference: {fileID: 0}
     - target: {fileID: 2156892757192783102, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156892757192783102, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
       propertyPath: m_Offset.y
       value: 0.19979155
       objectReference: {fileID: 0}
@@ -647,6 +651,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3782435785251806798, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2330458871808616941}
+    - targetCorrespondingSourceObject: {fileID: 4416613958935303273, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3941975305791592256}
   m_SourcePrefab: {fileID: 100100000, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
 --- !u!1 &1500897484864581776 stripped
 GameObject:
@@ -669,6 +676,56 @@ MonoBehaviour:
   posB: {fileID: 2430958880511624594}
   speed: 2
   alwaysMoving: 1
+--- !u!1 &2153668400173775543 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4416613958935303273, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
+  m_PrefabInstance: {fileID: 2353600301061746398}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &3941975305791592256
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2153668400173775543}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.026062012, y: 0.5206528}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 8.56, y: 1.29}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.633423, y: 0.35282898}
+  m_EdgeRadius: 0
 --- !u!4 &2871118287202032714 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 536466978123526804, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
