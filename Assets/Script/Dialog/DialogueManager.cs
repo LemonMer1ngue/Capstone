@@ -51,18 +51,7 @@ public class DialogueManager : MonoBehaviour
             Debug.LogError("Player tidak ditemukan di scene!");
         }
 
-        PlayerPrefs.DeleteAll(); // Hapus semua data PlayerPrefs
-        Debug.Log("PlayerPrefs telah dihapus.");
-
-        if (isFirstTimeLoaded)
-        {
-            isFirstTimeLoaded = false;
-           
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+       
     }
 
     private void Update()
