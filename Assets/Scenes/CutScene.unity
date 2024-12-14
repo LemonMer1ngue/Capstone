@@ -1495,39 +1495,38 @@ MonoBehaviour:
         name: Raka
         bgImg: {fileID: 21300000, guid: 0c676fa28194f0c468fc5e2614c51f4c, type: 3}
         canvasBgImg: {fileID: 0}
-      line: Baiklah, halo teman-teman!
+      line: Alright, hello everyone!
     - character:
         name: Raka
         bgImg: {fileID: 21300000, guid: 14443e0983405dc43b491c5fb3550efa, type: 3}
         canvasBgImg: {fileID: 0}
-      line: Hari ini aku akan membuktikan mitos tentang Pantai Selatan yang terkenal
-        itu.
+      line: Today I'm going to prove the myth about that famous Southern Beach.
     - character:
         name: Raka
         bgImg: {fileID: 21300000, guid: 14443e0983405dc43b491c5fb3550efa, type: 3}
         canvasBgImg: {fileID: 0}
-      line: Katanya, kalau kita pakai baju hijau di sini, kita bakal hilang. Kita
-        lihat saja apakah itu benar!
+      line: They say that if you wear green clothes here, you'll disappear. Let's
+        see if that's true!"
     - character:
         name: ...
         bgImg: {fileID: 21300000, guid: 0bf57f78a03717147b411ac5cf8a08dd, type: 3}
         canvasBgImg: {fileID: 0}
-      line: (nada suaranya sedikit ragu)
+      line: (his tone is a bit hesitant)
     - character:
         name: Raka
         bgImg: {fileID: 21300000, guid: c848d5d0d8ffcad42a99f73fc05dfcf6, type: 3}
         canvasBgImg: {fileID: 0}
-      line: Suasana di sini terasa... aneh, ya?
+      line: The atmosphere here feels... strange, doesn't it?
     - character:
         name: Raka
         bgImg: {fileID: 21300000, guid: c848d5d0d8ffcad42a99f73fc05dfcf6, type: 3}
         canvasBgImg: {fileID: 0}
-      line: Udara dingin, dan ombaknya terdengar seperti berbisik.
+      line: The air is cold, and the waves sound like they're whispering.
     - character:
         name: Raka
         bgImg: {fileID: 21300000, guid: c848d5d0d8ffcad42a99f73fc05dfcf6, type: 3}
         canvasBgImg: {fileID: 0}
-      line: Tapi mungkin cuma efek suara alami pantai.
+      line: But maybe it's just the natural sound effects of the beach.
 --- !u!4 &1740091690
 Transform:
   m_ObjectHideFlags: 0
@@ -2953,8 +2952,13 @@ MonoBehaviour:
   holdingBoxID: -1
   dust: {fileID: 1166934888}
   maxDistanceToBox: 1
+  raycastDistanceBox: 1
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
   highFrictionMaterial: {fileID: 0}
   lowFrictionMaterial: {fileID: 0}
+  moveBoxSound: {fileID: 0}
 --- !u!95 &6638212966788876551
 Animator:
   serializedVersion: 5
@@ -3101,7 +3105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.1764706, g: 0.2627451, b: 0.43529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
