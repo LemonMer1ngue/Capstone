@@ -59,7 +59,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             TriggerDialogue();
             Collider.enabled = false;
-            Destroy(gameObject);
+            
         }
     }
 
