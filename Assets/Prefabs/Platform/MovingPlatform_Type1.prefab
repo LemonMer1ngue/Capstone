@@ -472,6 +472,14 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: 0.000011552123
       objectReference: {fileID: 0}
+    - target: {fileID: 5863985971612021473, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863985971612021473, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6007805387602163185, guid: ac7dbd0c671dd304f9a5ef8c6553cb03, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 1294.5544

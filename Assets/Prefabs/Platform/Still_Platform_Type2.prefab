@@ -41,12 +41,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 8862210810010353233}
     m_Modifications:
     - target: {fileID: 170736061746496099, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 170736061746496099, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 3.968378
       objectReference: {fileID: 0}
     - target: {fileID: 170736061746496099, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.0000014694729
+      objectReference: {fileID: 0}
+    - target: {fileID: 170736061746496099, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 170736061746496099, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 388513173552718630, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 388513173552718630, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -56,6 +72,26 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: 0.042152848
       objectReference: {fileID: 0}
+    - target: {fileID: 435652047295652311, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 435652047295652311, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 516878144686077374, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 516878144686077374, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 522241729872703516, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 522241729872703516, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 4.350877
@@ -63,6 +99,14 @@ PrefabInstance:
     - target: {fileID: 522241729872703516, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.0000016111104
+      objectReference: {fileID: 0}
+    - target: {fileID: 522241729872703516, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 522241729872703516, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 709500606378265711, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_Size.y
@@ -75,6 +119,14 @@ PrefabInstance:
     - target: {fileID: 709500606378265711, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_Offset.y
       value: 0.29057917
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063219030250188938, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063219030250188938, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1516537994257110437, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_TagString
@@ -89,12 +141,28 @@ PrefabInstance:
       value: -0.69102454
       objectReference: {fileID: 0}
     - target: {fileID: 2252422447516768202, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252422447516768202, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 4.1596274
       objectReference: {fileID: 0}
     - target: {fileID: 2252422447516768202, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.0000015402917
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252422447516768202, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252422447516768202, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3394938177508300652, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3394938177508300652, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -103,6 +171,22 @@ PrefabInstance:
     - target: {fileID: 3394938177508300652, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: -0.23465276
+      objectReference: {fileID: 0}
+    - target: {fileID: 3400419515747972793, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3400419515747972793, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3750175796622714434, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3750175796622714434, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3837254069795839116, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_LocalScale.y
@@ -148,6 +232,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4309475139399849294, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309475139399849294, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311880090846641352, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311880090846641352, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4693768349347555808, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4693768349347555808, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 1122.9921
@@ -155,6 +259,26 @@ PrefabInstance:
     - target: {fileID: 4693768349347555808, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 99.62422
+      objectReference: {fileID: 0}
+    - target: {fileID: 4693768349347555808, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4693768349347555808, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040564855197104632, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040564855197104632, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5220244143990907041, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5220244143990907041, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -165,12 +289,36 @@ PrefabInstance:
       value: 0.6779414
       objectReference: {fileID: 0}
     - target: {fileID: 5292072967470908209, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292072967470908209, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 4.589931
       objectReference: {fileID: 0}
     - target: {fileID: 5292072967470908209, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.0000016996312
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292072967470908209, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292072967470908209, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291688610438731345, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291688610438731345, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497899771812923226, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6497899771812923226, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -181,12 +329,40 @@ PrefabInstance:
       value: 0.22016126
       objectReference: {fileID: 0}
     - target: {fileID: 6768030363070904241, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6768030363070904241, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 4.159904
       objectReference: {fileID: 0}
     - target: {fileID: 6768030363070904241, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.015018574
+      objectReference: {fileID: 0}
+    - target: {fileID: 6768030363070904241, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6768030363070904241, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230721776531698044, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230721776531698044, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230721776531698044, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7874185656735547699, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7874185656735547699, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -196,9 +372,29 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: 0.0000014163604
       objectReference: {fileID: 0}
+    - target: {fileID: 7874185656735547699, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7874185656735547699, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8001828637415558304, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_Name
       value: TaliPlatform_Type1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932784033961831985, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932784033961831985, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982785364944114589, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8982785364944114589, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -207,6 +403,18 @@ PrefabInstance:
     - target: {fileID: 8982785364944114589, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.0000015756999
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982785364944114589, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982785364944114589, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9152069489441588571, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9152069489441588571, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.x
