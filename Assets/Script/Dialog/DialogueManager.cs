@@ -19,23 +19,23 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueArea;
 
     private Queue<DialogueLine> lines;
-    
 
-    public float typingSpeed = 0.01f; 
+
+    public float typingSpeed = 0.01f;
     private Animator animator;
 
-    private static bool isFirstTimeLoaded = true;
+    private bool isDialogueActive = false;
     private bool isTyping = false;
     private DialogueLine currentLine;
     private void Awake()
     {
-        gameObject.SetActive(false);
         animator = GetComponent<Animator>();
-
-        if (Instance == null)
-            Instance = this;
-
         lines = new Queue<DialogueLine>();
+        transform.Find("Name").gameObject.SetActive(false);
+        transform.Find("DialogueText").gameObject.SetActive(false);
+        transform.Find("Body").gameObject.SetActive(false);
+        transform.Find("BgImg").gameObject.SetActive(false);
+        transform.Find("BackGround").gameObject.SetActive(false);
 
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
@@ -51,20 +51,14 @@ public class DialogueManager : MonoBehaviour
             Debug.LogError("Player tidak ditemukan di scene!");
         }
 
-        PlayerPrefs.DeleteAll(); // Hapus semua data PlayerPrefs
-        Debug.Log("PlayerPrefs telah dihapus.");
 
-        if (isFirstTimeLoaded)
-        {
-            isFirstTimeLoaded = false;
-           
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
+    private void Start()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
     private void Update()
     {
         if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)))
@@ -85,7 +79,12 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
-        gameObject.SetActive (true);
+        transform.Find("Name").gameObject.SetActive(true);
+        transform.Find("DialogueText").gameObject.SetActive(true);
+        transform.Find("Body").gameObject.SetActive(true);
+        transform.Find("BgImg").gameObject.SetActive(true);
+        transform.Find("BackGround").gameObject.SetActive(true);
+        isDialogueActive = true;
         animator.SetTrigger("Start");
 
         //if (Player != null && Player.GetComponent<PlayerMovement>() != null)
@@ -104,10 +103,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DialogueStartTutorial(Dialogue dialogue)
     {
-        gameObject.SetActive(true);
-        //transform.Find("Name").gameObject.SetActive(false);
-        //transform.Find("DialogueText").gameObject.SetActive(false);
-        //transform.Find("Body").gameObject.SetActive(false);
+
         StartCoroutine(AwakenStartDialogue(dialogue));
     }
 
@@ -131,7 +127,7 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeSentence(DialogueLine dialogueLine)
     {
         dialogueArea.text = "";
-        isTyping = true; 
+        isTyping = true;
 
         foreach (char letter in dialogueLine.line.ToCharArray())
         {
@@ -139,20 +135,21 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
 
-        isTyping = false; 
+        isTyping = false;
     }
 
     void EndDialogue()
     {
 
         StartCoroutine(End());
-       
+
     }
 
     IEnumerator End()
     {
-        
+
         animator.SetTrigger("End");
+        isDialogueActive = false;
         yield return new WaitForSeconds(1);
         if (SceneManager.GetActiveScene().name == "CutScene")
         {
@@ -162,18 +159,24 @@ public class DialogueManager : MonoBehaviour
         {
             Player.GetComponent<PlayerMovement>().enabled = true;
         }
-        gameObject.SetActive(false);
-        
+        transform.Find("Name").gameObject.SetActive(false);
+        transform.Find("DialogueText").gameObject.SetActive(false);
+        transform.Find("Body").gameObject.SetActive(false);
+        transform.Find("BgImg").gameObject.SetActive(false);
+        transform.Find("BackGround").gameObject.SetActive(false);
+
 
     }
 
     IEnumerator AwakenStartDialogue(Dialogue dialogue)
     {
-        
+        isDialogueActive = true;
+        transform.Find("BackGround").gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         transform.Find("Name").gameObject.SetActive(true);
         transform.Find("DialogueText").gameObject.SetActive(true);
         transform.Find("Body").gameObject.SetActive(true);
+        transform.Find("BgImg").gameObject.SetActive(false);
         animator.SetTrigger("Start");
 
         if (Player != null && Player.GetComponent<PlayerMovement>() != null)
