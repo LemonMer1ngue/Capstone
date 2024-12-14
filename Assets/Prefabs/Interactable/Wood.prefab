@@ -210,6 +210,11 @@ MonoBehaviour:
   isMerged: 0
   font: {fileID: 5263315692651973499, guid: 9257de640df5c2e43b5df71ae0fdd823, type: 3}
   topDetector: {fileID: 0}
+  boxSize: {x: 1, y: 1}
+  boxOffset: {x: 0, y: 0.5}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!61 &4725185355226464093
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -242,7 +247,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.31884766, y: -0.29376125}
+  m_Offset: {x: -0.31884766, y: -0.27003384}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -253,7 +258,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.817383, y: 6.642477}
+  m_Size: {x: 6.817383, y: 6.689932}
   m_EdgeRadius: 0
 --- !u!1 &8529794204235336396
 GameObject:

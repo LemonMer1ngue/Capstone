@@ -145,6 +145,10 @@ PrefabInstance:
       value: 1.9713058
       objectReference: {fileID: 0}
     - target: {fileID: 784197101570980096, guid: 96351b680afc4af41b44a35bb9edc556, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: d84bc3f2aa8b86f4f93cae9a07b52a0a, type: 2}
+    - target: {fileID: 784197101570980096, guid: 96351b680afc4af41b44a35bb9edc556, type: 3}
       propertyPath: m_Offset.y
       value: 2.0843468
       objectReference: {fileID: 0}
@@ -176,6 +180,10 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: 0.000011552123
       objectReference: {fileID: 0}
+    - target: {fileID: 1992490378993284810, guid: 96351b680afc4af41b44a35bb9edc556, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: d84bc3f2aa8b86f4f93cae9a07b52a0a, type: 2}
     - target: {fileID: 2085831475288633120, guid: 96351b680afc4af41b44a35bb9edc556, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 3.0273087
