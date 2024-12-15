@@ -4365,6 +4365,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6385f98e42547bc488004b61b188b4d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetScene: MainMenu
+  backButton: {fileID: 2117868943}
+  waitTime: 10
 --- !u!1 &886251099
 GameObject:
   m_ObjectHideFlags: 0

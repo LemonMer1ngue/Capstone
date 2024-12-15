@@ -72,9 +72,21 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: 0.042152848
       objectReference: {fileID: 0}
+    - target: {fileID: 388513173552718630, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 388513173552718630, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 435652047295652311, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_Mass
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 435652047295652311, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_BodyType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 435652047295652311, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_GravityScale
@@ -160,6 +172,14 @@ PrefabInstance:
       propertyPath: m_AngleLimits.m_UpperAngle
       value: -0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 2441401280034455724, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2810666501001808624, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3394938177508300652, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_EnableCollision
       value: 1
@@ -171,6 +191,14 @@ PrefabInstance:
     - target: {fileID: 3394938177508300652, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: -0.23465276
+      objectReference: {fileID: 0}
+    - target: {fileID: 3394938177508300652, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3394938177508300652, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3400419515747972793, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_Mass
@@ -273,6 +301,10 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5040564855197104632, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040564855197104632, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_GravityScale
       value: 5
       objectReference: {fileID: 0}
@@ -327,6 +359,14 @@ PrefabInstance:
     - target: {fileID: 6497899771812923226, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.22016126
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497899771812923226, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497899771812923226, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6768030363070904241, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_EnableCollision
@@ -384,6 +424,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TaliPlatform_Type1
       objectReference: {fileID: 0}
+    - target: {fileID: 8012042114911642951, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523687050601497675, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8932784033961831985, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_Mass
       value: 0.1
@@ -423,6 +471,14 @@ PrefabInstance:
     - target: {fileID: 9152069489441588571, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.2751878
+      objectReference: {fileID: 0}
+    - target: {fileID: 9152069489441588571, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9152069489441588571, guid: fb7685aef168aa14db859f9a97f8cb40, type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: -0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

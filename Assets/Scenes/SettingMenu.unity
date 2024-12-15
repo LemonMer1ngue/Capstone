@@ -588,6 +588,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6385f98e42547bc488004b61b188b4d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetScene: MainMenu
+  backButton: {fileID: 0}
+  waitTime: 0
 --- !u!82 &2998641124690519009
 AudioSource:
   m_ObjectHideFlags: 0
