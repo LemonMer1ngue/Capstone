@@ -19,9 +19,9 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueArea;
 
     private Queue<DialogueLine> lines;
-    
 
-    public float typingSpeed = 0.01f; 
+
+    public float typingSpeed = 0.01f;
     private Animator animator;
 
     private bool isDialogueActive = false;
@@ -51,7 +51,7 @@ public class DialogueManager : MonoBehaviour
             Debug.LogError("Player tidak ditemukan di scene!");
         }
 
-       
+
     }
 
     private void Start()
@@ -103,7 +103,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DialogueStartTutorial(Dialogue dialogue)
     {
-        
+
         StartCoroutine(AwakenStartDialogue(dialogue));
     }
 
@@ -127,7 +127,7 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeSentence(DialogueLine dialogueLine)
     {
         dialogueArea.text = "";
-        isTyping = true; 
+        isTyping = true;
 
         foreach (char letter in dialogueLine.line.ToCharArray())
         {
@@ -135,19 +135,19 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
 
-        isTyping = false; 
+        isTyping = false;
     }
 
     void EndDialogue()
     {
 
         StartCoroutine(End());
-       
+
     }
 
     IEnumerator End()
     {
-        
+
         animator.SetTrigger("End");
         isDialogueActive = false;
         yield return new WaitForSeconds(1);
@@ -170,7 +170,7 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator AwakenStartDialogue(Dialogue dialogue)
     {
-        isDialogueActive=true;
+        isDialogueActive = true;
         transform.Find("BackGround").gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         transform.Find("Name").gameObject.SetActive(true);
