@@ -1,10 +1,16 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using UnityEngine.VFX;
+using static DimensionChanger;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Player")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask movingPlatformLayer;
     [SerializeField] private float raycastDistance;
@@ -23,8 +29,8 @@ public class PlayerMovement : MonoBehaviour
     public ParticleSystem dust;
     [SerializeField] private float maxDistanceToBox = 1f;
     private bool isMoving = false;
-    [SerializeField] private float raycastDistanceBox = 1.0f; 
-
+    [SerializeField] private float raycastDistanceBox = 1.0f;  // Jarak raycast
+    [SerializeField] private LayerMask interactableLayer;
     [Header("Physics Materials")]
     [SerializeField] private PhysicsMaterial2D highFrictionMaterial;
     [SerializeField] private PhysicsMaterial2D lowFrictionMaterial;
@@ -86,41 +92,38 @@ public class PlayerMovement : MonoBehaviour
     }
     void PlayerPushBox()
     {
-        Vector2 direction = Vector2.zero;
-        if (transform.localScale.x > 0)  
-        {
-            direction = Vector2.right;
-        }
-        else if (transform.localScale.x < 0)  
-        {
-            direction = Vector2.left;
-        }
+        Vector2[] directions = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, boxMask);
-
-        if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && Input.GetKeyDown(KeyCode.F))
+        foreach (Vector2 direction in directions)
         {
-            InteractBox boxScript = hit.collider.gameObject.GetComponent<InteractBox>();
-
-            if (!isHoldingBox)
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, boxMask);
+            if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && Input.GetKeyDown(KeyCode.F))
             {
-                Box = hit.collider.gameObject;
-                Box.GetComponent<InteractBox>().beingPushed = true;
-                isHoldingBox = true;
-                holdingBoxID = boxScript.idBox;
-            }
-            else
-            {
-                isHoldingBox = false;
-                Box.GetComponent<InteractBox>().beingPushed = false;
-                holdingBoxID = -1;
-                ResetAnimation();
-                StopBox();
+                InteractBox boxScript = hit.collider.gameObject.GetComponent<InteractBox>();
+                if (boxScript != null)
+                {
+                    Debug.Log($"{boxScript.idBox}");
+                }
+
+                if (!isHoldingBox)
+                {
+                    Box = hit.collider.gameObject;
+                    Box.GetComponent<InteractBox>().beingPushed = true;
+                    isHoldingBox = true;
+                    holdingBoxID = boxScript.idBox;
+                }
+                else
+                {
+                    isHoldingBox = false;
+                    Box.GetComponent<InteractBox>().beingPushed = false;
+                    holdingBoxID = -1;
+                    ResetAnimation();
+                    StopBox();
+                }
+
             }
         }
     }
-
-
     void CheckBoxDrop()
     {
         if (isHoldingBox && Box != null)
@@ -143,6 +146,12 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(box.transform.position, Vector2.down * raycastDistance, Color.blue);
         return hit.collider != null;
     }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * distance);
+    }
+
     internal bool IsMoving()
     {
         return isMoving || rb.velocity.x != 0 || rb.velocity.y != 0;
@@ -153,9 +162,11 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector2 directionToBox = Box.transform.position - transform.position;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToBox.normalized, maxDistanceToBox, boxMask);
+            Debug.DrawRay(transform.position, directionToBox.normalized * maxDistanceToBox, Color.red);
 
-            if (Vector2.Distance(transform.position, Box.transform.position) > maxDistanceToBox)
+            if (hit.collider == null)
             {
+                Debug.Log("Box dropped due to exceeding maximum distance or no longer in line of sight.");
                 Box.GetComponent<InteractBox>().beingPushed = false;
                 Box = null;
                 isHoldingBox = false;
@@ -182,19 +193,19 @@ public class PlayerMovement : MonoBehaviour
             if (moveInput != 0)
             {
                 MoveBox(moveInput);
-                PlayMoveSound();  
+                PlayMoveSound();  // Memutar suara saat bergerak
             }
             else
             {
                 StopPlayer();
                 StopBox();
-                StopMoveSound();  
+                StopMoveSound();  // Menghentikan suara saat diam
             }
         }
         else
         {
             MovePlayer(moveInput);
-            StopMoveSound();  
+            StopMoveSound();  // Menghentikan suara saat tidak memegang kotak
         }
     }
     public void UpdatePhysicsMaterial() { float moveInput = Input.GetAxisRaw("Horizontal"); 
@@ -241,21 +252,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void animationInteractBox(float moveInput)
     {
-        if (moveInput != 0) 
+        if (moveInput > 0 && Box.transform.position.x > transform.position.x)
         {
-            bool isBoxOnRight = Box.transform.position.x > transform.position.x;
-            bool isPushing = (moveInput > 0 && isBoxOnRight) || (moveInput < 0 && !isBoxOnRight);
-
-            animator.SetBool("isPushing", isPushing);
-            animator.SetBool("isPulling", !isPushing);
+            animator.SetBool("isPushing", true);
+            animator.SetBool("isPulling", false);
+        }
+        else if (moveInput < 0 && Box.transform.position.x > transform.position.x)
+        {
+            animator.SetBool("isPushing", false);
+            animator.SetBool("isPulling", true);
+        }
+        else if (moveInput > 0 && Box.transform.position.x < transform.position.x)
+        {
+            animator.SetBool("isPushing", false);
+            animator.SetBool("isPulling", true);
+        }
+        else if (moveInput < 0 && Box.transform.position.x < transform.position.x)
+        {
+            animator.SetBool("isPushing", true);
+            animator.SetBool("isPulling", false);
         }
         else
         {
             animator.SetBool("isPushing", false);
             animator.SetBool("isPulling", false);
         }
-    }
 
+
+    }
     void Jump()
     {
         if (!isHoldingBox && IsGrounded() && Input.GetButtonDown("Jump"))
@@ -301,7 +325,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (isGrounded)
         {
-            animator.ResetTrigger("isFalling");
+            animator.ResetTrigger("isFalling"); // Reset the isFalling trigger when grounded
         }
     }
     void ResetAnimation()
