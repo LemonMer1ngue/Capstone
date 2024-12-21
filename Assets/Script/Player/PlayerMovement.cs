@@ -92,19 +92,22 @@ public class PlayerMovement : MonoBehaviour
     }
     void PlayerPushBox()
     {
-        Vector2[] directions = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
+        Vector2[] directions = new Vector2[0];
 
+        if (transform.localScale.x < 0) // Jika bergerak ke kiri
+        {
+            directions = new Vector2[] { Vector2.left, Vector2.up };
+        }
+        else if (transform.localScale.x > 0) // Jika bergerak ke kanan
+        {
+            directions = new Vector2[] { Vector2.right, Vector2.up };
+        }
         foreach (Vector2 direction in directions)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, boxMask);
             if (hit.collider != null && hit.collider.gameObject.CompareTag("InteractAble") && Input.GetKeyDown(KeyCode.F))
             {
                 InteractBox boxScript = hit.collider.gameObject.GetComponent<InteractBox>();
-                if (boxScript != null)
-                {
-                    Debug.Log($"{boxScript.idBox}");
-                }
-
                 if (!isHoldingBox)
                 {
                     Box = hit.collider.gameObject;
